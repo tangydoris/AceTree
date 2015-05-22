@@ -3,13 +3,10 @@ AceTree open source imaging analysis software from Starrynite project
 Project website: http://starrynite.sourceforge.net/
 
 To build distribution:</br>
-go to AceTree directory</br>
-run "ant -f run.xml" in unix terminal</br>
+run "ant -f build.xml" from unix terminal in main directory</br>
 
 To run jar:</br>
 go to AceTree/build/jar</br>
-run "java -jar AceTreeLauncher.jar" in unix terminal</br>
-
-To export distribution:</br>
-make sure to export all contents of the AceTree/build/jar directory</br>
-this includes /lib/ as well as
+run "java -jar AceTreeLauncher.jar" from unix terminal in main directory</br>
+OR</br>
+simply double click on .jar executable</br>
