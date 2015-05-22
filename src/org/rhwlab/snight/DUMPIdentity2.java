@@ -13,9 +13,9 @@ import org.rhwlab.utils.C;
 import org.rhwlab.utils.Line;
 
 
-public class Identity2 {
+public class DUMPIdentity2 {
 
-    public static Identity      iIdentity;
+    public static DUMPIdentity      iIdentity;
     private static NucleiMgr    iNucleiMgr;
     private AceTree             iAceTree;
     //private Log                 iDLog;
@@ -42,8 +42,8 @@ public class Identity2 {
     private double				iXCenter;
     private double				iYCenter;
 
-    public Identity2(NucleiMgr nucleiMgr) {
-    	System.out.println("Identity2 construtor called.");
+    public DUMPIdentity2(NucleiMgr nucleiMgr) {
+    	System.out.println("DUMPIdentity2 construtor called.");
         iNucleiMgr = nucleiMgr;
         iParameters = iNucleiMgr.getParameters();
         iMovie = iNucleiMgr.getMovie();
@@ -77,7 +77,8 @@ public class Identity2 {
     	return Math.toRadians(ang);
     }
 
-    public void useCanonicalRules(int [] start, int [] lineage_ct_p) {
+    @SuppressWarnings("unused")
+	public void useCanonicalRules(int [] start, int [] lineage_ct_p) {
         iNamingHash = getNamingHashtable();
         int rotate_axis = 1;
         int nuc_ct = 0;
@@ -96,18 +97,18 @@ public class Identity2 {
         System.out.println("useCanonicalRules starting at: " + start[0] + CS + iEndingIndex);
         for (i = start[0]; i < m; i++) {
             if (breakout > 0) {
-                System.out.println("Identity.useCanonicalRules exiting, breakout=" + breakout);
+                System.out.println("DUMPIdentity.useCanonicalRules exiting, breakout=" + breakout);
                 System.exit(0);
                 break;
             }
             nuclei = (Vector)nuclei_record.elementAt(i - 1);
             nuc_ct = nuclei.size();
 
-            //println("useCanonicalRules:  + rotate_axis: " + Identity.EARLY + CS + nuc_ct);
-            if (rotate_axis > 0 && nuc_ct > Identity.EARLY) {
+            //println("useCanonicalRules:  + rotate_axis: " + DUMPIdentity.EARLY + CS + nuc_ct);
+            if (rotate_axis > 0 && nuc_ct > DUMPIdentity.EARLY) {
                 //rotateAxis();
                 //println("useCanonicalRules: after rotateAxis, " + iParameters.ap + CS + iParameters.dv + CS + iParameters.lr);
-                //iIdentity.rotateAxis();
+                //iDUMPIdentity.rotateAxis();
                 rotate_axis = 0;
             }
             Nucleus parent = null;
@@ -175,7 +176,8 @@ public class Identity2 {
 
     }
 
-    private boolean newCanonicalSisterID(Nucleus parent, Nucleus dau1, Nucleus dau2,
+    @SuppressWarnings("unused")
+	private boolean newCanonicalSisterID(Nucleus parent, Nucleus dau1, Nucleus dau2,
             int cellCount, int index) {
         String pname = parent.identity;
         if (pname.equals("Cppp")) {
@@ -296,7 +298,7 @@ public class Identity2 {
     private boolean makeAxisDetermination(int k, String rule, int cellCount, Nucleus dau1, Nucleus dau2) {
         char caxis = rule.charAt(k);
         // this is the standard implementation of Sulston's rule
-        int divisor = (dau1.size + dau2.size)/Identity.DIVISOR;
+        int divisor = (dau1.size + dau2.size)/DUMPIdentity.DIVISOR;
         Loc dau1L = new Loc(dau1, iNucleiMgr);
         Loc dau2L = new Loc(dau2, iNucleiMgr);
         int value = 0;
@@ -329,7 +331,7 @@ public class Identity2 {
     private boolean makeAlternateDetermination(String rule, int cellCount, Nucleus dau1, Nucleus dau2) {
         char caxis = rule.charAt(2);
         char ruleChar = rule.charAt(3);
-        int divisor = (dau1.size + dau2.size)/Identity.DIVISOR;
+        int divisor = (dau1.size + dau2.size)/DUMPIdentity.DIVISOR;
         Loc dau1L = new Loc(dau1, iNucleiMgr);
         Loc dau2L = new Loc(dau2, iNucleiMgr);
         angleAdjustXY(dau1L);
@@ -396,7 +398,8 @@ public class Identity2 {
     }
 
 
-    private boolean specialCases(Nucleus parent, Nucleus nuc1, Nucleus nuc2) {
+    @SuppressWarnings("unused")
+	private boolean specialCases(Nucleus parent, Nucleus nuc1, Nucleus nuc2) {
         //System.out.println("specialCases1: " + parent);
         //System.out.println("specialCases2: " + nuc1);
         //System.out.println("specialCases3: " + nuc2);
@@ -509,7 +512,7 @@ public class Identity2 {
 
 
     public void setNamingMethod(int method) {
-        System.out.println("Identity.setNamingMethod called with: " + method + CS + NAMING_METHOD[method]);
+        System.out.println("DUMPIdentity.setNamingMethod called with: " + method + CS + NAMING_METHOD[method]);
         iNamingMethod = method;
     }
 
@@ -725,7 +728,7 @@ public static final int
                 String s = nucleij.identity;
                 if (s == null) {
                     System.out.println("Flaw in nuclei files at indices i, j: " + i + CS + j);
-                    System.out.println("Identity cannot continue -- shutting down");
+                    System.out.println("DUMPIdentity cannot continue -- shutting down");
                     System.exit(11);
                 }
                 if (s.length() > 0) continue;
@@ -774,7 +777,8 @@ public static final int
 
     }
 
-    private void clearAllNames() {
+    @SuppressWarnings("unused")
+	private void clearAllNames() {
         int k = iNucleiMgr.getNucleiRecord().size();
         int endingIndex = iEndingIndex;
         //for (int i = 0; i < iEndingIndex; i++) {
@@ -810,7 +814,8 @@ public static final int
     }
 
 
-    private void clearNames(Vector nuclei) {
+    @SuppressWarnings("unused")
+	private void clearNames(Vector nuclei) {
         //println("cleaarNames: " + nuclei.size());
         Nucleus n;
         for (int i=0; i < nuclei.size(); i++) {

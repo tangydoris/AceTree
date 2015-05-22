@@ -48,12 +48,14 @@ public class InputCtrl extends JPanel implements ActionListener {
         createPanes();
     }
 
-    private void createPanes() {
+    @SuppressWarnings("unused")
+	private void createPanes() {
         //JPanel p = new JPanel();
         //p.setPreferredSize(new Dimension(WIDTH,200));
         JPanel p = new JPanel() {
             //Don't allow us to stretch vertically.
-            public Dimension getMaximumSize() {
+            @SuppressWarnings("unused")
+			public Dimension getMaximumSize() {
                 Dimension pref = getPreferredSize();
                 //return new Dimension(Integer.MAX_VALUE,
                 //        pref.height);

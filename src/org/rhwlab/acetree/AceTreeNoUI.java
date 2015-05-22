@@ -141,7 +141,8 @@ public class AceTreeNoUI {
         return iNucleiMgr;
     }
 
-    public void test() {
+    @SuppressWarnings("unused")
+	public void test() {
     	Enumeration e = iRoot.breadthFirstEnumeration();
     	while (e.hasMoreElements()) {
     		Cell c = (Cell)e.nextElement();
@@ -206,7 +207,8 @@ public class AceTreeNoUI {
     }
 
 
-    public int bringUpSeriesData(Config config) {
+    @SuppressWarnings("unused")
+	public int bringUpSeriesData(Config config) {
     	String configFileName = config.iConfigFileName;
         File fx = new File(configFileName);
         String ss = TITLE + ": " + fx.getName();
@@ -231,7 +233,8 @@ public class AceTreeNoUI {
 
 
 
-    public int bringUpSeriesData(String configFileName) {
+    @SuppressWarnings("unused")
+	public int bringUpSeriesData(String configFileName) {
         File fx = new File(configFileName);
         String ss = TITLE + ": " + fx.getName();
 
@@ -248,7 +251,8 @@ public class AceTreeNoUI {
         return 0;
     }
 
-    public void buildTree(boolean doIdentity) {
+    @SuppressWarnings("unused")
+	public void buildTree(boolean doIdentity) {
         iShowAnnotationsSave = iShowAnnotations;
         setShowAnnotations(false);
         iShowCentroids = true;
@@ -274,7 +278,8 @@ public class AceTreeNoUI {
 
     }
 
-    private void updateRoot(Vector rootCells) {
+    @SuppressWarnings("unused")
+	private void updateRoot(Vector rootCells) {
 		//System.out.println("\n#######updateRoot in: " + iRoot.showStuff());
         iRoot.removeAllChildren();
         // struggled with what must be a bug in DefaultMutableTreeNode

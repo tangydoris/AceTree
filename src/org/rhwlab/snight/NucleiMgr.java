@@ -107,7 +107,8 @@ public class NucleiMgr {
 
 
     // Timing commented out -was used for optimization
-    public NucleiMgr(String configFileName) {
+    @SuppressWarnings("unused")
+	public NucleiMgr(String configFileName) {
     	iUseStack = 0;
         //System.out.println("NucleiMgr(" + configFileName + ")" + CS + DBAccess.cDBLocation);
         //iAceTree = AceTree.getAceTree(null);
@@ -188,7 +189,8 @@ public class NucleiMgr {
     }
 
     // Timing commented out -was used for optimization
-    public NucleiMgr(Config config) {
+    @SuppressWarnings("unused")
+	public NucleiMgr(Config config) {
         //System.out.println("NucleiMgr(" + configFileName + ")" + CS + DBAccess.cDBLocation);
         ////iAceTree = AceTree.getAceTree(null);
         iEditLog = new EditLog("EditLog");
@@ -468,7 +470,8 @@ public class NucleiMgr {
     // even if not all of it will be processed based on the
     // iEndTime parameter setting
     // this should allow interative editing of the nuclei "files"
-    private int readNuclei(ZipNuclei zn) {
+    @SuppressWarnings("unused")
+	private int readNuclei(ZipNuclei zn) {
         // the following results in all nuclei files being read
         // regardless of 1StartTime and iEndTime
         System.out.println("readNuclei:1 " + iMovie.time_end + CS + iMovie.time_start);
@@ -782,7 +785,8 @@ public class NucleiMgr {
         return NucUtils.getCurrentCellData(nucData, cellName);
     }
 
-    public boolean isValidCell(String name, int time) {
+    @SuppressWarnings("unused")
+	public boolean isValidCell(String name, int time) {
         boolean rtn = false;
         Nucleus n = getCurrentCellData(name, time);
         iDLog.append("isValidCell " + name + CS + time);
@@ -794,7 +798,8 @@ public class NucleiMgr {
         return (Vector)nuclei_record.elementAt(time);
     }
 
-    public Nucleus getNucleusFromHashkey(String hashKey, int time) {
+    @SuppressWarnings("unused")
+	public Nucleus getNucleusFromHashkey(String hashKey, int time) {
         Nucleus r = null;
         boolean found = false;
         Vector nucData = (Vector)nuclei_record.elementAt(time - 1);
@@ -827,7 +832,8 @@ public class NucleiMgr {
         return (nucDiameter(n, imgPlane) > 0);
     }
 
-    public String getOrientation() {
+    @SuppressWarnings("unused")
+	public String getOrientation() {
         //println("getOrientation: ");
         //new Throwable().printStackTrace();
         String orientation = "A";
@@ -897,7 +903,8 @@ public class NucleiMgr {
      * LAST if iEndingIndex = 1 meaning no ending index was specified
      * if LAST then extras are removed after all nuclei files have been read
      */
-    public void fakeNuclei() {
+    @SuppressWarnings("unused")
+	public void fakeNuclei() {
         //println("fakeNuclei: iEndingIndex: " + iEndingIndex);
         iFakeNuclei = true;
         nuclei_record = new Vector(); //[iEndingIndex - iStartingIndex + 1];
@@ -1305,7 +1312,8 @@ public class NucleiMgr {
         ,CS = ", "
         ;
 
-    public static void main(String[] args) {
+    @SuppressWarnings("unused")
+	public static void main(String[] args) {
         System.out.println("NucleiMgr test main entered");
         NucleiMgr test = null; //new NucleiMgr(0, 100);
         String testZip = "t220.zip";

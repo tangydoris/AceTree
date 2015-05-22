@@ -147,7 +147,8 @@ public class ZipNuclei {
      * unused main function
      * @param args
      */
-    public static void main(String[] args) {
+    @SuppressWarnings("unused")
+	public static void main(String[] args) {
         ZipNuclei zn = new ZipNuclei("/home/biowolp/data/081505/081505-edit.zip");
         //println("ZipNuclei.main: " + zn.iZipFile);
         Enumeration e = zn.iZipFile.entries();

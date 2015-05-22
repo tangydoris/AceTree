@@ -95,7 +95,7 @@ public class QuickOpen extends JDialog implements ActionListener {
         
         
         
-        show();
+        setVisible(true);
 
     }
     
@@ -216,9 +216,9 @@ public class QuickOpen extends JDialog implements ActionListener {
          TITLE = "QuickOpen"
         ;
     
-    public static void main(String[] args) {
+	public static void main(String[] args) {
         println("QuickOpen.main");
-        QuickOpen qo = new QuickOpen();
+        new QuickOpen();
     }
 
     private static void println(String s) {System.out.println(s);}

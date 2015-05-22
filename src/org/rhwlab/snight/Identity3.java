@@ -38,7 +38,8 @@ public class Identity3 {
     }
 
     // Called by NucleiMgr processNuclei method
-    public void identityAssignment() {
+    @SuppressWarnings("unused")
+	public void identityAssignment() {
     	println("Identity3.identityAssighment, entered");
     	if (iNamingMethod == MANUAL) {
     		println("identityAssignment, skip naming due to MANUAL naming method");
@@ -155,7 +156,8 @@ public class Identity3 {
         }
     }
     
-    private void clearAllNames() {
+    @SuppressWarnings("unused")
+	private void clearAllNames() {
         int k = iNucleiMgr.getNucleiRecord().size();
         int endingIndex = iEndingIndex;
         //for (int i = 0; i < iEndingIndex; i++) {
@@ -171,7 +173,8 @@ public class Identity3 {
     }
 
     // Clears all non-forced names
-    private void clearNames(Vector nuclei) {
+    @SuppressWarnings("unused")
+	private void clearNames(Vector nuclei) {
         //println("cleaarNames: " + nuclei.size());
         Nucleus n;
         for (int i=0; i < nuclei.size(); i++) {
@@ -184,7 +187,8 @@ public class Identity3 {
         }
     }
 
-    public void useCanonicalRules(int [] start, int [] lineage_ct_p) {
+    @SuppressWarnings("unused")
+	public void useCanonicalRules(int [] start, int [] lineage_ct_p) {
     	Vector report = new Vector();
     	String series = iNucleiMgr.getConfig().getShortName();
     	//println("Identity3.useCanonicalRules, series = " + series + ", axis = " + iAxis);
@@ -301,7 +305,8 @@ public class Identity3 {
 
     }
 
-    public String getOrientation() {
+    @SuppressWarnings("unused")
+	public String getOrientation() {
         //println("getOrientation: ");
         //new Throwable().printStackTrace();
         String orientation = "A";

@@ -898,7 +898,8 @@ public class AceTree extends JPanel
 
     }
 
-    void reviewNuclei() {
+    @SuppressWarnings("unused")
+	void reviewNuclei() {
     	Vector nr = iNucleiMgr.getNucleiRecord();
     	for (int i=189; i < 195; i++) {
     		Vector nuclei = (Vector)nr.get(i);
@@ -910,7 +911,8 @@ public class AceTree extends JPanel
     }
 
     // 
-    public void buildTree(boolean doIdentity) {
+    @SuppressWarnings("unused")
+	public void buildTree(boolean doIdentity) {
         iShowAnnotationsSave = iShowAnnotations;
         setShowAnnotations(false);
         iShowCentroids = false;
@@ -1045,7 +1047,8 @@ public class AceTree extends JPanel
     }
 
 
-    private void updateRoot(Vector rootCells) {
+    @SuppressWarnings("unused")
+	private void updateRoot(Vector rootCells) {
         Cell PP = (Cell)iCellsByName.get("P");
         int kk = PP.getChildCount();
         //println("AceTree.updateRoot, 1, " + kk + CS + PP.getName());
@@ -1859,13 +1862,12 @@ public class AceTree extends JPanel
     private void setDefaultKeyboardActions() {
         String s = "F2";
         Action home = new AbstractAction() {
-            public void actionPerformed(ActionEvent e) {
+            @SuppressWarnings("unused")
+			public void actionPerformed(ActionEvent e) {
             	println("setDefaultKeyboardActions, ");
             	//iAceTree.requestFocus();
-            	Component compFocusOwner =
-                    KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusOwner();
-            	Window windowFocusOwner =
-                    KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusedWindow();
+            	Component compFocusOwner = KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusOwner();
+            	Window windowFocusOwner = KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusedWindow();
             	if (compFocusOwner instanceof JButton) {
             		println("its a button");
             		//((JButton)compFocusOwner).doClick();
@@ -2501,7 +2503,8 @@ public class AceTree extends JPanel
 
 // introduced to permit right click on tree to select end time of cell
     private class TreeMouseAdapter extends MouseInputAdapter {
-        public void mouseClicked(MouseEvent e) {
+        @SuppressWarnings("unused")
+		public void mouseClicked(MouseEvent e) {
             int button = e.getButton();
             //System.out.println("TreeMouseAdapter.mouseClicked: " + button);
             Cell c = null;
@@ -2589,7 +2592,8 @@ public class AceTree extends JPanel
     }
 
 
-    public void actionPerformed(ActionEvent e) {
+    @SuppressWarnings("unused")
+	public void actionPerformed(ActionEvent e) {
     	if (e.getSource() == iAddActiveCell) {
     		try {
 	        	if (iCurrentCell != null || !iCurrentCell.equals("")) {
@@ -2704,7 +2708,8 @@ public class AceTree extends JPanel
         iTrackPositionSave = ImageWindow.POSTERIOR;
     }
 
-    public void controlCallback(Vector v) {
+    @SuppressWarnings("unused")
+	public void controlCallback(Vector v) {
     	if(iImgWin == null)
     		return;
     	

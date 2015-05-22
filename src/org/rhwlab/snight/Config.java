@@ -144,7 +144,8 @@ public class Config {
     	iEndingIndex = endingIndex;
     }
 
-    public boolean getStartingParms() {
+    @SuppressWarnings("unused")
+	public boolean getStartingParms() {
         iConfigHash = new Hashtable();
         for (int i=0; i < configParams.length; i++) {
             iConfigHash.put(configParams[i], "");
@@ -241,7 +242,8 @@ public class Config {
         if (iTifPrefix == null) setOldStyleParms();
     }
 
-    private void decodeTypicalImage(String s) {
+    @SuppressWarnings("unused")
+	private void decodeTypicalImage(String s) {
     	System.out.println("Decoding typical image...");
         // if a typical image entry is found,
         // this code will extract:

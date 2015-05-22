@@ -16,7 +16,8 @@ public class AceTreeBatch {
     String      iConfigName;
     NucleiMgr   iNucleiMgr;
     
-    public AceTreeBatch(String configName) {
+    @SuppressWarnings("unused")
+	public AceTreeBatch(String configName) {
         iConfigName = configName;
         int r = bringUpSeriesData(configName);
         if (r != 0) {
@@ -34,7 +35,8 @@ public class AceTreeBatch {
         
     }
     
-    public int bringUpSeriesData(String configFileName) {
+    @SuppressWarnings("unused")
+	public int bringUpSeriesData(String configFileName) {
         System.out.println("bringUpSeriesData: " + configFileName);
         File fx = new File(configFileName);
         

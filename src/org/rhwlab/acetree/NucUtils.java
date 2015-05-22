@@ -107,7 +107,8 @@ public class NucUtils {
      * Given a cell name and a vector of nuclei data for this time point
      * return the Nucleus object for this the cell in the list at this time point.
      */
-    public static Nucleus getCurrentCellData(Vector nucData, String cellName) {
+    @SuppressWarnings("unused")
+	public static Nucleus getCurrentCellData(Vector nucData, String cellName) {
         Nucleus r = null;
         boolean found = false;
         for (int j = 0; j < nucData.size(); j++) {
@@ -127,7 +128,8 @@ public class NucUtils {
      * Given a cell and a vector of nuclei data for this time point
      * return the Nucleus object for this the cell in the list at this time point.
      */
-    public static Nucleus getCurrentCellNucleus(Vector nucData, Cell cell) {
+    @SuppressWarnings("unused")
+	public static Nucleus getCurrentCellNucleus(Vector nucData, Cell cell) {
         //System.out.println("getCurrentCellNucleus: " + cell.getName() + CS + nucData);
         Nucleus r = null;
         if (cell == null) return r;

@@ -805,6 +805,7 @@ public class PartsList {
    static Hashtable partslistHashTable;
    static Hashtable partslistHashTableReverse;
    
+   @SuppressWarnings("unused")
    public PartsList(){
 			partslistHashTable = new Hashtable<String, String>();
 			partslistHashTableReverse = new Hashtable<String, String>();

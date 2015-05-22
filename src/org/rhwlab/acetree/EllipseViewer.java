@@ -142,6 +142,7 @@ public class EllipseViewer extends JDialog implements ActionListener {
 	}
 
 
+	@SuppressWarnings("unused")
 	int getImage() {
 		int r = 0;
 		String s = iImages + "/tif/";
@@ -177,6 +178,7 @@ public class EllipseViewer extends JDialog implements ActionListener {
 
 	}
 
+	@SuppressWarnings("unused")
 	void showImage() {
 		ImageProcessor iproc = iPlus.getProcessor();
 		//makeRoi(iproc);
@@ -191,6 +193,7 @@ public class EllipseViewer extends JDialog implements ActionListener {
 
 
 	/** Draws the ellipse on the specified image. */
+	@SuppressWarnings("unused")
 	public void drawEllipse(ImageProcessor ip) {
 		if (major==0.0 && minor==0.0)
 			return;

@@ -178,7 +178,7 @@ public class DivisionCaller {
 		dau1.identity = newd1;
 		dau2.identity = newd2;
 
-		String pname = parent.identity;
+		//String pname = parent.identity;
 		//if (pname.startsWith("E")) {
 		//	println("DivisionCaller, " + fmt4(Math.abs(dot)) + CS + pname);
 		//}
@@ -540,6 +540,7 @@ public class DivisionCaller {
 		println("test, " + fmt4(check0) + CS + fmt4(check1));
 	}
 
+	@SuppressWarnings("unused")
 	public static void test2() {
 		double hyp = 50;
 		double deg = 30;

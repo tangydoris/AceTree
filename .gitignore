@@ -1,4 +1,9 @@
 *.log
 *.class
 .metadata
+.project
 build/
+build.xml
+bin/
+tests/
+.classpath

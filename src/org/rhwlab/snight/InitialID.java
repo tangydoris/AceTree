@@ -175,7 +175,8 @@ public class InitialID {
         return cell_ct;
     }
 
-    private void polarBodies() {
+    @SuppressWarnings("unused")
+	private void polarBodies() {
         Vector nuclei = (Vector)nuclei_record.elementAt(0);
         Vector nuclei_next = null;
         int nuc_ct = nuclei.size();
@@ -223,7 +224,8 @@ public class InitialID {
     }
 
 
-    private int fourCellID(int four_cells, int [] lineage_ct_p) {
+    @SuppressWarnings("unused")
+	private int fourCellID(int four_cells, int [] lineage_ct_p) {
         Integer k;
         Vector nuclei = null, nuclei_next = null;
         Nucleus nucleii = null;
@@ -330,7 +332,8 @@ public class InitialID {
     }
 
 
-    private int backAssignment(int four_cells, int [] lineage_ct_p) {
+    @SuppressWarnings("unused")
+	private int backAssignment(int four_cells, int [] lineage_ct_p) {
         //System.out.println("backAssignment: " + four_cells);
         int i, j;
         Vector nuclei = null, nuclei_next = null, nuclei_prev = null;

@@ -116,7 +116,8 @@ public class NucZipper {
 		return path;
     }
 
-    private void addParameters(ZipOutputStream zos, NucleiMgr nucleiMgr)
+    @SuppressWarnings("unused")
+	private void addParameters(ZipOutputStream zos, NucleiMgr nucleiMgr)
                     throws IOException {
         ZipNuclei zn = nucleiMgr.getZipNuclei();
         String ename = nucleiMgr.getParameterEntry();

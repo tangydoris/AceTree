@@ -32,9 +32,9 @@ import org.rhwlab.utils.Log;
  * @author biowolp
  *
  */
-public class Identity {
+public class DUMPIdentity {
 
-    public static Identity      iIdentity;
+    public static DUMPIdentity      iIdentity;
     private static NucleiMgr    iNucleiMgr;
     private AceTree             iAceTree;
     //private Log                 iDLog;
@@ -61,8 +61,8 @@ public class Identity {
     private double				iXCenter;
     private double				iYCenter;
 
-    public Identity(NucleiMgr nucleiMgr) {
-    	System.out.println("Identity construtor called.");
+    public DUMPIdentity(NucleiMgr nucleiMgr) {
+    	System.out.println("DUMPIdentity construtor called.");
         iNucleiMgr = nucleiMgr;
         iParameters = iNucleiMgr.getParameters();
         iMovie = iNucleiMgr.getMovie();
@@ -109,7 +109,7 @@ public class Identity {
     }
 
     public void setNamingMethod(int method) {
-        System.out.println("Identity.setNamingMethod called with: " + method + C.CS + NAMING_METHOD[method]);
+        System.out.println("DUMPIdentity.setNamingMethod called with: " + method + C.CS + NAMING_METHOD[method]);
         iNamingMethod = method;
     }
 
@@ -119,7 +119,8 @@ public class Identity {
     }
 
 
-    public void useCanonicalRules(int [] start, int [] lineage_ct_p) {
+    @SuppressWarnings("unused")
+	public void useCanonicalRules(int [] start, int [] lineage_ct_p) {
         iNamingHash = getNamingHashtable();
         int rotate_axis = 1;
         int nuc_ct = 0;
@@ -138,18 +139,18 @@ public class Identity {
         System.out.println("useCanonicalRules starting at: " + start[0] + CS + iEndingIndex);
         for (i = start[0]; i < m; i++) {
             if (breakout > 0) {
-                System.out.println("Identity.useCanonicalRules exiting, breakout=" + breakout);
+                System.out.println("DUMPIdentity.useCanonicalRules exiting, breakout=" + breakout);
                 System.exit(0);
                 break;
             }
             nuclei = (Vector)nuclei_record.elementAt(i - 1);
             nuc_ct = nuclei.size();
 
-            //println("useCanonicalRules:  + rotate_axis: " + Identity.EARLY + CS + nuc_ct);
-            if (rotate_axis > 0 && nuc_ct > Identity.EARLY) {
+            //println("useCanonicalRules:  + rotate_axis: " + DUMPIdentity.EARLY + CS + nuc_ct);
+            if (rotate_axis > 0 && nuc_ct > DUMPIdentity.EARLY) {
                 rotateAxis();
                 println("useCanonicalRules: after rotateAxis, " + iParameters.ap + CS + iParameters.dv + CS + iParameters.lr);
-                //iIdentity.rotateAxis();
+                //iDUMPIdentity.rotateAxis();
                 rotate_axis = 0;
             }
             Nucleus parent = null;
@@ -264,7 +265,8 @@ public class Identity {
 
     }
 
-    private boolean newCanonicalSisterID(Nucleus parent, Nucleus dau1, Nucleus dau2,
+    @SuppressWarnings("unused")
+	private boolean newCanonicalSisterID(Nucleus parent, Nucleus dau1, Nucleus dau2,
             int cellCount, int index) {
         String pname = parent.identity;
         if (pname.equals("Cppp")) {
@@ -372,7 +374,7 @@ public class Identity {
     private boolean makeAxisDetermination(int k, String rule, int cellCount, Nucleus dau1, Nucleus dau2) {
         char caxis = rule.charAt(k);
         // this is the standard implementation of Sulston's rule
-        int divisor = (dau1.size + dau2.size)/Identity.DIVISOR;
+        int divisor = (dau1.size + dau2.size)/DUMPIdentity.DIVISOR;
         Loc dau1L = new Loc(dau1, iNucleiMgr);
         Loc dau2L = new Loc(dau2, iNucleiMgr);
         int value = 0;
@@ -404,7 +406,7 @@ public class Identity {
     private boolean makeAlternateDetermination(String rule, int cellCount, Nucleus dau1, Nucleus dau2) {
         char caxis = rule.charAt(2);
         char ruleChar = rule.charAt(3);
-        int divisor = (dau1.size + dau2.size)/Identity.DIVISOR;
+        int divisor = (dau1.size + dau2.size)/DUMPIdentity.DIVISOR;
         Loc dau1L = new Loc(dau1, iNucleiMgr);
         Loc dau2L = new Loc(dau2, iNucleiMgr);
         angleAdjustXY(dau1L);
@@ -541,7 +543,7 @@ public class Identity {
                 String s = nucleij.identity;
                 if (s == null) {
                     System.out.println("Flaw in nuclei files at indices i, j: " + i + C.CS + j);
-                    System.out.println("Identity cannot continue -- shutting down");
+                    System.out.println("DUMPIdentity cannot continue -- shutting down");
                     System.exit(11);
                 }
                 if (s.length() > 0) continue;
@@ -618,7 +620,8 @@ public class Identity {
     }
 
 
-    private boolean specialCases(Nucleus parent, Nucleus nuc1, Nucleus nuc2) {
+    @SuppressWarnings("unused")
+	private boolean specialCases(Nucleus parent, Nucleus nuc1, Nucleus nuc2) {
         //System.out.println("specialCases1: " + parent);
         //System.out.println("specialCases2: " + nuc1);
         //System.out.println("specialCases3: " + nuc2);
@@ -700,7 +703,8 @@ public class Identity {
         return rtn;
     }
 
-    public void newSisterID(Nucleus parent, Nucleus nuc1, Nucleus nuc2, int cellCount) {
+    @SuppressWarnings("unused")
+	public void newSisterID(Nucleus parent, Nucleus nuc1, Nucleus nuc2, int cellCount) {
         //System.out.println("newSisterID1: " + parent);
         //System.out.println("newSisterID2: " + nuc1);
         //System.out.println("newSisterID3: " + nuc2);
@@ -928,7 +932,8 @@ public class Identity {
 
     // only "support" functions below here
 
-    private void earlyAxis(Nucleus nuc1, Nucleus nuc2) {
+    @SuppressWarnings("unused")
+	private void earlyAxis(Nucleus nuc1, Nucleus nuc2) {
         char left = T, right = B, dorsal = D, ventral = V;
         char tag1, tag2;
         if (iParameters.lr == 1) {left = T; right = B;}
@@ -946,7 +951,8 @@ public class Identity {
         nuc2.id_tag = tag2;
     }
 
-    private void midAxis(Nucleus nuc1, Nucleus nuc2) {
+    @SuppressWarnings("unused")
+	private void midAxis(Nucleus nuc1, Nucleus nuc2) {
         char left = T, right = B, dorsal = D, ventral = V;
         char tag1, tag2;
         if (iParameters.lr == 1) {left = V; right = D;}
@@ -1225,7 +1231,8 @@ public class Identity {
     }
 
 
-    private int fourCellID(int four_cells, int [] lineage_ct_p) {
+    @SuppressWarnings("unused")
+	private int fourCellID(int four_cells, int [] lineage_ct_p) {
         Integer k;
         Vector nuclei = null, nuclei_next = null;
         Nucleus nucleii = null;
@@ -1352,7 +1359,8 @@ public class Identity {
         return rtn;
     }
 
-    private void polarBodies() {
+    @SuppressWarnings("unused")
+	private void polarBodies() {
         Vector nuclei = (Vector)nuclei_record.elementAt(0);
         Vector nuclei_next = null;
         int nuc_ct = nuclei.size();
@@ -1412,7 +1420,8 @@ public class Identity {
     
     // Clears names of nuclei
     // If there is a forced name, the assignedID remains the same and the normal name (identity) is cleared
-    private void clearNames(Vector nuclei) {
+    @SuppressWarnings("unused")
+	private void clearNames(Vector nuclei) {
         //println("clearNames: " + nuclei.size());
         Nucleus n;
         for (int i=0; i < nuclei.size(); i++) {
@@ -1426,7 +1435,8 @@ public class Identity {
     
     
     // Forced names are kept while normal nuclei names (identity) is cleared
-    private void clearAllNames() {
+    @SuppressWarnings("unused")
+	private void clearAllNames() {
         int k = iNucleiMgr.getNucleiRecord().size();
         int endingIndex = iEndingIndex;
         //for (int i = 0; i < iEndingIndex; i++) {
@@ -1439,7 +1449,8 @@ public class Identity {
         }
     }
 
-    private int backAssignment(int four_cells, int [] lineage_ct_p) {
+    @SuppressWarnings("unused")
+	private int backAssignment(int four_cells, int [] lineage_ct_p) {
         System.out.println("backAssignment: " + four_cells);
         int i, j;
         Vector nuclei = null, nuclei_next = null, nuclei_prev = null;
@@ -1662,7 +1673,7 @@ public class Identity {
     }
 
     private void processPair(Nucleus nd1, Nucleus nd2) {
-        int avg = (nd1.size + nd2.size)/Identity.DIVISOR;
+        int avg = (nd1.size + nd2.size)/DUMPIdentity.DIVISOR;
         Loc nd1L = new Loc(nd1, iNucleiMgr);
         Loc nd2L = new Loc(nd2, iNucleiMgr);
         int x = 100*(nd1L.x - nd2L.x)/avg;
