@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+<lineages>
+<lineage name="ABplaaapp" color="red"/>
+<lineage name="ABarpappp" color="blue"/>
+<lineage name="ABarppaaap" color="red"/>
+<lineage name="ABarpppaap" color="blue"/>
+<lineage name="ABplappppp" color="red"/>
+<lineage name="ABprappppp" color="blue"/>
+<lineage name="ABarppapa" color="red"/>
+<lineage name="ABarppppa" color="blue"/>
+<lineage name="ABplappapa" color="red"/>
+<lineage name="ABprappapa" color="blue"/>
+<lineage name="ABarppappa" color="red"/>
+<lineage name="ABarpppppa" color="blue"/>
+<lineage name="ABplapapaa" color="magenta"/>
+<lineage name="ABprapapaa" color="cyan"/>
+<lineage name="ABarppappp" color="red"/>
+<lineage name="ABarpppppp" color="blue"/>
+<lineage name="-" color="green"/>
+<lineage name="-" color="green"/>
+<lineage name="-" color="green"/>
+<lineage name="-" color="green"/>
+<lineage name="-" color="green"/>
+<lineage name="-" color="green"/>
+<lineage name="-" color="green"/>
+<lineage name="-" color="green"/>
+</lineages>

@@ -1,0 +1,1625 @@
+JAVA PROFILE 1.0.1, created Tue Feb 24 09:56:36 2015
+
+Copyright (c) 2003, 2005, Oracle and/or its affiliates. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions
+are met:
+
+  - Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+
+  - Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in the
+    documentation and/or other materials provided with the distribution.
+
+  - Neither the name of Oracle nor the names of its
+    contributors may be used to endorse or promote products derived
+    from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+
+Header for -agentlib:hprof (or -Xrunhprof) ASCII Output (JDK 5.0 JVMTI based)
+
+WARNING!  This file format is under development, and is subject to
+change without notice.
+
+This file contains the following types of records:
+
+THREAD START
+THREAD END      mark the lifetime of Java threads
+
+TRACE           represents a Java stack trace.  Each trace consists
+                of a series of stack frames.  Other records refer to
+                TRACEs to identify (1) where object allocations have
+                taken place, (2) the frames in which GC roots were
+                found, and (3) frequently executed methods.
+
+HEAP DUMP       is a complete snapshot of all live objects in the Java
+                heap.  Following distinctions are made:
+
+                ROOT    root set as determined by GC
+                CLS     classes 
+                OBJ     instances
+                ARR     arrays
+
+SITES           is a sorted list of allocation sites.  This identifies
+                the most heavily allocated object types, and the TRACE
+                at which those allocations occurred.
+
+CPU SAMPLES     is a statistical profile of program execution.  The VM
+                periodically samples all running threads, and assigns
+                a quantum to active TRACEs in those threads.  Entries
+                in this record are TRACEs ranked by the percentage of
+                total quanta they consumed; top-ranked TRACEs are
+                typically hot spots in the program.
+
+CPU TIME        is a profile of program execution obtained by measuring
+                the time spent in individual methods (excluding the time
+                spent in callees), as well as by counting the number of
+                times each method is called. Entries in this record are
+                TRACEs ranked by the percentage of total CPU time. The
+                "count" field indicates the number of times each TRACE 
+                is invoked.
+
+MONITOR TIME    is a profile of monitor contention obtained by measuring
+                the time spent by a thread waiting to enter a monitor.
+                Entries in this record are TRACEs ranked by the percentage
+                of total monitor contention time and a brief description
+                of the monitor.  The "count" field indicates the number of 
+                times the monitor was contended at that TRACE.
+
+MONITOR DUMP    is a complete snapshot of all the monitors and threads in 
+                the System.
+
+HEAP DUMP, SITES, CPU SAMPLES|TIME and MONITOR DUMP|TIME records are generated 
+at program exit.  They can also be obtained during program execution by typing 
+Ctrl-\ (on Solaris) or by typing Ctrl-Break (on Win32).
+
+--------
+
+THREAD START (obj=50000185, id = 200001, name="main", group="main")
+THREAD START (obj=50000260, id = 200004, name="AppKit Thread", group="system")
+THREAD START (obj=50000263, id = 200005, name="AWT-Shutdown", group="system")
+THREAD START (obj=5000044f, id = 200006, name="Java2D Queue Flusher", group="system")
+THREAD START (obj=500004f1, id = 200007, name="Java2D Disposer", group="system")
+THREAD START (obj=50000584, id = 200008, name="Image Fetcher 0", group="main")
+THREAD START (obj=5000079f, id = 200009, name="AWT-EventQueue-0", group="main")
+THREAD START (obj=5000085c, id = 200010, name="Aqua L&F File Loading Thread", group="main")
+THREAD END (id = 200010)
+THREAD START (obj=5000086a, id = 200011, name="Aqua L&F File Loading Thread", group="main")
+THREAD END (id = 200011)
+THREAD START (obj=5000086a, id = 200012, name="Aqua L&F File Loading Thread", group="main")
+THREAD END (id = 200012)
+THREAD START (obj=5000086a, id = 200013, name="Aqua L&F File Loading Thread", group="main")
+THREAD END (id = 200013)
+THREAD START (obj=500008b8, id = 200014, name="Aqua L&F File Loading Thread", group="main")
+THREAD START (obj=5000086a, id = 200015, name="Aqua L&F File Loading Thread", group="main")
+THREAD END (id = 200014)
+THREAD END (id = 200015)
+THREAD END (id = 200001)
+THREAD START (obj=50000185, id = 200016, name="DestroyJavaVM", group="main")
+THREAD START (obj=500009da, id = 200017, name="TimerQueue", group="system")
+THREAD END (id = 200008)
+THREAD START (obj=50000a2d, id = 200018, name="Aqua L&F File Loading Thread", group="main")
+THREAD START (obj=50000a2e, id = 200019, name="Aqua L&F File Loading Thread", group="main")
+THREAD END (id = 200018)
+THREAD END (id = 200019)
+THREAD START (obj=50000a37, id = 200020, name="Aqua L&F File Loading Thread", group="main")
+THREAD END (id = 200020)
+THREAD START (obj=50000a68, id = 200021, name="Aqua L&F File Loading Thread", group="main")
+THREAD END (id = 200021)
+THREAD START (obj=50000a69, id = 200022, name="Aqua L&F File Loading Thread", group="main")
+THREAD END (id = 200022)
+THREAD START (obj=50000a6a, id = 200023, name="Aqua L&F File Loading Thread", group="main")
+THREAD END (id = 200023)
+THREAD START (obj=50000a6a, id = 200024, name="Aqua L&F File Loading Thread", group="main")
+THREAD END (id = 200024)
+THREAD START (obj=50000a6a, id = 200025, name="Aqua L&F File Loading Thread", group="main")
+THREAD END (id = 200025)
+THREAD START (obj=50000a6b, id = 200026, name="Aqua L&F File Loading Thread", group="main")
+THREAD END (id = 200026)
+THREAD START (obj=50000ae1, id = 200027, name="Image Fetcher 0", group="main")
+THREAD END (id = 200009)
+TRACE 301536:
+	sun.lwawt.macosx.LWCToolkit.doAWTRunLoopImpl(LWCToolkit.java:Unknown line)
+	sun.lwawt.macosx.LWCToolkit.doAWTRunLoop(LWCToolkit.java:804)
+	sun.lwawt.macosx.LWCToolkit.invokeAndWait(LWCToolkit.java:643)
+	sun.lwawt.macosx.LWCToolkit.invokeAndWait(LWCToolkit.java:582)
+TRACE 301586:
+	java.lang.Integer.parseInt(Integer.java:615)
+	org.rhwlab.tree.AncesTree.compare(AncesTree.java:306)
+	java.util.TimSort.countRunAndMakeAscending(TimSort.java:356)
+	java.util.TimSort.sort(TimSort.java:230)
+TRACE 301582:
+	java.lang.Integer.parseInt(Integer.java:615)
+	org.rhwlab.tree.AncesTree.compare(AncesTree.java:307)
+	java.util.TimSort.countRunAndMakeAscending(TimSort.java:356)
+	java.util.TimSort.sort(TimSort.java:230)
+TRACE 301274:
+	sun.lwawt.macosx.CCursorManager.nativeGetCursorPosition(CCursorManager.java:Unknown line)
+	sun.lwawt.macosx.CCursorManager.getCursorPosition(CCursorManager.java:54)
+	sun.lwawt.LWCursorManager.updateCursorImpl(LWCursorManager.java:80)
+	sun.lwawt.LWCursorManager.updateCursor(LWCursorManager.java:57)
+TRACE 301359:
+	sun.lwawt.macosx.CPlatformWindow.nativeGetTopmostPlatformWindowUnderMouse(CPlatformWindow.java:Unknown line)
+	sun.lwawt.macosx.CPlatformWindow.getTopmostPlatformWindowUnderMouse(CPlatformWindow.java:739)
+	sun.lwawt.LWWindowPeer.notifyMouseEvent(LWWindowPeer.java:753)
+	sun.lwawt.macosx.CPlatformResponder.handleMouseEvent(CPlatformResponder.java:83)
+TRACE 300927:
+	sun.font.CFontManager.loadNativeFonts(CFontManager.java:Unknown line)
+	sun.font.CFontManager.access$000(CFontManager.java:46)
+	sun.font.CFontManager$3.run(CFontManager.java:276)
+	java.security.AccessController.doPrivileged(AccessController.java:Unknown line)
+TRACE 300135:
+	java.lang.ClassLoader$NativeLibrary.load(ClassLoader.java:Unknown line)
+	java.lang.ClassLoader.loadLibrary0(ClassLoader.java:1937)
+	java.lang.ClassLoader.loadLibrary(ClassLoader.java:1822)
+	java.lang.Runtime.load0(Runtime.java:809)
+TRACE 301502:
+	java.security.AccessController.getStackAccessControlContext(AccessController.java:Unknown line)
+	java.security.AccessController.getContext(AccessController.java:820)
+	java.awt.AWTEvent.<init>(AWTEvent.java:107)
+	java.awt.event.InvocationEvent.<init>(InvocationEvent.java:284)
+TRACE 301493:
+	java.security.AccessController.doPrivileged(AccessController.java:Unknown line)
+	javax.swing.Timer.post(Timer.java:612)
+	javax.swing.TimerQueue.run(TimerQueue.java:181)
+	java.lang.Thread.run(Thread.java:745)
+TRACE 301315:
+	sun.java2d.opengl.OGLRenderQueue.flushBuffer(OGLRenderQueue.java:Unknown line)
+	sun.java2d.opengl.OGLRenderQueue.flushBuffer(OGLRenderQueue.java:148)
+	sun.java2d.opengl.OGLRenderQueue.access$100(OGLRenderQueue.java:41)
+	sun.java2d.opengl.OGLRenderQueue$QueueFlusher.run(OGLRenderQueue.java:226)
+TRACE 301499:
+	sun.awt.AWTAutoShutdown.notifyThreadBusy(AWTAutoShutdown.java:174)
+	java.awt.EventQueue.postEvent(EventQueue.java:334)
+	java.awt.EventQueue.postEventPrivate(EventQueue.java:283)
+	java.awt.EventQueue.postEvent(EventQueue.java:255)
+TRACE 301601:
+	java.lang.Thread.isInterrupted(Thread.java:Unknown line)
+	java.lang.Thread.interrupted(Thread.java:944)
+	java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2066)
+	javax.swing.TimerQueue.run(TimerQueue.java:192)
+TRACE 301285:
+	sun.lwawt.macosx.CWrapper$NSWindow.isKeyWindow(CWrapper.java:Unknown line)
+	sun.lwawt.macosx.CPlatformWindow.setVisible(CPlatformWindow.java:566)
+	sun.lwawt.LWWindowPeer.setVisibleImpl(LWWindowPeer.java:248)
+	sun.lwawt.LWComponentPeer.setVisible(LWComponentPeer.java:765)
+TRACE 300887:
+	sun.font.CFontManager.loadNativeDirFonts(CFontManager.java:Unknown line)
+	sun.font.CFontManager.registerFontsInDir(CFontManager.java:250)
+	sun.font.SunFontManager$2.run(SunFontManager.java:425)
+	java.security.AccessController.doPrivileged(AccessController.java:Unknown line)
+TRACE 301598:
+	java.util.TimSort.countRunAndMakeAscending(TimSort.java:356)
+	java.util.TimSort.sort(TimSort.java:230)
+	java.util.Arrays.sort(Arrays.java:1512)
+	java.util.Vector.sort(Vector.java:1319)
+TRACE 301541:
+	java.util.zip.Inflater.inflateBytes(Inflater.java:Unknown line)
+	java.util.zip.Inflater.inflate(Inflater.java:259)
+	java.util.zip.InflaterInputStream.read(InflaterInputStream.java:152)
+	sun.nio.cs.StreamDecoder.readBytes(StreamDecoder.java:284)
+TRACE 301592:
+	org.rhwlab.tree.AncesTree.extractRootCells(AncesTree.java:288)
+	org.rhwlab.tree.AncesTree.<init>(AncesTree.java:131)
+	org.rhwlab.snight.NucleiMgr.processNuclei(NucleiMgr.java:967)
+	org.rhwlab.acetree.AceTree.bringUpSeriesData(AceTree.java:668)
+TRACE 301508:
+	java.security.AccessController.getStackAccessControlContext(AccessController.java:Unknown line)
+	java.security.AccessController.getContext(AccessController.java:820)
+	java.awt.EventQueue.dispatchEvent(EventQueue.java:715)
+	java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:201)
+TRACE 301542:
+	org.rhwlab.snight.NucleiMgr.readNuclei(NucleiMgr.java:488)
+	org.rhwlab.snight.NucleiMgr.readNuclei(NucleiMgr.java:418)
+	org.rhwlab.snight.NucleiMgr.<init>(NucleiMgr.java:159)
+	org.rhwlab.acetree.AceTree.bringUpSeriesData(AceTree.java:664)
+TRACE 301489:
+	java.security.AccessController.doPrivileged(AccessController.java:Unknown line)
+	java.security.ProtectionDomain$1.doIntersectionPrivilege(ProtectionDomain.java:75)
+	java.awt.EventQueue.dispatchEvent(EventQueue.java:721)
+	java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:201)
+TRACE 301288:
+	sun.lwawt.macosx.CWrapper$NSWindow.isZoomed(CWrapper.java:Unknown line)
+	sun.lwawt.macosx.CPlatformWindow.isMaximized(CPlatformWindow.java:479)
+	sun.lwawt.macosx.CPlatformWindow.unmaximize(CPlatformWindow.java:504)
+	sun.lwawt.macosx.CPlatformWindow.setVisible(CPlatformWindow.java:601)
+TRACE 301517:
+	java.lang.Object.wait(Object.java:Unknown line)
+	sun.java2d.opengl.OGLRenderQueue$QueueFlusher.run(OGLRenderQueue.java:203)
+TRACE 301515:
+	sun.misc.Unsafe.unpark(Unsafe.java:Unknown line)
+	java.util.concurrent.locks.LockSupport.unpark(LockSupport.java:141)
+	java.util.concurrent.locks.AbstractQueuedSynchronizer.unparkSuccessor(AbstractQueuedSynchronizer.java:662)
+	java.util.concurrent.locks.AbstractQueuedSynchronizer.release(AbstractQueuedSynchronizer.java:1264)
+TRACE 301262:
+	sun.lwawt.macosx.CPlatformWindow.nativeGetNSWindowInsets(CPlatformWindow.java:Unknown line)
+	sun.lwawt.macosx.CPlatformWindow.getInsets(CPlatformWindow.java:447)
+	sun.lwawt.LWWindowPeer.initializeImpl(LWWindowPeer.java:199)
+	sun.lwawt.LWComponentPeer.initialize(LWComponentPeer.java:313)
+TRACE 301249:
+	sun.lwawt.macosx.CPlatformWindow.nativeCreateNSWindow(CPlatformWindow.java:Unknown line)
+	sun.lwawt.macosx.CPlatformWindow.initialize(CPlatformWindow.java:244)
+	sun.lwawt.LWWindowPeer.<init>(LWWindowPeer.java:156)
+	sun.lwawt.LWToolkit.createDelegatedPeer(LWToolkit.java:210)
+TRACE 301284:
+	sun.lwawt.macosx.CWrapper$NSWindow.isZoomed(CWrapper.java:Unknown line)
+	sun.lwawt.macosx.CPlatformWindow.isMaximized(CPlatformWindow.java:479)
+	sun.lwawt.macosx.CPlatformWindow.setVisible(CPlatformWindow.java:549)
+	sun.lwawt.LWWindowPeer.setVisibleImpl(LWWindowPeer.java:248)
+TRACE 300460:
+	sun.java2d.opengl.CGLGraphicsConfig.getCGLConfigInfo(CGLGraphicsConfig.java:Unknown line)
+	sun.java2d.opengl.CGLGraphicsConfig.getConfig(CGLGraphicsConfig.java:147)
+	sun.awt.CGraphicsDevice.<init>(CGraphicsDevice.java:65)
+	sun.awt.CGraphicsEnvironment.initDevices(CGraphicsEnvironment.java:163)
+TRACE 301608:
+	java.lang.Thread.isInterrupted(Thread.java:Unknown line)
+	java.lang.Thread.interrupted(Thread.java:944)
+	java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.checkInterruptWhileWaiting(AbstractQueuedSynchronizer.java:2002)
+	java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2079)
+TRACE 301484:
+	java.util.PriorityQueue.offer(PriorityQueue.java:336)
+	java.util.concurrent.DelayQueue.offer(DelayQueue.java:140)
+	java.util.concurrent.DelayQueue.add(DelayQueue.java:126)
+	javax.swing.TimerQueue.addTimer(TimerQueue.java:138)
+TRACE 300311:
+	sun.misc.Unsafe.defineAnonymousClass(Unsafe.java:Unknown line)
+	java.lang.invoke.InvokerBytecodeGenerator.loadAndInitializeInvokerClass(InvokerBytecodeGenerator.java:254)
+	java.lang.invoke.InvokerBytecodeGenerator.loadMethod(InvokerBytecodeGenerator.java:246)
+	java.lang.invoke.InvokerBytecodeGenerator.generateCustomizedCode(InvokerBytecodeGenerator.java:490)
+TRACE 301503:
+	java.awt.Container$MouseEventTargetFilter.accept(Container.java:2455)
+	java.awt.Container.getMouseEventTargetImpl(Container.java:2437)
+	java.awt.Container.getMouseEventTarget(Container.java:2361)
+	java.awt.Container.getMouseEventTargetImpl(Container.java:2410)
+TRACE 301580:
+	java.lang.CharacterDataLatin1.getType(CharacterDataLatin1.java:103)
+	java.lang.Character.getType(Character.java:6924)
+	java.lang.Character.isDigit(Character.java:5669)
+	java.lang.Character.isDigit(Character.java:5635)
+TRACE 301501:
+	java.security.AccessController.getStackAccessControlContext(AccessController.java:Unknown line)
+	java.security.AccessController.getContext(AccessController.java:820)
+	java.security.ProtectionDomain$1.doIntersectionPrivilege(ProtectionDomain.java:87)
+	java.awt.EventQueue$4.run(EventQueue.java:724)
+TRACE 301593:
+	java.util.Arrays.copyOfRange(Arrays.java:3664)
+	java.lang.String.<init>(String.java:201)
+	java.lang.String.substring(String.java:1920)
+	org.rhwlab.tree.AncesTree.compare(AncesTree.java:300)
+TRACE 301611:
+	java.util.concurrent.DelayQueue.offer(DelayQueue.java:145)
+	java.util.concurrent.DelayQueue.add(DelayQueue.java:126)
+	javax.swing.TimerQueue.addTimer(TimerQueue.java:138)
+	javax.swing.TimerQueue.run(TimerQueue.java:187)
+TRACE 301567:
+	java.util.concurrent.locks.AbstractQueuedSynchronizer.acquire(AbstractQueuedSynchronizer.java:1198)
+	java.util.concurrent.locks.ReentrantLock$NonfairSync.lock(ReentrantLock.java:209)
+	java.util.concurrent.locks.ReentrantLock.lock(ReentrantLock.java:285)
+	javax.swing.TimerQueue.addTimer(TimerQueue.java:135)
+TRACE 301118:
+	com.apple.laf.AquaFileView.getNativeDisplayName(AquaFileView.java:Unknown line)
+	com.apple.laf.AquaFileView.getName(AquaFileView.java:157)
+	javax.swing.JFileChooser.getName(JFileChooser.java:1540)
+	com.apple.laf.AquaFileChooserUI$4.getListCellRendererComponent(AquaFileChooserUI.java:1148)
+TRACE 300341:
+	java.lang.invoke.LambdaMetafactory.metafactory(LambdaMetafactory.java:299)
+	java.lang.invoke.LambdaForm$DMH.1017433472.invokeStatic_LLLLLL_L(LambdaForm$DMH:Unknown line)
+	java.lang.invoke.LambdaForm$NFI.612731061.invoke_LLLLLL_L(LambdaForm$NFI:Unknown line)
+	java.lang.invoke.LambdaForm$DMH.548541635.invokeStatic_LL_L(LambdaForm$DMH:Unknown line)
+TRACE 301488:
+	java.lang.Thread.isInterrupted(Thread.java:Unknown line)
+	java.lang.Thread.isInterrupted(Thread.java:961)
+	java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:115)
+	java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:109)
+TRACE 301494:
+	javax.swing.Timer.post(Timer.java:611)
+	javax.swing.TimerQueue.run(TimerQueue.java:181)
+	java.lang.Thread.run(Thread.java:745)
+TRACE 300084:
+	java.lang.ClassLoader.defineClass1(ClassLoader.java:Unknown line)
+	java.lang.ClassLoader.defineClass(ClassLoader.java:760)
+	java.security.SecureClassLoader.defineClass(SecureClassLoader.java:142)
+	java.net.URLClassLoader.defineClass(URLClassLoader.java:455)
+TRACE 300651:
+	sun.awt.image.GifImageDecoder.parseImage(GifImageDecoder.java:Unknown line)
+	sun.awt.image.GifImageDecoder.readImage(GifImageDecoder.java:596)
+	sun.awt.image.GifImageDecoder.produceImage(GifImageDecoder.java:212)
+	sun.awt.image.InputStreamImageSource.doFetch(InputStreamImageSource.java:269)
+TRACE 301667:
+	java.security.AccessController.getStackAccessControlContext(AccessController.java:Unknown line)
+	java.security.AccessController.getContext(AccessController.java:820)
+	java.awt.AWTEvent.<init>(AWTEvent.java:107)
+	java.awt.event.ComponentEvent.<init>(ComponentEvent.java:120)
+TRACE 301476:
+	sun.font.CStrike.getGlyphImagePtrsNative(CStrike.java:Unknown line)
+	sun.font.CStrike.getFilteredGlyphImagePtrs(CStrike.java:335)
+	sun.font.CStrike.getGlyphImagePtrs(CStrike.java:303)
+	sun.font.GlyphList.mapChars(GlyphList.java:272)
+TRACE 301547:
+	java.util.StringTokenizer.scanToken(StringTokenizer.java:278)
+	java.util.StringTokenizer.nextToken(StringTokenizer.java:351)
+	org.rhwlab.snight.NucleiMgr.getTokens(NucleiMgr.java:1029)
+	org.rhwlab.snight.NucleiMgr.readNuclei(NucleiMgr.java:488)
+TRACE 301575:
+	org.rhwlab.tree.AncesTree.processEntry(AncesTree.java:415)
+	org.rhwlab.tree.AncesTree.processEntries(AncesTree.java:339)
+	org.rhwlab.tree.AncesTree.<init>(AncesTree.java:127)
+	org.rhwlab.snight.NucleiMgr.processNuclei(NucleiMgr.java:967)
+TRACE 301583:
+	org.rhwlab.tree.AncesTree.compare(AncesTree.java:301)
+	java.util.TimSort.countRunAndMakeAscending(TimSort.java:356)
+	java.util.TimSort.sort(TimSort.java:230)
+	java.util.Arrays.sort(Arrays.java:1512)
+TRACE 300087:
+	java.lang.ClassLoader.findBootstrapClass(ClassLoader.java:Unknown line)
+	java.lang.ClassLoader.findBootstrapClassOrNull(ClassLoader.java:1012)
+	java.lang.ClassLoader.loadClass(ClassLoader.java:413)
+	java.lang.ClassLoader.loadClass(ClassLoader.java:411)
+TRACE 301581:
+	java.lang.String.substring(String.java:1913)
+	org.rhwlab.tree.AncesTree.compare(AncesTree.java:301)
+	java.util.TimSort.countRunAndMakeAscending(TimSort.java:356)
+	java.util.TimSort.sort(TimSort.java:230)
+TRACE 301545:
+	sun.nio.cs.UTF_8$Decoder.decodeArrayLoop(UTF_8.java:234)
+	sun.nio.cs.UTF_8$Decoder.decodeLoop(UTF_8.java:412)
+	java.nio.charset.CharsetDecoder.decode(CharsetDecoder.java:579)
+	sun.nio.cs.StreamDecoder.implRead(StreamDecoder.java:318)
+TRACE 301653:
+	sun.java2d.loops.OpaqueCopyAnyToArgb.Blit(CustomComponent.java:145)
+	sun.java2d.loops.GraphicsPrimitive.convertFrom(GraphicsPrimitive.java:560)
+	sun.java2d.loops.GraphicsPrimitive.convertFrom(GraphicsPrimitive.java:541)
+	sun.java2d.loops.MaskBlit$General.MaskBlit(MaskBlit.java:189)
+TRACE 301491:
+	sun.awt.SunToolkit.targetToPeer(SunToolkit.java:322)
+	sun.lwawt.LWToolkit.targetToPeer(LWToolkit.java:450)
+	sun.lwawt.LWCursorManager.updateCursorImpl(LWCursorManager.java:83)
+	sun.lwawt.LWCursorManager.updateCursor(LWCursorManager.java:57)
+TRACE 301492:
+	java.awt.Component.getCursor_NoClientCode(Component.java:3163)
+	java.awt.Component.getCursor_NoClientCode(Component.java:3163)
+	java.awt.Component.getCursor(Component.java:3153)
+	sun.lwawt.LWCursorManager.updateCursorImpl(LWCursorManager.java:90)
+TRACE 301495:
+	java.awt.WaitDispatchSupport$1.evaluate(WaitDispatchSupport.java:116)
+	java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:115)
+	java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:109)
+	java.awt.WaitDispatchSupport$2.run(WaitDispatchSupport.java:184)
+TRACE 301496:
+	java.lang.Thread.holdsLock(Thread.java:Unknown line)
+	java.awt.Component.checkTreeLock(Component.java:1202)
+	java.awt.Container.findComponentAtImpl(Container.java:2673)
+	java.awt.Container.findComponentAtImpl(Container.java:2703)
+TRACE 301497:
+	java.lang.Object.hashCode(Object.java:Unknown line)
+	java.util.HashMap.hash(HashMap.java:338)
+	java.util.HashMap.put(HashMap.java:611)
+	java.util.HashSet.add(HashSet.java:219)
+TRACE 301498:
+	java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2085)
+	java.util.concurrent.DelayQueue.take(DelayQueue.java:223)
+	javax.swing.TimerQueue.run(TimerQueue.java:171)
+	java.lang.Thread.run(Thread.java:745)
+TRACE 301500:
+	java.util.concurrent.locks.AbstractQueuedSynchronizer.enq(AbstractQueuedSynchronizer.java:585)
+	java.util.concurrent.locks.AbstractQueuedSynchronizer.transferForSignal(AbstractQueuedSynchronizer.java:1683)
+	java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.doSignalAll(AbstractQueuedSynchronizer.java:1888)
+	java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.signalAll(AbstractQueuedSynchronizer.java:1957)
+TRACE 301504:
+	sun.lwawt.macosx.NSEvent.nsToJavaMouseModifiers(NSEvent.java:Unknown line)
+	sun.lwawt.macosx.CPlatformResponder.handleMouseEvent(CPlatformResponder.java:79)
+	sun.lwawt.macosx.CPlatformView.deliverMouseEvent(CPlatformView.java:197)
+TRACE 301505:
+	java.awt.event.InvocationEvent.<init>(InvocationEvent.java:171)
+	java.awt.EventQueue.invokeLater(EventQueue.java:1258)
+	javax.swing.SwingUtilities.invokeLater(SwingUtilities.java:1290)
+	javax.swing.Timer$1.run(Timer.java:614)
+TRACE 301506:
+	java.awt.EventQueue.invokeLater(EventQueue.java:1257)
+	javax.swing.SwingUtilities.invokeLater(SwingUtilities.java:1290)
+	javax.swing.Timer$1.run(Timer.java:614)
+	javax.swing.Timer$1.run(Timer.java:612)
+TRACE 301384:
+	sun.misc.FDBigInteger.mult(FDBigInteger.java:1127)
+	sun.misc.FDBigInteger.<clinit>(FDBigInteger.java:132)
+	sun.misc.FloatingDecimal$BinaryToASCIIBuffer.dtoa(FloatingDecimal.java:448)
+	sun.misc.FloatingDecimal$BinaryToASCIIBuffer.access$100(FloatingDecimal.java:259)
+TRACE 301509:
+	sun.util.calendar.BaseCalendar$Date.<init>(BaseCalendar.java:164)
+	sun.util.calendar.Gregorian$Date.<init>(Gregorian.java:45)
+	sun.util.calendar.Gregorian.newCalendarDate(Gregorian.java:85)
+	sun.util.calendar.Gregorian.getCalendarDate(Gregorian.java:77)
+TRACE 301510:
+	java.lang.System.nanoTime(System.java:Unknown line)
+	java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2089)
+	java.util.concurrent.DelayQueue.take(DelayQueue.java:223)
+	javax.swing.TimerQueue.run(TimerQueue.java:171)
+TRACE 301511:
+	java.util.concurrent.locks.AbstractQueuedSynchronizer.transferAfterCancelledWait(AbstractQueuedSynchronizer.java:1698)
+	java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2074)
+	java.util.concurrent.DelayQueue.take(DelayQueue.java:223)
+	javax.swing.TimerQueue.run(TimerQueue.java:171)
+TRACE 301512:
+	javax.swing.TimerQueue$DelayedTimer.getDelay(TimerQueue.java:268)
+	java.util.concurrent.DelayQueue.take(DelayQueue.java:213)
+	javax.swing.TimerQueue.run(TimerQueue.java:171)
+	java.lang.Thread.run(Thread.java:745)
+TRACE 301513:
+	java.io.UnixFileSystem.getBooleanAttributes0(UnixFileSystem.java:Unknown line)
+	java.io.UnixFileSystem.getBooleanAttributes(UnixFileSystem.java:242)
+	java.io.File.isDirectory(File.java:849)
+	sun.awt.shell.ShellFolder.isDirectory(ShellFolder.java:378)
+TRACE 301514:
+	java.awt.LightweightDispatcher.processMouseEvent(Container.java:4509)
+	java.awt.LightweightDispatcher.dispatchEvent(Container.java:4462)
+	java.awt.Container.dispatchEventImpl(Container.java:2278)
+	java.awt.Window.dispatchEventImpl(Window.java:2739)
+TRACE 301516:
+	javax.swing.JLabel.setDisplayedMnemonicIndex(JLabel.java:559)
+	javax.swing.JLabel.setText(JLabel.java:332)
+	com.apple.laf.AquaComboBoxRendererInternal.getListCellRendererComponent(AquaComboBoxRendererInternal.java:121)
+	com.apple.laf.AquaFileChooserUI$4.getListCellRendererComponent(AquaFileChooserUI.java:1140)
+TRACE 301518:
+	java.lang.Class.isAssignableFrom(Class.java:Unknown line)
+	sun.reflect.UnsafeFieldAccessorImpl.ensureObj(UnsafeFieldAccessorImpl.java:57)
+	sun.reflect.UnsafeBooleanFieldAccessorImpl.getBoolean(UnsafeBooleanFieldAccessorImpl.java:40)
+	java.lang.reflect.Field.getBoolean(Field.java:422)
+TRACE 301519:
+	javax.swing.TimerQueue$DelayedTimer.getDelay(TimerQueue.java:268)
+	java.util.concurrent.DelayQueue.take(DelayQueue.java:213)
+	javax.swing.TimerQueue.run(TimerQueue.java:171)
+	java.lang.Thread.run(Thread.java:745)
+TRACE 301520:
+	javax.swing.JComponent.paint(JComponent.java:1054)
+	javax.swing.JComponent.paintToOffscreen(JComponent.java:5222)
+	javax.swing.RepaintManager$PaintManager.paintDoubleBuffered(RepaintManager.java:1572)
+	javax.swing.RepaintManager$PaintManager.paint(RepaintManager.java:1495)
+TRACE 301119:
+	javax.swing.table.AbstractTableModel.fireTableChanged(AbstractTableModel.java:295)
+	javax.swing.table.AbstractTableModel.fireTableRowsInserted(AbstractTableModel.java:231)
+	com.apple.laf.AquaFileSystemModel$DoChangeContents.run(AquaFileSystemModel.java:458)
+	java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:311)
+TRACE 300134:
+	java.lang.ClassLoader$NativeLibrary.load(ClassLoader.java:Unknown line)
+	java.lang.ClassLoader.loadLibrary0(ClassLoader.java:1937)
+	java.lang.ClassLoader.loadLibrary(ClassLoader.java:1843)
+	java.lang.Runtime.loadLibrary0(Runtime.java:870)
+TRACE 300944:
+	javax.swing.JComboBox.<init>(JComboBox.java:224)
+	com.apple.laf.AquaFileChooserUI.installComponents(AquaFileChooserUI.java:1488)
+	com.apple.laf.AquaFileChooserUI.installUI(AquaFileChooserUI.java:144)
+	javax.swing.JComponent.setUI(JComponent.java:664)
+TRACE 301525:
+	java.lang.Thread.currentThread(Thread.java:Unknown line)
+	javax.swing.text.AbstractDocument.writeLock(AbstractDocument.java:1333)
+	javax.swing.text.AbstractDocument.insertString(AbstractDocument.java:701)
+	javax.swing.text.PlainDocument.insertString(PlainDocument.java:130)
+TRACE 301526:
+	sun.misc.Unsafe.park(Unsafe.java:Unknown line)
+	java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+	java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2039)
+	java.awt.EventQueue.getNextEvent(EventQueue.java:547)
+TRACE 301122:
+	javax.swing.UIDefaults.getBoolean(UIDefaults.java:571)
+	javax.swing.UIManager.getBoolean(UIManager.java:867)
+	javax.swing.plaf.basic.BasicMenuItemUI.installDefaults(BasicMenuItemUI.java:142)
+	javax.swing.plaf.basic.BasicMenuItemUI.installUI(BasicMenuItemUI.java:107)
+TRACE 301123:
+	com.apple.laf.AquaFileSystemModel$DoChangeContents.run(AquaFileSystemModel.java:456)
+	java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:311)
+	java.awt.EventQueue.dispatchEventImpl(EventQueue.java:749)
+	java.awt.EventQueue.access$500(EventQueue.java:97)
+TRACE 300486:
+	java.awt.color.ICC_Profile.getDeferredInstance(ICC_Profile.java:1074)
+	java.awt.color.ICC_Profile.getInstance(ICC_Profile.java:847)
+	java.awt.color.ColorSpace.getInstance(ColorSpace.java:298)
+	java.awt.image.DirectColorModel.<init>(DirectColorModel.java:182)
+TRACE 301530:
+	sun.lwawt.macosx.CFRetainedResource.nativeCFRelease(CFRetainedResource.java:Unknown line)
+	sun.lwawt.macosx.CFRetainedResource.dispose(CFRetainedResource.java:70)
+	sun.lwawt.macosx.CPlatformView.dispose(CPlatformView.java:138)
+	sun.lwawt.macosx.CPlatformWindow.dispose(CPlatformWindow.java:433)
+TRACE 301531:
+	org.rhwlab.acetree.AceTree.bringUpSeriesUI(AceTree.java:576)
+	org.rhwlab.acetree.AceMenuBar.actionPerformed(AceMenuBar.java:630)
+	javax.swing.AbstractButton.fireActionPerformed(AbstractButton.java:2022)
+	javax.swing.AbstractButton$Handler.actionPerformed(AbstractButton.java:2346)
+TRACE 301075:
+	com.apple.laf.AquaFileChooserUI.createListSelectionListener(AquaFileChooserUI.java:565)
+	com.apple.laf.AquaFileChooserUI.createList(AquaFileChooserUI.java:1730)
+	com.apple.laf.AquaFileChooserUI.installComponents(AquaFileChooserUI.java:1514)
+	com.apple.laf.AquaFileChooserUI.installUI(AquaFileChooserUI.java:144)
+TRACE 300748:
+	javax.swing.Box.createRigidArea(Box.java:142)
+	com.apple.laf.AquaFileChooserUI.installComponents(AquaFileChooserUI.java:1434)
+	com.apple.laf.AquaFileChooserUI.installUI(AquaFileChooserUI.java:144)
+	javax.swing.JComponent.setUI(JComponent.java:664)
+TRACE 300035:
+	java.lang.System.arraycopy(System.java:Unknown line)
+	java.io.BufferedInputStream.read1(BufferedInputStream.java:291)
+	java.io.BufferedInputStream.read(BufferedInputStream.java:345)
+	java.io.DataInputStream.readFully(DataInputStream.java:195)
+TRACE 301537:
+	java.io.FileInputStream.readBytes(FileInputStream.java:Unknown line)
+	java.io.FileInputStream.read(FileInputStream.java:246)
+	sun.nio.cs.StreamDecoder.readBytes(StreamDecoder.java:284)
+	sun.nio.cs.StreamDecoder.implRead(StreamDecoder.java:326)
+TRACE 300366:
+	sun.lwawt.macosx.LWCToolkit.loadNativeColors(LWCToolkit.java:Unknown line)
+	sun.lwawt.macosx.LWCToolkit.loadSystemColors(LWCToolkit.java:142)
+	java.awt.SystemColor.updateSystemColors(SystemColor.java:473)
+	java.awt.SystemColor.<clinit>(SystemColor.java:465)
+TRACE 301539:
+	org.rhwlab.snight.NucleiMgr.readNuclei(NucleiMgr.java:491)
+	org.rhwlab.snight.NucleiMgr.readNuclei(NucleiMgr.java:418)
+	org.rhwlab.snight.NucleiMgr.<init>(NucleiMgr.java:159)
+	org.rhwlab.acetree.AceTree.bringUpSeriesData(AceTree.java:664)
+TRACE 301540:
+	sun.misc.FloatingDecimal$ASCIIToBinaryBuffer.floatValue(FloatingDecimal.java:1405)
+	sun.misc.FloatingDecimal.parseFloat(FloatingDecimal.java:122)
+	java.lang.Float.parseFloat(Float.java:451)
+	org.rhwlab.snight.Nucleus.<init>(Nucleus.java:98)
+TRACE 301543:
+	org.rhwlab.snight.NucleiMgr.readNuclei(NucleiMgr.java:484)
+	org.rhwlab.snight.NucleiMgr.readNuclei(NucleiMgr.java:418)
+	org.rhwlab.snight.NucleiMgr.<init>(NucleiMgr.java:159)
+	org.rhwlab.acetree.AceTree.bringUpSeriesData(AceTree.java:664)
+TRACE 301544:
+	org.rhwlab.snight.NucleiMgr.readNuclei(NucleiMgr.java:488)
+	org.rhwlab.snight.NucleiMgr.readNuclei(NucleiMgr.java:418)
+	org.rhwlab.snight.NucleiMgr.<init>(NucleiMgr.java:159)
+	org.rhwlab.acetree.AceTree.bringUpSeriesData(AceTree.java:664)
+TRACE 301546:
+	java.util.zip.Inflater.getBytesWritten(Inflater.java:342)
+	java.util.zip.ZipFile$ZipFileInflaterInputStream.available(ZipFile.java:432)
+	sun.nio.cs.StreamDecoder.inReady(StreamDecoder.java:363)
+	sun.nio.cs.StreamDecoder.implRead(StreamDecoder.java:324)
+TRACE 301548:
+	org.rhwlab.snight.NucleiMgr.getTokens(NucleiMgr.java:1029)
+	org.rhwlab.snight.NucleiMgr.readNuclei(NucleiMgr.java:488)
+	org.rhwlab.snight.NucleiMgr.readNuclei(NucleiMgr.java:418)
+	org.rhwlab.snight.NucleiMgr.<init>(NucleiMgr.java:159)
+TRACE 301549:
+	java.util.Arrays.copyOfRange(Arrays.java:3664)
+	java.lang.String.<init>(String.java:201)
+	java.lang.String.substring(String.java:1956)
+	java.util.StringTokenizer.nextToken(StringTokenizer.java:352)
+TRACE 301550:
+	java.util.zip.ZipFile.read(ZipFile.java:Unknown line)
+	java.util.zip.ZipFile.access$1400(ZipFile.java:61)
+	java.util.zip.ZipFile$ZipFileInputStream.read(ZipFile.java:717)
+	java.util.zip.ZipFile$ZipFileInflaterInputStream.fill(ZipFile.java:420)
+TRACE 301551:
+	java.lang.String.substring(String.java:1956)
+	java.util.StringTokenizer.nextToken(StringTokenizer.java:352)
+	org.rhwlab.snight.NucleiMgr.getTokens(NucleiMgr.java:1029)
+	org.rhwlab.snight.NucleiMgr.readNuclei(NucleiMgr.java:488)
+TRACE 301552:
+	java.lang.StringBuffer.toString(StringBuffer.java:671)
+	java.io.BufferedReader.readLine(BufferedReader.java:359)
+	java.io.BufferedReader.readLine(BufferedReader.java:389)
+	org.rhwlab.snight.ZipNuclei.readLine(ZipNuclei.java:95)
+TRACE 301553:
+	org.rhwlab.snight.NucleiMgr.readNuclei(NucleiMgr.java:497)
+	org.rhwlab.snight.NucleiMgr.readNuclei(NucleiMgr.java:418)
+	org.rhwlab.snight.NucleiMgr.<init>(NucleiMgr.java:159)
+	org.rhwlab.acetree.AceTree.bringUpSeriesData(AceTree.java:664)
+TRACE 301554:
+	org.rhwlab.snight.NucleiMgr.getTokens(NucleiMgr.java:1029)
+	org.rhwlab.snight.NucleiMgr.readNuclei(NucleiMgr.java:488)
+	org.rhwlab.snight.NucleiMgr.readNuclei(NucleiMgr.java:418)
+	org.rhwlab.snight.NucleiMgr.<init>(NucleiMgr.java:159)
+TRACE 301555:
+	org.rhwlab.snight.NucleiMgr.getTokens(NucleiMgr.java:1022)
+	org.rhwlab.snight.NucleiMgr.readNuclei(NucleiMgr.java:488)
+	org.rhwlab.snight.NucleiMgr.readNuclei(NucleiMgr.java:418)
+	org.rhwlab.snight.NucleiMgr.<init>(NucleiMgr.java:159)
+TRACE 301556:
+	java.util.concurrent.TimeUnit$1.convert(TimeUnit.java:83)
+	javax.swing.TimerQueue$DelayedTimer.getDelay(TimerQueue.java:268)
+	java.util.concurrent.DelayQueue.take(DelayQueue.java:213)
+	javax.swing.TimerQueue.run(TimerQueue.java:171)
+TRACE 301557:
+	java.util.Vector.setSize(Vector.java:292)
+	org.rhwlab.snight.NucleiMgr.readNuclei(NucleiMgr.java:531)
+	org.rhwlab.snight.NucleiMgr.readNuclei(NucleiMgr.java:418)
+	org.rhwlab.snight.NucleiMgr.<init>(NucleiMgr.java:159)
+TRACE 301558:
+	ij.io.Opener.<clinit>(Opener.java:51)
+	org.rhwlab.image.ImageWindow.doMakeImageFromTif(ImageWindow.java:395)
+	org.rhwlab.image.ImageWindow.makeImage(ImageWindow.java:263)
+	org.rhwlab.snight.NucleiMgr.findImageParameters(NucleiMgr.java:293)
+TRACE 301559:
+	sun.misc.URLClassPath.getResource(URLClassPath.java:198)
+	java.net.URLClassLoader$1.run(URLClassLoader.java:364)
+	java.net.URLClassLoader$1.run(URLClassLoader.java:361)
+	java.security.AccessController.doPrivileged(AccessController.java:Unknown line)
+TRACE 301560:
+	java.io.RandomAccessFile.read0(RandomAccessFile.java:Unknown line)
+	java.io.RandomAccessFile.read(RandomAccessFile.java:320)
+	ij.io.RandomAccessStream.read(RandomAccessStream.java:56)
+	ij.io.TiffDecoder.getInt(TiffDecoder.java:90)
+TRACE 301562:
+	java.lang.String.regionMatches(String.java:1334)
+	java.net.URL.<init>(URL.java:533)
+	java.net.URL.<init>(URL.java:483)
+	sun.misc.URLClassPath$JarLoader.checkResource(URLClassPath.java:758)
+TRACE 301563:
+	ij.ImagePlus.getProcessor(ImagePlus.java:711)
+	ij.ImagePlus.createLut(ImagePlus.java:1078)
+	ij.ImagePlus.getFileInfo(ImagePlus.java:1686)
+	org.rhwlab.image.ImageWindow.convertToRGB(ImageWindow.java:556)
+TRACE 301564:
+	ij.process.ColorProcessor.getRGB(ColorProcessor.java:474)
+	org.rhwlab.image.ImageWindow.convertToRGB(ImageWindow.java:568)
+	org.rhwlab.image.ImageWindow.doMakeImageFromTif(ImageWindow.java:401)
+	org.rhwlab.image.ImageWindow.makeImage(ImageWindow.java:263)
+TRACE 301565:
+	org.rhwlab.snight.NucleiMgr.computeRWeights(NucleiMgr.java:242)
+	org.rhwlab.snight.NucleiMgr.<init>(NucleiMgr.java:165)
+	org.rhwlab.acetree.AceTree.bringUpSeriesData(AceTree.java:664)
+	org.rhwlab.acetree.AceTree.bringUpSeriesUI(AceTree.java:588)
+TRACE 301566:
+	org.rhwlab.acetree.AceTree.bringUpSeriesData(AceTree.java:665)
+	org.rhwlab.acetree.AceTree.bringUpSeriesUI(AceTree.java:588)
+	org.rhwlab.acetree.AceMenuBar.actionPerformed(AceMenuBar.java:630)
+	javax.swing.AbstractButton.fireActionPerformed(AbstractButton.java:2022)
+TRACE 301568:
+	sun.nio.cs.StreamEncoder.write(StreamEncoder.java:119)
+	java.io.OutputStreamWriter.write(OutputStreamWriter.java:207)
+	java.io.BufferedWriter.flushBuffer(BufferedWriter.java:129)
+	java.io.PrintStream.write(PrintStream.java:526)
+TRACE 301569:
+	org.rhwlab.snight.Identity3.identityAssignment(Identity3.java:124)
+	org.rhwlab.snight.NucleiMgr.processNuclei(NucleiMgr.java:960)
+	org.rhwlab.acetree.AceTree.bringUpSeriesData(AceTree.java:668)
+	org.rhwlab.acetree.AceTree.bringUpSeriesUI(AceTree.java:588)
+TRACE 301570:
+	org.rhwlab.snight.Identity3.identityAssignment(Identity3.java:124)
+	org.rhwlab.snight.NucleiMgr.processNuclei(NucleiMgr.java:960)
+	org.rhwlab.acetree.AceTree.bringUpSeriesData(AceTree.java:668)
+	org.rhwlab.acetree.AceTree.bringUpSeriesUI(AceTree.java:588)
+TRACE 301571:
+	org.rhwlab.snight.Identity3.identityAssignment(Identity3.java:102)
+	org.rhwlab.snight.NucleiMgr.processNuclei(NucleiMgr.java:960)
+	org.rhwlab.acetree.AceTree.bringUpSeriesData(AceTree.java:668)
+	org.rhwlab.acetree.AceTree.bringUpSeriesUI(AceTree.java:588)
+TRACE 301572:
+	java.util.Hashtable.get(Hashtable.java:363)
+	org.rhwlab.tree.AncesTree.processEntry(AncesTree.java:487)
+	org.rhwlab.tree.AncesTree.processEntries(AncesTree.java:339)
+	org.rhwlab.tree.AncesTree.<init>(AncesTree.java:127)
+TRACE 301573:
+	org.rhwlab.tree.AncesTree.countAliveCellsAtIndex(AncesTree.java:363)
+	org.rhwlab.tree.AncesTree.processEntries(AncesTree.java:342)
+	org.rhwlab.tree.AncesTree.<init>(AncesTree.java:127)
+	org.rhwlab.snight.NucleiMgr.processNuclei(NucleiMgr.java:967)
+TRACE 301574:
+	org.rhwlab.tree.AncesTree.processEntry(AncesTree.java:522)
+	org.rhwlab.tree.AncesTree.processEntries(AncesTree.java:339)
+	org.rhwlab.tree.AncesTree.<init>(AncesTree.java:127)
+	org.rhwlab.snight.NucleiMgr.processNuclei(NucleiMgr.java:967)
+TRACE 301576:
+	org.rhwlab.tree.AncesTree.processEntry(AncesTree.java:444)
+	org.rhwlab.tree.AncesTree.processEntries(AncesTree.java:339)
+	org.rhwlab.tree.AncesTree.<init>(AncesTree.java:127)
+	org.rhwlab.snight.NucleiMgr.processNuclei(NucleiMgr.java:967)
+TRACE 301577:
+	org.rhwlab.tree.AncesTree.processEntry(AncesTree.java:425)
+	org.rhwlab.tree.AncesTree.processEntries(AncesTree.java:339)
+	org.rhwlab.tree.AncesTree.<init>(AncesTree.java:127)
+	org.rhwlab.snight.NucleiMgr.processNuclei(NucleiMgr.java:967)
+TRACE 301578:
+	org.rhwlab.tree.AncesTree.countAliveCellsAtIndex(AncesTree.java:362)
+	org.rhwlab.tree.AncesTree.processEntries(AncesTree.java:342)
+	org.rhwlab.tree.AncesTree.<init>(AncesTree.java:127)
+	org.rhwlab.snight.NucleiMgr.processNuclei(NucleiMgr.java:967)
+TRACE 301579:
+	java.lang.Character.isDigit(Character.java:5669)
+	java.lang.Character.isDigit(Character.java:5635)
+	org.rhwlab.tree.AncesTree.numberEnd(AncesTree.java:317)
+	org.rhwlab.tree.AncesTree.compare(AncesTree.java:302)
+TRACE 301584:
+	org.rhwlab.tree.AncesTree.compare(AncesTree.java:300)
+	java.util.TimSort.countRunAndMakeAscending(TimSort.java:356)
+	java.util.TimSort.sort(TimSort.java:230)
+	java.util.Arrays.sort(Arrays.java:1512)
+TRACE 301585:
+	java.lang.String.indexOf(String.java:1705)
+	java.lang.String.indexOf(String.java:1685)
+	org.rhwlab.tree.AncesTree.compare(AncesTree.java:299)
+	java.util.TimSort.countRunAndMakeAscending(TimSort.java:356)
+TRACE 301587:
+	java.lang.String.substring(String.java:1956)
+	org.rhwlab.tree.AncesTree.compare(AncesTree.java:306)
+	java.util.TimSort.countRunAndMakeAscending(TimSort.java:356)
+	java.util.TimSort.sort(TimSort.java:230)
+TRACE 301588:
+	java.util.concurrent.locks.AbstractQueuedSynchronizer.transferAfterCancelledWait(AbstractQueuedSynchronizer.java:1700)
+	java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2074)
+	java.util.concurrent.DelayQueue.take(DelayQueue.java:223)
+	javax.swing.TimerQueue.run(TimerQueue.java:171)
+TRACE 301589:
+	java.util.Arrays.copyOfRange(Arrays.java:3664)
+	java.lang.String.<init>(String.java:201)
+	java.lang.String.substring(String.java:1920)
+	org.rhwlab.tree.AncesTree.compare(AncesTree.java:301)
+TRACE 301590:
+	java.lang.String.substring(String.java:1920)
+	org.rhwlab.tree.AncesTree.compare(AncesTree.java:300)
+	java.util.TimSort.countRunAndMakeAscending(TimSort.java:356)
+	java.util.TimSort.sort(TimSort.java:230)
+TRACE 301591:
+	java.lang.reflect.Array.newArray(Array.java:Unknown line)
+	java.lang.reflect.Array.newInstance(Array.java:75)
+	java.util.TimSort.<init>(TimSort.java:157)
+	java.util.TimSort.sort(TimSort.java:226)
+TRACE 301594:
+	java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2074)
+	java.util.concurrent.DelayQueue.take(DelayQueue.java:223)
+	javax.swing.TimerQueue.run(TimerQueue.java:171)
+	java.lang.Thread.run(Thread.java:745)
+TRACE 301595:
+	org.rhwlab.tree.AncesTree.extractRootCells(AncesTree.java:282)
+	org.rhwlab.tree.AncesTree.<init>(AncesTree.java:131)
+	org.rhwlab.snight.NucleiMgr.processNuclei(NucleiMgr.java:967)
+	org.rhwlab.acetree.AceTree.bringUpSeriesData(AceTree.java:668)
+TRACE 301596:
+	java.lang.System.nanoTime(System.java:Unknown line)
+	java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2081)
+	java.util.concurrent.DelayQueue.take(DelayQueue.java:223)
+	javax.swing.TimerQueue.run(TimerQueue.java:171)
+TRACE 301597:
+	java.lang.Thread.currentThread(Thread.java:Unknown line)
+	java.util.concurrent.DelayQueue.take(DelayQueue.java:220)
+	javax.swing.TimerQueue.run(TimerQueue.java:171)
+	java.lang.Thread.run(Thread.java:745)
+TRACE 301599:
+	java.util.concurrent.TimeUnit.x(TimeUnit.java:193)
+	java.util.concurrent.TimeUnit$3.toNanos(TimeUnit.java:106)
+	javax.swing.TimerQueue.run(TimerQueue.java:185)
+	java.lang.Thread.run(Thread.java:745)
+TRACE 301600:
+	java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.doSignal(AbstractQueuedSynchronizer.java:1874)
+	java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.signal(AbstractQueuedSynchronizer.java:1942)
+	java.util.concurrent.DelayQueue.offer(DelayQueue.java:143)
+	java.util.concurrent.DelayQueue.add(DelayQueue.java:126)
+TRACE 301602:
+	java.util.concurrent.TimeUnit$3.toNanos(TimeUnit.java:106)
+	javax.swing.TimerQueue.run(TimerQueue.java:185)
+	java.lang.Thread.run(Thread.java:745)
+TRACE 301603:
+	java.util.concurrent.DelayQueue.take(DelayQueue.java:213)
+	javax.swing.TimerQueue.run(TimerQueue.java:171)
+	java.lang.Thread.run(Thread.java:745)
+TRACE 301604:
+	java.util.concurrent.DelayQueue.take(DelayQueue.java:234)
+	javax.swing.TimerQueue.run(TimerQueue.java:171)
+	java.lang.Thread.run(Thread.java:745)
+TRACE 301605:
+	javax.swing.TimerQueue.run(TimerQueue.java:192)
+	java.lang.Thread.run(Thread.java:745)
+TRACE 301606:
+	javax.swing.TimerQueue.run(TimerQueue.java:182)
+	java.lang.Thread.run(Thread.java:745)
+TRACE 301607:
+	java.util.PriorityQueue.poll(PriorityQueue.java:587)
+	java.util.concurrent.DelayQueue.take(DelayQueue.java:215)
+	javax.swing.TimerQueue.run(TimerQueue.java:171)
+	java.lang.Thread.run(Thread.java:745)
+TRACE 301609:
+	sun.misc.Unsafe.park(Unsafe.java:Unknown line)
+	java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:215)
+	java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2078)
+	java.util.concurrent.DelayQueue.take(DelayQueue.java:223)
+TRACE 301610:
+	java.util.PriorityQueue.offer(PriorityQueue.java:336)
+	java.util.concurrent.DelayQueue.offer(DelayQueue.java:140)
+	java.util.concurrent.DelayQueue.add(DelayQueue.java:126)
+	javax.swing.TimerQueue.addTimer(TimerQueue.java:138)
+TRACE 301612:
+	java.util.PriorityQueue.poll(PriorityQueue.java:587)
+	java.util.concurrent.DelayQueue.take(DelayQueue.java:215)
+	javax.swing.TimerQueue.run(TimerQueue.java:171)
+	java.lang.Thread.run(Thread.java:745)
+TRACE 301613:
+	javax.swing.TimerQueue.run(TimerQueue.java:185)
+	java.lang.Thread.run(Thread.java:745)
+TRACE 301614:
+	java.util.PriorityQueue.poll(PriorityQueue.java:592)
+	java.util.concurrent.DelayQueue.take(DelayQueue.java:215)
+	javax.swing.TimerQueue.run(TimerQueue.java:171)
+	java.lang.Thread.run(Thread.java:745)
+TRACE 301615:
+	java.io.OutputStreamWriter.write(OutputStreamWriter.java:207)
+	java.io.BufferedWriter.flushBuffer(BufferedWriter.java:129)
+	java.io.PrintStream.newLine(PrintStream.java:545)
+	java.io.PrintStream.println(PrintStream.java:807)
+TRACE 301616:
+	org.rhwlab.snight.NucleiMgr.getEditLog(NucleiMgr.java:592)
+	org.rhwlab.acetree.AceTree.bringUpSeriesUI(AceTree.java:596)
+	org.rhwlab.acetree.AceMenuBar.actionPerformed(AceMenuBar.java:630)
+	javax.swing.AbstractButton.fireActionPerformed(AbstractButton.java:2022)
+TRACE 301617:
+	java.nio.charset.CharsetEncoder.encode(CharsetEncoder.java:569)
+	sun.nio.cs.StreamEncoder.implWrite(StreamEncoder.java:271)
+	sun.nio.cs.StreamEncoder.write(StreamEncoder.java:125)
+	java.io.OutputStreamWriter.write(OutputStreamWriter.java:207)
+TRACE 301618:
+	org.rhwlab.acetree.AceTree.updateRoot(AceTree.java:1015)
+	org.rhwlab.acetree.AceTree.buildTree(AceTree.java:882)
+	org.rhwlab.acetree.AceTree.bringUpSeriesUI(AceTree.java:608)
+	org.rhwlab.acetree.AceMenuBar.actionPerformed(AceMenuBar.java:630)
+TRACE 301619:
+	javax.swing.tree.DefaultTreeCellRenderer.getTreeCellRendererComponent(DefaultTreeCellRenderer.java:432)
+	javax.swing.plaf.basic.BasicTreeUI$NodeDimensionsHandler.getNodeDimensions(BasicTreeUI.java:2807)
+	javax.swing.tree.AbstractLayoutCache.getNodeDimensions(AbstractLayoutCache.java:492)
+	javax.swing.tree.VariableHeightLayoutCache$TreeStateNode.updatePreferredSize(VariableHeightLayoutCache.java:1360)
+TRACE 301620:
+	sun.font.FontDesignMetrics.stringWidth(FontDesignMetrics.java:473)
+	sun.swing.SwingUtilities2.stringWidth(SwingUtilities2.java:402)
+	javax.swing.SwingUtilities.layoutCompoundLabelImpl(SwingUtilities.java:1005)
+	javax.swing.SwingUtilities.layoutCompoundLabel(SwingUtilities.java:890)
+TRACE 301621:
+	sun.font.FontDesignMetrics$MetricsKey.equals(FontDesignMetrics.java:225)
+	java.util.concurrent.ConcurrentHashMap.get(ConcurrentHashMap.java:940)
+	sun.font.FontDesignMetrics.getMetrics(FontDesignMetrics.java:287)
+	sun.swing.SwingUtilities2.getFontMetrics(SwingUtilities2.java:1113)
+TRACE 301622:
+	javax.swing.tree.DefaultTreeSelectionModel.isRowSelected(DefaultTreeSelectionModel.java:753)
+	javax.swing.JTree.isRowSelected(JTree.java:1930)
+	javax.swing.plaf.basic.BasicTreeUI$NodeDimensionsHandler.getNodeDimensions(BasicTreeUI.java:2807)
+	javax.swing.tree.AbstractLayoutCache.getNodeDimensions(AbstractLayoutCache.java:492)
+TRACE 301623:
+	java.lang.System.identityHashCode(System.java:Unknown line)
+	sun.awt.SunHints$Value.hashCode(SunHints.java:163)
+	java.awt.font.FontRenderContext.hashCode(FontRenderContext.java:352)
+	sun.font.FontDesignMetrics$MetricsKey.init(FontDesignMetrics.java:217)
+TRACE 300145:
+	com.apple.eawt._AppEventHandler.<init>(_AppEventHandler.java:80)
+	com.apple.eawt._AppEventHandler.<clinit>(_AppEventHandler.java:65)
+TRACE 301625:
+	javax.swing.tree.VariableHeightLayoutCache$TreeStateNode.expand(VariableHeightLayoutCache.java:1525)
+	javax.swing.tree.VariableHeightLayoutCache$TreeStateNode.expand(VariableHeightLayoutCache.java:1288)
+	javax.swing.tree.VariableHeightLayoutCache.rebuild(VariableHeightLayoutCache.java:743)
+	javax.swing.tree.VariableHeightLayoutCache.setModel(VariableHeightLayoutCache.java:109)
+TRACE 301399:
+	java.lang.ClassLoader$NativeLibrary.find(ClassLoader.java:Unknown line)
+	java.lang.ClassLoader.findNative(ClassLoader.java:1959)
+	sun.dc.pr.PathFiller.getCPathConsumer(PathFiller.java:Unknown line)
+	sun.dc.pr.PathStroker.cInitialize(PathStroker.java:Unknown line)
+TRACE 301185:
+	javax.swing.text.DefaultStyledDocument.setLogicalStyle(DefaultStyledDocument.java:444)
+	javax.swing.text.DefaultStyledDocument.<init>(DefaultStyledDocument.java:86)
+	javax.swing.text.DefaultStyledDocument.<init>(DefaultStyledDocument.java:106)
+	javax.swing.text.StyledEditorKit.createDefaultDocument(StyledEditorKit.java:103)
+TRACE 301629:
+	javax.swing.tree.VariableHeightLayoutCache.getNode(VariableHeightLayoutCache.java:994)
+	javax.swing.tree.VariableHeightLayoutCache.getMaxNodeWidth(VariableHeightLayoutCache.java:1007)
+	javax.swing.tree.VariableHeightLayoutCache.getPreferredWidth(VariableHeightLayoutCache.java:309)
+	javax.swing.plaf.basic.BasicTreeUI.updateCachedPreferredSize(BasicTreeUI.java:1900)
+TRACE 301630:
+	java.io.FileInputStream.readBytes(FileInputStream.java:Unknown line)
+	java.io.FileInputStream.read(FileInputStream.java:246)
+	ij.io.ImageReader.read8bitImage(ImageReader.java:56)
+	ij.io.ImageReader.readPixels(ImageReader.java:768)
+TRACE 301631:
+	ij.process.ColorProcessor.setRGB(ColorProcessor.java:522)
+	org.rhwlab.image.ImageWindow.buildImagePlus(ImageWindow.java:662)
+	org.rhwlab.image.ImageWindow.convertToRGB(ImageWindow.java:576)
+	org.rhwlab.image.ImageWindow.doMakeImageFromTif(ImageWindow.java:401)
+TRACE 301632:
+	org.rhwlab.image.ImageWindow.<init>(ImageWindow.java:181)
+	org.rhwlab.acetree.AceTree.handleImage(AceTree.java:1886)
+	org.rhwlab.acetree.AceTree.updateDisplay(AceTree.java:1843)
+	org.rhwlab.acetree.AceTree.handleCellSelectionChange(AceTree.java:1815)
+TRACE 301633:
+	net.sf.ij.jaiio.BufferedImageCreator.create(BufferedImageCreator.java:291)
+	org.rhwlab.image.ImageWindow.<init>(ImageWindow.java:198)
+	org.rhwlab.acetree.AceTree.handleImage(AceTree.java:1886)
+	org.rhwlab.acetree.AceTree.updateDisplay(AceTree.java:1843)
+TRACE 300054:
+	java.util.jar.JarVerifier.<init>(JarVerifier.java:549)
+	java.util.jar.JarFile.getManifestFromReference(JarFile.java:196)
+	java.util.jar.JarFile.getManifest(JarFile.java:180)
+	sun.launcher.LauncherHelper.getMainClassFromJar(LauncherHelper.java:402)
+TRACE 301635:
+	sun.lwawt.macosx.CWrapper$NSWindow.makeKeyWindow(CWrapper.java:Unknown line)
+	sun.lwawt.macosx.CPlatformWindow.setVisible(CPlatformWindow.java:568)
+	sun.lwawt.LWWindowPeer.setVisibleImpl(LWWindowPeer.java:248)
+	sun.lwawt.LWComponentPeer.setVisible(LWComponentPeer.java:765)
+TRACE 301636:
+	sun.lwawt.macosx.CDropTarget.createNativeDropTarget(CDropTarget.java:Unknown line)
+	sun.lwawt.macosx.CDropTarget.<init>(CDropTarget.java:58)
+	sun.lwawt.macosx.CDropTarget.createDropTarget(CDropTarget.java:44)
+	sun.lwawt.LWComponentPeer.addDropTarget(LWComponentPeer.java:1072)
+TRACE 300912:
+	java.lang.ClassLoader$NativeLibrary.find(ClassLoader.java:Unknown line)
+	java.lang.ClassLoader.findNative(ClassLoader.java:1959)
+	sun.nio.ch.FileDispatcherImpl.init(FileDispatcherImpl.java:Unknown line)
+	sun.nio.ch.FileDispatcherImpl.<clinit>(FileDispatcherImpl.java:35)
+TRACE 301404:
+	java.lang.ClassLoader$NativeLibrary.find(ClassLoader.java:Unknown line)
+	java.lang.ClassLoader.findNative(ClassLoader.java:1959)
+	sun.dc.pr.PathStroker.setPenDiameter(PathStroker.java:Unknown line)
+	sun.dc.pr.Rasterizer.setUsage(Rasterizer.java:176)
+TRACE 301405:
+	java.lang.ClassLoader$NativeLibrary.find(ClassLoader.java:Unknown line)
+	java.lang.ClassLoader.findNative(ClassLoader.java:1959)
+	sun.dc.pr.PathFiller.getAlphaBox(PathFiller.java:Unknown line)
+	sun.dc.pr.Rasterizer.getAlphaBox(Rasterizer.java:610)
+TRACE 301406:
+	java.awt.image.SinglePixelPackedSampleModel.<init>(SinglePixelPackedSampleModel.java:155)
+	java.awt.image.Raster.createPackedRaster(Raster.java:773)
+	java.awt.image.Raster.createPackedRaster(Raster.java:475)
+	java.awt.image.DirectColorModel.createCompatibleWritableRaster(DirectColorModel.java:1032)
+TRACE 301642:
+	net.sf.ij.jaiio.BufferedImageCreator.create(BufferedImageCreator.java:294)
+	org.rhwlab.image.ImageWindow.refreshDisplay(ImageWindow.java:1071)
+	org.rhwlab.acetree.AceTree.setStartingCell(AceTree.java:1074)
+	org.rhwlab.acetree.AceTree.buildTree(AceTree.java:900)
+TRACE 301643:
+	com.apple.laf.AquaButtonUI.layoutAndGetText(AquaButtonUI.java:323)
+	com.apple.laf.AquaButtonUI.paint(AquaButtonUI.java:300)
+	javax.swing.plaf.ComponentUI.update(ComponentUI.java:161)
+	javax.swing.JComponent.paintComponent(JComponent.java:778)
+TRACE 300814:
+	com.apple.laf.AquaTextFieldUI.createCaret(AquaTextFieldUI.java:163)
+	javax.swing.plaf.basic.BasicTextUI.installDefaults2(BasicTextUI.java:361)
+	javax.swing.plaf.basic.BasicTextUI.installUI(BasicTextUI.java:788)
+	javax.swing.JComponent.setUI(JComponent.java:664)
+TRACE 301251:
+	sun.lwawt.macosx.CPlatformComponent.nativeCreateComponent(CPlatformComponent.java:Unknown line)
+	sun.lwawt.macosx.CPlatformComponent.initialize(CPlatformComponent.java:54)
+	sun.lwawt.LWComponentPeer.initialize(LWComponentPeer.java:312)
+	sun.lwawt.LWToolkit.createDelegatedPeer(LWToolkit.java:212)
+TRACE 301646:
+	java.lang.ClassLoader$NativeLibrary.find(ClassLoader.java:Unknown line)
+	java.lang.ClassLoader.findNative(ClassLoader.java:1959)
+	sun.java2d.pipe.ShapeSpanIterator.initIDs(ShapeSpanIterator.java:Unknown line)
+	sun.java2d.pipe.ShapeSpanIterator.<clinit>(ShapeSpanIterator.java:71)
+TRACE 300563:
+	sun.awt.CGraphicsDevice.nativeGetScreenInsets(CGraphicsDevice.java:Unknown line)
+	sun.awt.CGraphicsDevice.displayChanged(CGraphicsDevice.java:138)
+	sun.java2d.SunGraphicsEnvironment.displayChanged(SunGraphicsEnvironment.java:280)
+	sun.awt.CGraphicsEnvironment.initDevices(CGraphicsEnvironment.java:171)
+TRACE 301648:
+	apple.laf.JRSUIControl.paintImage(JRSUIControl.java:Unknown line)
+	apple.laf.JRSUIControl.paintImage(JRSUIControl.java:215)
+	apple.laf.JRSUIControl.paint(JRSUIControl.java:208)
+	com.apple.laf.AquaPainter$AquaSingleImagePainter.createImage(AquaPainter.java:204)
+TRACE 301136:
+	java.util.Currency.getInstance(Currency.java:378)
+	java.text.DecimalFormatSymbols.initialize(DecimalFormatSymbols.java:638)
+	java.text.DecimalFormatSymbols.<init>(DecimalFormatSymbols.java:113)
+	sun.util.locale.provider.DecimalFormatSymbolsProviderImpl.getInstance(DecimalFormatSymbolsProviderImpl.java:85)
+TRACE 300696:
+	javax.swing.plaf.basic.BasicMenuItemUI.installDefaults(BasicMenuItemUI.java:189)
+	javax.swing.plaf.basic.BasicMenuUI.installDefaults(BasicMenuUI.java:77)
+	com.apple.laf.AquaMenuUI.installDefaults(AquaMenuUI.java:46)
+	javax.swing.plaf.basic.BasicMenuItemUI.installUI(BasicMenuItemUI.java:107)
+TRACE 300351:
+	sun.misc.Unsafe.defineAnonymousClass(Unsafe.java:Unknown line)
+	java.lang.invoke.InnerClassLambdaMetafactory.spinInnerClass(InnerClassLambdaMetafactory.java:324)
+	java.lang.invoke.InnerClassLambdaMetafactory.buildCallSite(InnerClassLambdaMetafactory.java:194)
+	java.lang.invoke.LambdaMetafactory.metafactory(LambdaMetafactory.java:304)
+TRACE 300881:
+	sun.font.StrikeCache.<clinit>(StrikeCache.java:146)
+	sun.font.PhysicalStrike.<clinit>(PhysicalStrike.java:41)
+	sun.font.SunFontManager.initIDs(SunFontManager.java:Unknown line)
+	sun.font.SunFontManager.access$200(SunFontManager.java:65)
+TRACE 301654:
+	java.awt.image.ComponentColorModel.getRGB(ComponentColorModel.java:1130)
+	sun.java2d.loops.OpaqueCopyAnyToArgb.Blit(CustomComponent.java:145)
+	sun.java2d.loops.GraphicsPrimitive.convertFrom(GraphicsPrimitive.java:560)
+	sun.java2d.loops.GraphicsPrimitive.convertFrom(GraphicsPrimitive.java:541)
+TRACE 301655:
+	javax.swing.RepaintManager$4.<init>(RepaintManager.java:807)
+	javax.swing.RepaintManager.paintDirtyRegions(RepaintManager.java:807)
+	javax.swing.RepaintManager.paintDirtyRegions(RepaintManager.java:782)
+	javax.swing.RepaintManager.prePaintDirtyRegions(RepaintManager.java:731)
+TRACE 301656:
+	sun.java2d.pipe.DrawImage.tryCopyOrScale(DrawImage.java:294)
+	sun.java2d.pipe.DrawImage.transformImage(DrawImage.java:258)
+	sun.java2d.pipe.DrawImage.scaleImage(DrawImage.java:778)
+	sun.java2d.pipe.DrawImage.scaleImage(DrawImage.java:1076)
+TRACE 301657:
+	javax.swing.JComponent.rectangleIsObscured(JComponent.java:4400)
+	javax.swing.JComponent.paint(JComponent.java:1052)
+	javax.swing.JComponent.paintToOffscreen(JComponent.java:5222)
+	javax.swing.RepaintManager$PaintManager.paintDoubleBuffered(RepaintManager.java:1572)
+TRACE 301658:
+	java.lang.Thread.currentThread(Thread.java:Unknown line)
+	java.util.concurrent.locks.ReentrantReadWriteLock$Sync.isHeldExclusively(ReentrantReadWriteLock.java:608)
+	java.util.concurrent.locks.ReentrantReadWriteLock$Sync.tryRelease(ReentrantReadWriteLock.java:370)
+	java.util.concurrent.locks.AbstractQueuedSynchronizer.release(AbstractQueuedSynchronizer.java:1261)
+TRACE 301329:
+	java.lang.Object.hashCode(Object.java:Unknown line)
+	java.util.Hashtable.put(Hashtable.java:464)
+	sun.java2d.Disposer.add(Disposer.java:142)
+	sun.java2d.Disposer.addRecord(Disposer.java:110)
+TRACE 301416:
+	java.lang.Math.max(Math.java:1266)
+	java.awt.EventQueue.setCurrentEventAndMostRecentTimeImpl(EventQueue.java:1234)
+	java.awt.EventQueue.dispatchEventImpl(EventQueue.java:748)
+	java.awt.EventQueue.access$500(EventQueue.java:97)
+TRACE 301417:
+	java.lang.Thread.currentThread(Thread.java:Unknown line)
+	java.util.concurrent.locks.ReentrantLock$Sync.nonfairTryAcquire(ReentrantLock.java:130)
+	java.util.concurrent.locks.ReentrantLock.tryLock(ReentrantLock.java:365)
+	sun.awt.SunToolkit.awtTryLock(SunToolkit.java:257)
+TRACE 301418:
+	java.util.concurrent.locks.ReentrantLock$Sync.nonfairTryAcquire(ReentrantLock.java:131)
+	java.util.concurrent.locks.ReentrantLock.tryLock(ReentrantLock.java:365)
+	sun.awt.SunToolkit.awtTryLock(SunToolkit.java:257)
+	sun.java2d.pipe.RenderQueue.tryLock(RenderQueue.java:121)
+TRACE 300089:
+	java.lang.Object.hashCode(Object.java:Unknown line)
+	java.util.WeakHashMap.hash(WeakHashMap.java:298)
+	java.util.WeakHashMap.put(WeakHashMap.java:449)
+	java.util.zip.ZipFile.getInputStream(ZipFile.java:378)
+TRACE 301420:
+	java.lang.Double.doubleToRawLongBits(Double.java:Unknown line)
+	java.lang.Double.doubleToLongBits(Double.java:836)
+	java.awt.geom.Rectangle2D.hashCode(Rectangle2D.java:898)
+	com.apple.laf.AquaPainter$AquaPixelsKey.hash(AquaPainter.java:245)
+TRACE 301666:
+	sun.java2d.SunGraphics2D.getFontRenderContext(SunGraphics2D.java:3527)
+	sun.java2d.SunGraphics2D.getFontMetrics(SunGraphics2D.java:855)
+	com.apple.laf.AquaButtonUI.layoutAndGetText(AquaButtonUI.java:334)
+	com.apple.laf.AquaButtonUI.paint(AquaButtonUI.java:300)
+TRACE 300280:
+	java.awt.KeyboardFocusManager.initIDs(KeyboardFocusManager.java:Unknown line)
+	java.awt.KeyboardFocusManager.<clinit>(KeyboardFocusManager.java:118)
+	com.apple.laf.AquaLookAndFeel.initialize(AquaLookAndFeel.java:155)
+	javax.swing.UIManager.setLookAndFeel(UIManager.java:538)
+TRACE 301669:
+	java.awt.EventQueue.invokeLater(EventQueue.java:1257)
+	javax.swing.SwingUtilities.invokeLater(SwingUtilities.java:1290)
+	javax.swing.Timer$1.run(Timer.java:614)
+	javax.swing.Timer$1.run(Timer.java:612)
+TRACE 301670:
+	java.lang.Object.notifyAll(Object.java:Unknown line)
+	sun.awt.PostEventQueue.flush(SunToolkit.java:2140)
+	sun.awt.SunToolkit.flushPendingEvents(SunToolkit.java:542)
+	java.awt.EventQueue.getNextEvent(EventQueue.java:539)
+TRACE 301671:
+	javax.swing.JComponent._paintImmediately(JComponent.java:5061)
+	javax.swing.JComponent.paintImmediately(JComponent.java:4981)
+	javax.swing.RepaintManager$4.run(RepaintManager.java:824)
+	javax.swing.RepaintManager$4.run(RepaintManager.java:807)
+TRACE 301672:
+	javax.swing.Timer.fireActionPerformed(Timer.java:312)
+	javax.swing.Timer$DoPostEvent.run(Timer.java:245)
+	java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:311)
+	java.awt.EventQueue.dispatchEventImpl(EventQueue.java:749)
+TRACE 301673:
+	java.lang.System.identityHashCode(System.java:Unknown line)
+	java.util.IdentityHashMap.hash(IdentityHashMap.java:306)
+	java.util.IdentityHashMap.get(IdentityHashMap.java:340)
+	javax.swing.RepaintManager.extendDirtyRegion(RepaintManager.java:602)
+TRACE 300452:
+	sun.awt.CGraphicsEnvironment.initDevices(CGraphicsEnvironment.java:163)
+	sun.awt.CGraphicsEnvironment.<init>(CGraphicsEnvironment.java:112)
+	sun.reflect.NativeConstructorAccessorImpl.newInstance0(NativeConstructorAccessorImpl.java:Unknown line)
+	sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+TRACE 300281:
+	java.lang.invoke.MemberName$Factory.getMethods(MemberName.java:1028)
+	java.lang.invoke.LambdaForm.computeInitialPreparedForms(LambdaForm.java:475)
+	java.lang.invoke.LambdaForm.<clinit>(LambdaForm.java:1641)
+	java.lang.invoke.DirectMethodHandle.makePreparedLambdaForm(DirectMethodHandle.java:256)
+TRACE 301263:
+	sun.java2d.opengl.OGLSurfaceData.initSurfaceNow(OGLSurfaceData.java:283)
+	sun.java2d.opengl.OGLSurfaceData.access$000(OGLSurfaceData.java:98)
+	sun.java2d.opengl.OGLSurfaceData$1.run(OGLSurfaceData.java:324)
+	sun.java2d.opengl.OGLRenderQueue$QueueFlusher.run(OGLRenderQueue.java:229)
+TRACE 301094:
+	com.apple.laf.AquaFileChooserUI.getOpenFilePanel(AquaFileChooserUI.java:1624)
+	com.apple.laf.AquaFileChooserUI.setBottomPanelForMode(AquaFileChooserUI.java:1646)
+	com.apple.laf.AquaFileChooserUI.installComponents(AquaFileChooserUI.java:1581)
+	com.apple.laf.AquaFileChooserUI.installUI(AquaFileChooserUI.java:144)
+TRACE 301429:
+	sun.lwawt.macosx.CPlatformView.nativeCreateView(CPlatformView.java:Unknown line)
+	sun.lwawt.macosx.CPlatformView.initialize(CPlatformView.java:61)
+	sun.lwawt.macosx.CPlatformWindow.initialize(CPlatformWindow.java:233)
+	sun.lwawt.LWWindowPeer.<init>(LWWindowPeer.java:156)
+TRACE 301339:
+	sun.lwawt.macosx.CInputMethod.nativeInit(CInputMethod.java:Unknown line)
+	sun.lwawt.macosx.CInputMethod.<clinit>(CInputMethod.java:83)
+	sun.lwawt.macosx.LWCToolkit.getDefaultKeyboardLocale(LWCToolkit.java:711)
+	sun.awt.im.ExecutableInputMethodManager.getDefaultKeyboardLocale(ExecutableInputMethodManager.java:419)
+TRACE 300924:
+	java.nio.Bits.getIntB(Bits.java:228)
+	java.nio.ByteBufferAsIntBufferB.get(ByteBufferAsIntBufferB.java:111)
+	sun.font.TrueTypeFont.init(TrueTypeFont.java:542)
+	sun.font.TrueTypeFont.<init>(TrueTypeFont.java:191)
+TRACE 301267:
+	javax.swing.UIDefaults.getBoolean(UIDefaults.java:571)
+	javax.swing.UIManager.getBoolean(UIManager.java:867)
+	javax.swing.plaf.basic.BasicMenuUI.updateDefaultBackgroundColor(BasicMenuUI.java:298)
+	javax.swing.plaf.basic.BasicMenuUI.access$300(BasicMenuUI.java:49)
+TRACE 300888:
+	java.io.File.list(File.java:1161)
+	sun.font.SunFontManager.addDirFonts(SunFontManager.java:3197)
+	sun.font.SunFontManager.registerFontsInDir(SunFontManager.java:3361)
+	sun.font.CFontManager.registerFontsInDir(CFontManager.java:251)
+TRACE 300195:
+	java.nio.DirectLongBufferU.ix(DirectLongBufferU.java:245)
+	java.nio.DirectLongBufferU.put(DirectLongBufferU.java:306)
+	sun.misc.PerfCounter.add(PerfCounter.java:98)
+	sun.misc.PerfCounter.addElapsedTimeFrom(PerfCounter.java:119)
+TRACE 301205:
+	java.util.HashMap.clear(HashMap.java:859)
+	java.util.LinkedHashMap.clear(LinkedHashMap.java:463)
+	javax.swing.text.SimpleAttributeSet.removeAttributes(SimpleAttributeSet.java:232)
+	javax.swing.text.StyleContext.addAttribute(StyleContext.java:308)
+TRACE 301053:
+	jdk.internal.org.objectweb.asm.ClassWriter.<init>(ClassWriter.java:640)
+	java.lang.invoke.InnerClassLambdaMetafactory.<init>(InnerClassLambdaMetafactory.java:166)
+	java.lang.invoke.LambdaMetafactory.metafactory(LambdaMetafactory.java:299)
+	java.lang.invoke.LambdaForm$DMH.1017433472.invokeStatic_LLLLLL_L(LambdaForm$DMH:Unknown line)
+TRACE 301438:
+	sun.lwawt.macosx.CWrapper$NSWindow.makeKeyAndOrderFront(CWrapper.java:Unknown line)
+	sun.lwawt.macosx.CPlatformWindow.checkBlockingAndOrder(CPlatformWindow.java:1025)
+	sun.lwawt.macosx.CPlatformWindow.setModalBlocked(CPlatformWindow.java:839)
+	sun.lwawt.LWWindowPeer.setModalBlocked(LWWindowPeer.java:416)
+TRACE 300323:
+	java.lang.invoke.MethodHandleImpl.makePairwiseConvert(MethodHandleImpl.java:256)
+	java.lang.invoke.MethodHandle.convertArguments(MethodHandle.java:1375)
+	java.lang.invoke.MethodHandle.asTypeUncached(MethodHandle.java:777)
+	java.lang.invoke.MethodHandle.asType(MethodHandle.java:770)
+TRACE 300929:
+	java.lang.String.toLowerCase(String.java:2607)
+	sun.font.CFontManager.registerGenericFont(CFontManager.java:119)
+	sun.font.CFontManager.registerGenericFont(CFontManager.java:87)
+	sun.font.CFontManager.registerFont(CFontManager.java:260)
+TRACE 300930:
+	sun.font.PhysicalFont.<init>(PhysicalFont.java:66)
+	sun.font.CFont.<init>(CFont.java:101)
+	sun.font.CFont.createItalicVariant(CFont.java:111)
+	sun.font.CFontManager.registerFont(CFontManager.java:263)
+TRACE 300324:
+	java.lang.Class.isArray(Class.java:Unknown line)
+	java.lang.Class.getSimpleName(Class.java:1298)
+	java.lang.Class.getSimpleName(Class.java:1299)
+	java.lang.invoke.MethodType.toString(MethodType.java:727)
+TRACE 301279:
+	java.lang.Object.hashCode(Object.java:Unknown line)
+	java.util.HashMap.hash(HashMap.java:338)
+	java.util.HashMap.containsKey(HashMap.java:595)
+	java.util.HashSet.contains(HashSet.java:203)
+TRACE 300678:
+	sun.awt.image.IntegerComponentRaster.initIDs(IntegerComponentRaster.java:Unknown line)
+	sun.awt.image.IntegerComponentRaster.<clinit>(IntegerComponentRaster.java:98)
+	java.awt.image.Raster.createPackedRaster(Raster.java:785)
+	java.awt.image.Raster.createPackedRaster(Raster.java:475)
+TRACE 300226:
+	sun.awt.MostRecentKeyValue.<init>(AppContext.java:925)
+	sun.awt.AppContext.get(AppContext.java:651)
+	java.awt.EventQueue.<init>(EventQueue.java:239)
+	sun.reflect.NativeConstructorAccessorImpl.newInstance0(NativeConstructorAccessorImpl.java:Unknown line)
+TRACE 300600:
+	java.awt.Window.init(Window.java:509)
+	java.awt.Window.<init>(Window.java:537)
+	java.awt.Frame.<init>(Frame.java:420)
+	javax.swing.JFrame.<init>(JFrame.java:225)
+TRACE 301450:
+	sun.java2d.pipe.BufferedPaints.setColor(BufferedPaints.java:96)
+	sun.java2d.pipe.BufferedPaints.setPaint(BufferedPaints.java:57)
+	sun.java2d.pipe.BufferedContext.validate(BufferedContext.java:296)
+	sun.java2d.pipe.BufferedContext.validateContext(BufferedContext.java:131)
+TRACE 301360:
+	sun.lwawt.macosx.CInputMethodDescriptor.nativeGetAvailableLocales(CInputMethodDescriptor.java:Unknown line)
+	sun.lwawt.macosx.CInputMethodDescriptor.getAvailableLocalesInternal(CInputMethodDescriptor.java:60)
+	sun.lwawt.macosx.CInputMethod.setLocale(CInputMethod.java:130)
+	sun.lwawt.macosx.CInputMethod.setLocale(CInputMethod.java:126)
+TRACE 301286:
+	sun.lwawt.macosx.CPlatformComponent.nativeSetBounds(CPlatformComponent.java:Unknown line)
+	sun.lwawt.macosx.CPlatformComponent.setBounds(CPlatformComponent.java:64)
+	sun.lwawt.LWComponentPeer.setBounds(LWComponentPeer.java:581)
+	sun.lwawt.LWWindowPeer.notifyReshape(LWWindowPeer.java:634)
+TRACE 301161:
+	javax.swing.plaf.basic.BasicToolBarUI.createRolloverBorder(BasicToolBarUI.java:423)
+	javax.swing.plaf.basic.BasicToolBarUI.installDefaults(BasicToolBarUI.java:213)
+	javax.swing.plaf.basic.BasicToolBarUI.installUI(BasicToolBarUI.java:144)
+	javax.swing.JComponent.setUI(JComponent.java:664)
+TRACE 301458:
+	apple.laf.JRSUIControl.loadBufferWithChanges(JRSUIControl.java:135)
+	apple.laf.JRSUIControl.paintImage(JRSUIControl.java:219)
+	apple.laf.JRSUIControl.paint(JRSUIControl.java:208)
+	com.apple.laf.AquaPainter$AquaSingleImagePainter.createImage(AquaPainter.java:204)
+TRACE 301365:
+	sun.lwawt.LWContainerPeer.findPeerAt(LWContainerPeer.java:171)
+	sun.lwawt.LWWindowPeer.notifyMouseEvent(LWWindowPeer.java:718)
+	sun.lwawt.macosx.CPlatformResponder.handleMouseEvent(CPlatformResponder.java:83)
+	sun.lwawt.macosx.CPlatformView.deliverMouseEvent(CPlatformView.java:197)
+TRACE 300978:
+	javax.swing.JScrollPane.createVerticalScrollBar(JScrollPane.java:873)
+	javax.swing.JScrollPane.<init>(JScrollPane.java:299)
+	javax.swing.plaf.basic.BasicComboPopup.createScroller(BasicComboPopup.java:559)
+	javax.swing.plaf.basic.BasicComboPopup.<init>(BasicComboPopup.java:332)
+TRACE 301461:
+	sun.lwawt.macosx.LWCToolkit.isApplicationActive(LWCToolkit.java:Unknown line)
+	sun.lwawt.macosx.CPlatformWindow.rejectFocusRequest(CPlatformWindow.java:696)
+	sun.lwawt.LWWindowPeer.requestWindowFocus(LWWindowPeer.java:1164)
+	sun.lwawt.LWComponentPeer.requestFocus(LWComponentPeer.java:962)
+TRACE 301367:
+	java.security.AccessControlContext.optimize(AccessControlContext.java:539)
+	java.security.ProtectionDomain$1.doIntersectionPrivilege(ProtectionDomain.java:78)
+	java.awt.EventQueue.dispatchEvent(EventQueue.java:721)
+	java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:201)
+TRACE 301463:
+	javax.swing.RepaintManager.paintDirtyRegions(RepaintManager.java:807)
+	javax.swing.RepaintManager.paintDirtyRegions(RepaintManager.java:782)
+	javax.swing.RepaintManager.prePaintDirtyRegions(RepaintManager.java:731)
+	javax.swing.RepaintManager.access$1300(RepaintManager.java:64)
+TRACE 301368:
+	java.util.PriorityQueue.peek(PriorityQueue.java:350)
+	java.util.concurrent.DelayQueue.take(DelayQueue.java:232)
+	javax.swing.TimerQueue.run(TimerQueue.java:171)
+	java.lang.Thread.run(Thread.java:745)
+TRACE 301219:
+	javax.swing.KeyboardManager.registerKeyStroke(KeyboardManager.java:131)
+	javax.swing.JComponent.registerWithKeyboardManager(JComponent.java:2200)
+	javax.swing.JComponent.registerWithKeyboardManager(JComponent.java:2124)
+	javax.swing.JComponent.componentInputMapChanged(JComponent.java:2195)
+TRACE 301220:
+	org.rhwlab.acetree.AceTree.<init>(AceTree.java:351)
+	org.rhwlab.acetree.AceTree.getAceTree(AceTree.java:466)
+	org.rhwlab.acetree.AceTree.main(AceTree.java:3828)
+	org.rhwlab.acetree.AceTreeLauncher.main(AceTreeLauncher.java:21)
+TRACE 301221:
+	javax.swing.tree.DefaultMutableTreeNode.breadthFirstEnumeration(DefaultMutableTreeNode.java:797)
+	org.rhwlab.tree.CanonicalTree.postProcessTree(CanonicalTree.java:112)
+	org.rhwlab.tree.CanonicalTree.createNodes(CanonicalTree.java:106)
+	org.rhwlab.tree.CanonicalTree.<init>(CanonicalTree.java:44)
+TRACE 300862:
+	java.awt.AWTKeyStroke.getAWTKeyStroke(AWTKeyStroke.java:586)
+	javax.swing.KeyStroke.getKeyStroke(KeyStroke.java:310)
+	javax.swing.LookAndFeel.loadKeyBindings(LookAndFeel.java:438)
+	javax.swing.LookAndFeel.makeInputMap(LookAndFeel.java:362)
+TRACE 300069:
+	java.lang.String.startsWith(String.java:1390)
+	java.lang.String.endsWith(String.java:1436)
+	java.net.URLStreamHandler.parseURL(URLStreamHandler.java:300)
+	sun.net.www.protocol.file.Handler.parseURL(Handler.java:67)
+TRACE 301226:
+	javax.swing.KeyboardManager.getTopAncestor(KeyboardManager.java:141)
+	javax.swing.KeyboardManager.registerKeyStroke(KeyboardManager.java:94)
+	javax.swing.JComponent.registerWithKeyboardManager(JComponent.java:2200)
+	javax.swing.JComponent.registerWithKeyboardManager(JComponent.java:2124)
+TRACE 301025:
+	com.apple.laf.AquaButtonExtendedTypes.getAllTypes(AquaButtonExtendedTypes.java:153)
+	com.apple.laf.AquaButtonExtendedTypes$1.getInstance(AquaButtonExtendedTypes.java:143)
+	com.apple.laf.AquaButtonExtendedTypes$1.getInstance(AquaButtonExtendedTypes.java:141)
+	com.apple.laf.AquaUtils$RecyclableSingleton.lambda$get$247(AquaUtils.java:180)
+TRACE 301168:
+	java.awt.Color.equals(Color.java:699)
+	javax.swing.JComponent.setForeground(JComponent.java:2702)
+	javax.swing.LookAndFeel.installColors(LookAndFeel.java:180)
+	javax.swing.LookAndFeel.installColorsAndFont(LookAndFeel.java:211)
+TRACE 301169:
+	java.lang.Thread.currentThread(Thread.java:Unknown line)
+	java.util.concurrent.locks.ReentrantLock$Sync.tryRelease(ReentrantLock.java:150)
+	java.util.concurrent.locks.AbstractQueuedSynchronizer.release(AbstractQueuedSynchronizer.java:1261)
+	java.util.concurrent.locks.ReentrantLock.unlock(ReentrantLock.java:457)
+TRACE 301477:
+	sun.java2d.SunGraphics2D.checkFontInfo(SunGraphics2D.java:627)
+	sun.java2d.SunGraphics2D.getFontInfo(SunGraphics2D.java:830)
+	sun.java2d.pipe.GlyphListPipe.drawString(GlyphListPipe.java:50)
+	sun.java2d.pipe.ValidatePipe.drawString(ValidatePipe.java:165)
+TRACE 301478:
+	sun.swing.SwingUtilities2.drawString(SwingUtilities2.java:540)
+	com.apple.laf.AquaFileChooserUI$MacFCTableCellRenderer.paintComponent(AquaFileChooserUI.java:1071)
+	javax.swing.JComponent.paint(JComponent.java:1054)
+	javax.swing.CellRendererPane.paintComponent(CellRendererPane.java:151)
+TRACE 301380:
+	java.awt.Component.setName(Component.java:1034)
+	javax.swing.JRootPane.createContentPane(JRootPane.java:522)
+	javax.swing.JRootPane.<init>(JRootPane.java:368)
+	javax.swing.JWindow.createRootPane(JWindow.java:276)
+TRACE 300553:
+	sun.java2d.opengl.OGLSwToSurfaceTransform.<init>(OGLBlitLoops.java:667)
+	sun.java2d.opengl.OGLBlitLoops.register(OGLBlitLoops.java:60)
+	sun.java2d.opengl.OGLSurfaceData.<clinit>(OGLSurfaceData.java:222)
+TRACE 300420:
+	com.apple.laf.AquaLookAndFeel.initComponentDefaults(AquaLookAndFeel.java:698)
+	com.apple.laf.AquaLookAndFeel.getDefaults(AquaLookAndFeel.java:235)
+	javax.swing.UIManager.setLookAndFeel(UIManager.java:539)
+	javax.swing.UIManager.setLookAndFeel(UIManager.java:583)
+TRACE 301383:
+	sun.java2d.opengl.CGLLayer.blitTexture(CGLLayer.java:Unknown line)
+	sun.java2d.opengl.CGLLayer.drawInCGLContext(CGLLayer.java:141)
+TRACE 301483:
+	java.awt.DefaultKeyboardFocusManager.dispatchEvent(DefaultKeyboardFocusManager.java:604)
+	java.awt.Component.dispatchEventImpl(Component.java:4752)
+	java.awt.Container.dispatchEventImpl(Container.java:2292)
+	java.awt.Component.dispatchEvent(Component.java:4703)
+TRACE 301485:
+	java.awt.event.InvocationEvent.<init>(InvocationEvent.java:284)
+	java.awt.event.InvocationEvent.<init>(InvocationEvent.java:171)
+	java.awt.EventQueue.invokeLater(EventQueue.java:1258)
+	javax.swing.SwingUtilities.invokeLater(SwingUtilities.java:1290)
+TRACE 301486:
+	sun.misc.Unsafe.compareAndSwapInt(Unsafe.java:Unknown line)
+	java.util.concurrent.atomic.AtomicBoolean.compareAndSet(AtomicBoolean.java:101)
+	javax.swing.Timer.post(Timer.java:611)
+	javax.swing.TimerQueue.run(TimerQueue.java:181)
+TRACE 301487:
+	java.util.concurrent.atomic.AtomicBoolean.get(AtomicBoolean.java:86)
+	java.awt.WaitDispatchSupport$1.evaluate(WaitDispatchSupport.java:117)
+	java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:115)
+	java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:109)
+TRACE 301490:
+	java.util.concurrent.locks.AbstractQueuedSynchronizer.transferForSignal(AbstractQueuedSynchronizer.java:1674)
+	java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.doSignalAll(AbstractQueuedSynchronizer.java:1888)
+	java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.signalAll(AbstractQueuedSynchronizer.java:1957)
+	java.awt.EventQueue.postEvent(EventQueue.java:336)
+CPU SAMPLES BEGIN (total = 2779) Tue Feb 24 09:57:09 2015
+rank   self  accum   count trace method
+   1 39.44% 39.44%    1096 301536 sun.lwawt.macosx.LWCToolkit.doAWTRunLoopImpl
+   2 30.23% 69.67%     840 301586 java.lang.Integer.parseInt
+   3  5.22% 74.88%     145 301582 java.lang.Integer.parseInt
+   4  4.82% 79.70%     134 301274 sun.lwawt.macosx.CCursorManager.nativeGetCursorPosition
+   5  4.68% 84.38%     130 301359 sun.lwawt.macosx.CPlatformWindow.nativeGetTopmostPlatformWindowUnderMouse
+   6  1.66% 86.04%      46 300927 sun.font.CFontManager.loadNativeFonts
+   7  0.94% 86.97%      26 300135 java.lang.ClassLoader$NativeLibrary.load
+   8  0.50% 87.48%      14 301502 java.security.AccessController.getStackAccessControlContext
+   9  0.43% 87.91%      12 301493 java.security.AccessController.doPrivileged
+  10  0.36% 88.27%      10 301315 sun.java2d.opengl.OGLRenderQueue.flushBuffer
+  11  0.29% 88.56%       8 301499 sun.awt.AWTAutoShutdown.notifyThreadBusy
+  12  0.22% 88.77%       6 301601 java.lang.Thread.isInterrupted
+  13  0.22% 88.99%       6 301285 sun.lwawt.macosx.CWrapper$NSWindow.isKeyWindow
+  14  0.22% 89.20%       6 300887 sun.font.CFontManager.loadNativeDirFonts
+  15  0.18% 89.38%       5 301598 java.util.TimSort.countRunAndMakeAscending
+  16  0.18% 89.56%       5 301541 java.util.zip.Inflater.inflateBytes
+  17  0.18% 89.74%       5 301592 org.rhwlab.tree.AncesTree.extractRootCells
+  18  0.14% 89.89%       4 301508 java.security.AccessController.getStackAccessControlContext
+  19  0.14% 90.03%       4 301542 org.rhwlab.snight.NucleiMgr.readNuclei
+  20  0.14% 90.18%       4 301489 java.security.AccessController.doPrivileged
+  21  0.14% 90.32%       4 301288 sun.lwawt.macosx.CWrapper$NSWindow.isZoomed
+  22  0.14% 90.46%       4 301517 java.lang.Object.wait
+  23  0.14% 90.61%       4 301515 sun.misc.Unsafe.unpark
+  24  0.11% 90.72%       3 301262 sun.lwawt.macosx.CPlatformWindow.nativeGetNSWindowInsets
+  25  0.11% 90.82%       3 301249 sun.lwawt.macosx.CPlatformWindow.nativeCreateNSWindow
+  26  0.11% 90.93%       3 301284 sun.lwawt.macosx.CWrapper$NSWindow.isZoomed
+  27  0.11% 91.04%       3 300460 sun.java2d.opengl.CGLGraphicsConfig.getCGLConfigInfo
+  28  0.11% 91.15%       3 301608 java.lang.Thread.isInterrupted
+  29  0.07% 91.22%       2 301484 java.util.PriorityQueue.offer
+  30  0.07% 91.29%       2 300311 sun.misc.Unsafe.defineAnonymousClass
+  31  0.07% 91.36%       2 301503 java.awt.Container$MouseEventTargetFilter.accept
+  32  0.07% 91.44%       2 301580 java.lang.CharacterDataLatin1.getType
+  33  0.07% 91.51%       2 301501 java.security.AccessController.getStackAccessControlContext
+  34  0.07% 91.58%       2 301593 java.util.Arrays.copyOfRange
+  35  0.07% 91.65%       2 301611 java.util.concurrent.DelayQueue.offer
+  36  0.07% 91.72%       2 301567 java.util.concurrent.locks.AbstractQueuedSynchronizer.acquire
+  37  0.07% 91.80%       2 301118 com.apple.laf.AquaFileView.getNativeDisplayName
+  38  0.07% 91.87%       2 300341 java.lang.invoke.LambdaMetafactory.metafactory
+  39  0.07% 91.94%       2 301488 java.lang.Thread.isInterrupted
+  40  0.07% 92.01%       2 301494 javax.swing.Timer.post
+  41  0.07% 92.08%       2 300084 java.lang.ClassLoader.defineClass1
+  42  0.07% 92.16%       2 300651 sun.awt.image.GifImageDecoder.parseImage
+  43  0.07% 92.23%       2 301667 java.security.AccessController.getStackAccessControlContext
+  44  0.07% 92.30%       2 301476 sun.font.CStrike.getGlyphImagePtrsNative
+  45  0.07% 92.37%       2 301547 java.util.StringTokenizer.scanToken
+  46  0.07% 92.44%       2 301575 org.rhwlab.tree.AncesTree.processEntry
+  47  0.07% 92.52%       2 301583 org.rhwlab.tree.AncesTree.compare
+  48  0.07% 92.59%       2 300087 java.lang.ClassLoader.findBootstrapClass
+  49  0.07% 92.66%       2 301581 java.lang.String.substring
+  50  0.07% 92.73%       2 301545 sun.nio.cs.UTF_8$Decoder.decodeArrayLoop
+  51  0.07% 92.80%       2 301653 sun.java2d.loops.OpaqueCopyAnyToArgb.Blit
+  52  0.04% 92.84%       1 301491 sun.awt.SunToolkit.targetToPeer
+  53  0.04% 92.88%       1 301492 java.awt.Component.getCursor_NoClientCode
+  54  0.04% 92.91%       1 301495 java.awt.WaitDispatchSupport$1.evaluate
+  55  0.04% 92.95%       1 301496 java.lang.Thread.holdsLock
+  56  0.04% 92.98%       1 301497 java.lang.Object.hashCode
+  57  0.04% 93.02%       1 301498 java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos
+  58  0.04% 93.06%       1 301500 java.util.concurrent.locks.AbstractQueuedSynchronizer.enq
+  59  0.04% 93.09%       1 301504 sun.lwawt.macosx.NSEvent.nsToJavaMouseModifiers
+  60  0.04% 93.13%       1 301505 java.awt.event.InvocationEvent.<init>
+  61  0.04% 93.16%       1 301506 java.awt.EventQueue.invokeLater
+  62  0.04% 93.20%       1 301384 sun.misc.FDBigInteger.mult
+  63  0.04% 93.23%       1 301509 sun.util.calendar.BaseCalendar$Date.<init>
+  64  0.04% 93.27%       1 301510 java.lang.System.nanoTime
+  65  0.04% 93.31%       1 301511 java.util.concurrent.locks.AbstractQueuedSynchronizer.transferAfterCancelledWait
+  66  0.04% 93.34%       1 301512 javax.swing.TimerQueue$DelayedTimer.getDelay
+  67  0.04% 93.38%       1 301513 java.io.UnixFileSystem.getBooleanAttributes0
+  68  0.04% 93.41%       1 301514 java.awt.LightweightDispatcher.processMouseEvent
+  69  0.04% 93.45%       1 301516 javax.swing.JLabel.setDisplayedMnemonicIndex
+  70  0.04% 93.49%       1 301518 java.lang.Class.isAssignableFrom
+  71  0.04% 93.52%       1 301519 javax.swing.TimerQueue$DelayedTimer.getDelay
+  72  0.04% 93.56%       1 301520 javax.swing.JComponent.paint
+  73  0.04% 93.59%       1 301119 javax.swing.table.AbstractTableModel.fireTableChanged
+  74  0.04% 93.63%       1 300134 java.lang.ClassLoader$NativeLibrary.load
+  75  0.04% 93.67%       1 300944 javax.swing.JComboBox.<init>
+  76  0.04% 93.70%       1 301525 java.lang.Thread.currentThread
+  77  0.04% 93.74%       1 301526 sun.misc.Unsafe.park
+  78  0.04% 93.77%       1 301122 javax.swing.UIDefaults.getBoolean
+  79  0.04% 93.81%       1 301123 com.apple.laf.AquaFileSystemModel$DoChangeContents.run
+  80  0.04% 93.85%       1 300486 java.awt.color.ICC_Profile.getDeferredInstance
+  81  0.04% 93.88%       1 301530 sun.lwawt.macosx.CFRetainedResource.nativeCFRelease
+  82  0.04% 93.92%       1 301531 org.rhwlab.acetree.AceTree.bringUpSeriesUI
+  83  0.04% 93.95%       1 301075 com.apple.laf.AquaFileChooserUI.createListSelectionListener
+  84  0.04% 93.99%       1 300748 javax.swing.Box.createRigidArea
+  85  0.04% 94.03%       1 300035 java.lang.System.arraycopy
+  86  0.04% 94.06%       1 301537 java.io.FileInputStream.readBytes
+  87  0.04% 94.10%       1 300366 sun.lwawt.macosx.LWCToolkit.loadNativeColors
+  88  0.04% 94.13%       1 301539 org.rhwlab.snight.NucleiMgr.readNuclei
+  89  0.04% 94.17%       1 301540 sun.misc.FloatingDecimal$ASCIIToBinaryBuffer.floatValue
+  90  0.04% 94.21%       1 301543 org.rhwlab.snight.NucleiMgr.readNuclei
+  91  0.04% 94.24%       1 301544 org.rhwlab.snight.NucleiMgr.readNuclei
+  92  0.04% 94.28%       1 301546 java.util.zip.Inflater.getBytesWritten
+  93  0.04% 94.31%       1 301548 org.rhwlab.snight.NucleiMgr.getTokens
+  94  0.04% 94.35%       1 301549 java.util.Arrays.copyOfRange
+  95  0.04% 94.39%       1 301550 java.util.zip.ZipFile.read
+  96  0.04% 94.42%       1 301551 java.lang.String.substring
+  97  0.04% 94.46%       1 301552 java.lang.StringBuffer.toString
+  98  0.04% 94.49%       1 301553 org.rhwlab.snight.NucleiMgr.readNuclei
+  99  0.04% 94.53%       1 301554 org.rhwlab.snight.NucleiMgr.getTokens
+ 100  0.04% 94.57%       1 301555 org.rhwlab.snight.NucleiMgr.getTokens
+ 101  0.04% 94.60%       1 301556 java.util.concurrent.TimeUnit$1.convert
+ 102  0.04% 94.64%       1 301557 java.util.Vector.setSize
+ 103  0.04% 94.67%       1 301558 ij.io.Opener.<clinit>
+ 104  0.04% 94.71%       1 301559 sun.misc.URLClassPath.getResource
+ 105  0.04% 94.75%       1 301560 java.io.RandomAccessFile.read0
+ 106  0.04% 94.78%       1 301562 java.lang.String.regionMatches
+ 107  0.04% 94.82%       1 301563 ij.ImagePlus.getProcessor
+ 108  0.04% 94.85%       1 301564 ij.process.ColorProcessor.getRGB
+ 109  0.04% 94.89%       1 301565 org.rhwlab.snight.NucleiMgr.computeRWeights
+ 110  0.04% 94.93%       1 301566 org.rhwlab.acetree.AceTree.bringUpSeriesData
+ 111  0.04% 94.96%       1 301568 sun.nio.cs.StreamEncoder.write
+ 112  0.04% 95.00%       1 301569 org.rhwlab.snight.Identity3.identityAssignment
+ 113  0.04% 95.03%       1 301570 org.rhwlab.snight.Identity3.identityAssignment
+ 114  0.04% 95.07%       1 301571 org.rhwlab.snight.Identity3.identityAssignment
+ 115  0.04% 95.11%       1 301572 java.util.Hashtable.get
+ 116  0.04% 95.14%       1 301573 org.rhwlab.tree.AncesTree.countAliveCellsAtIndex
+ 117  0.04% 95.18%       1 301574 org.rhwlab.tree.AncesTree.processEntry
+ 118  0.04% 95.21%       1 301576 org.rhwlab.tree.AncesTree.processEntry
+ 119  0.04% 95.25%       1 301577 org.rhwlab.tree.AncesTree.processEntry
+ 120  0.04% 95.29%       1 301578 org.rhwlab.tree.AncesTree.countAliveCellsAtIndex
+ 121  0.04% 95.32%       1 301579 java.lang.Character.isDigit
+ 122  0.04% 95.36%       1 301584 org.rhwlab.tree.AncesTree.compare
+ 123  0.04% 95.39%       1 301585 java.lang.String.indexOf
+ 124  0.04% 95.43%       1 301587 java.lang.String.substring
+ 125  0.04% 95.47%       1 301588 java.util.concurrent.locks.AbstractQueuedSynchronizer.transferAfterCancelledWait
+ 126  0.04% 95.50%       1 301589 java.util.Arrays.copyOfRange
+ 127  0.04% 95.54%       1 301590 java.lang.String.substring
+ 128  0.04% 95.57%       1 301591 java.lang.reflect.Array.newArray
+ 129  0.04% 95.61%       1 301594 java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos
+ 130  0.04% 95.65%       1 301595 org.rhwlab.tree.AncesTree.extractRootCells
+ 131  0.04% 95.68%       1 301596 java.lang.System.nanoTime
+ 132  0.04% 95.72%       1 301597 java.lang.Thread.currentThread
+ 133  0.04% 95.75%       1 301599 java.util.concurrent.TimeUnit.x
+ 134  0.04% 95.79%       1 301600 java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.doSignal
+ 135  0.04% 95.83%       1 301602 java.util.concurrent.TimeUnit$3.toNanos
+ 136  0.04% 95.86%       1 301603 java.util.concurrent.DelayQueue.take
+ 137  0.04% 95.90%       1 301604 java.util.concurrent.DelayQueue.take
+ 138  0.04% 95.93%       1 301605 javax.swing.TimerQueue.run
+ 139  0.04% 95.97%       1 301606 javax.swing.TimerQueue.run
+ 140  0.04% 96.01%       1 301607 java.util.PriorityQueue.poll
+ 141  0.04% 96.04%       1 301609 sun.misc.Unsafe.park
+ 142  0.04% 96.08%       1 301610 java.util.PriorityQueue.offer
+ 143  0.04% 96.11%       1 301612 java.util.PriorityQueue.poll
+ 144  0.04% 96.15%       1 301613 javax.swing.TimerQueue.run
+ 145  0.04% 96.19%       1 301614 java.util.PriorityQueue.poll
+ 146  0.04% 96.22%       1 301615 java.io.OutputStreamWriter.write
+ 147  0.04% 96.26%       1 301616 org.rhwlab.snight.NucleiMgr.getEditLog
+ 148  0.04% 96.29%       1 301617 java.nio.charset.CharsetEncoder.encode
+ 149  0.04% 96.33%       1 301618 org.rhwlab.acetree.AceTree.updateRoot
+ 150  0.04% 96.37%       1 301619 javax.swing.tree.DefaultTreeCellRenderer.getTreeCellRendererComponent
+ 151  0.04% 96.40%       1 301620 sun.font.FontDesignMetrics.stringWidth
+ 152  0.04% 96.44%       1 301621 sun.font.FontDesignMetrics$MetricsKey.equals
+ 153  0.04% 96.47%       1 301622 javax.swing.tree.DefaultTreeSelectionModel.isRowSelected
+ 154  0.04% 96.51%       1 301623 java.lang.System.identityHashCode
+ 155  0.04% 96.55%       1 300145 com.apple.eawt._AppEventHandler.<init>
+ 156  0.04% 96.58%       1 301625 javax.swing.tree.VariableHeightLayoutCache$TreeStateNode.expand
+ 157  0.04% 96.62%       1 301399 java.lang.ClassLoader$NativeLibrary.find
+ 158  0.04% 96.65%       1 301185 javax.swing.text.DefaultStyledDocument.setLogicalStyle
+ 159  0.04% 96.69%       1 301629 javax.swing.tree.VariableHeightLayoutCache.getNode
+ 160  0.04% 96.73%       1 301630 java.io.FileInputStream.readBytes
+ 161  0.04% 96.76%       1 301631 ij.process.ColorProcessor.setRGB
+ 162  0.04% 96.80%       1 301632 org.rhwlab.image.ImageWindow.<init>
+ 163  0.04% 96.83%       1 301633 net.sf.ij.jaiio.BufferedImageCreator.create
+ 164  0.04% 96.87%       1 300054 java.util.jar.JarVerifier.<init>
+ 165  0.04% 96.91%       1 301635 sun.lwawt.macosx.CWrapper$NSWindow.makeKeyWindow
+ 166  0.04% 96.94%       1 301636 sun.lwawt.macosx.CDropTarget.createNativeDropTarget
+ 167  0.04% 96.98%       1 300912 java.lang.ClassLoader$NativeLibrary.find
+ 168  0.04% 97.01%       1 301404 java.lang.ClassLoader$NativeLibrary.find
+ 169  0.04% 97.05%       1 301405 java.lang.ClassLoader$NativeLibrary.find
+ 170  0.04% 97.09%       1 301406 java.awt.image.SinglePixelPackedSampleModel.<init>
+ 171  0.04% 97.12%       1 301642 net.sf.ij.jaiio.BufferedImageCreator.create
+ 172  0.04% 97.16%       1 301643 com.apple.laf.AquaButtonUI.layoutAndGetText
+ 173  0.04% 97.19%       1 300814 com.apple.laf.AquaTextFieldUI.createCaret
+ 174  0.04% 97.23%       1 301251 sun.lwawt.macosx.CPlatformComponent.nativeCreateComponent
+ 175  0.04% 97.27%       1 301646 java.lang.ClassLoader$NativeLibrary.find
+ 176  0.04% 97.30%       1 300563 sun.awt.CGraphicsDevice.nativeGetScreenInsets
+ 177  0.04% 97.34%       1 301648 apple.laf.JRSUIControl.paintImage
+ 178  0.04% 97.37%       1 301136 java.util.Currency.getInstance
+ 179  0.04% 97.41%       1 300696 javax.swing.plaf.basic.BasicMenuItemUI.installDefaults
+ 180  0.04% 97.45%       1 300351 sun.misc.Unsafe.defineAnonymousClass
+ 181  0.04% 97.48%       1 300881 sun.font.StrikeCache.<clinit>
+ 182  0.04% 97.52%       1 301654 java.awt.image.ComponentColorModel.getRGB
+ 183  0.04% 97.55%       1 301655 javax.swing.RepaintManager$4.<init>
+ 184  0.04% 97.59%       1 301656 sun.java2d.pipe.DrawImage.tryCopyOrScale
+ 185  0.04% 97.63%       1 301657 javax.swing.JComponent.rectangleIsObscured
+ 186  0.04% 97.66%       1 301658 java.lang.Thread.currentThread
+ 187  0.04% 97.70%       1 301329 java.lang.Object.hashCode
+ 188  0.04% 97.73%       1 301416 java.lang.Math.max
+ 189  0.04% 97.77%       1 301417 java.lang.Thread.currentThread
+ 190  0.04% 97.80%       1 301418 java.util.concurrent.locks.ReentrantLock$Sync.nonfairTryAcquire
+ 191  0.04% 97.84%       1 300089 java.lang.Object.hashCode
+ 192  0.04% 97.88%       1 301420 java.lang.Double.doubleToRawLongBits
+ 193  0.04% 97.91%       1 301666 sun.java2d.SunGraphics2D.getFontRenderContext
+ 194  0.04% 97.95%       1 300280 java.awt.KeyboardFocusManager.initIDs
+ 195  0.04% 97.98%       1 301669 java.awt.EventQueue.invokeLater
+ 196  0.04% 98.02%       1 301670 java.lang.Object.notifyAll
+ 197  0.04% 98.06%       1 301671 javax.swing.JComponent._paintImmediately
+ 198  0.04% 98.09%       1 301672 javax.swing.Timer.fireActionPerformed
+ 199  0.04% 98.13%       1 301673 java.lang.System.identityHashCode
+ 200  0.04% 98.16%       1 300452 sun.awt.CGraphicsEnvironment.initDevices
+ 201  0.04% 98.20%       1 300281 java.lang.invoke.MemberName$Factory.getMethods
+ 202  0.04% 98.24%       1 301263 sun.java2d.opengl.OGLSurfaceData.initSurfaceNow
+ 203  0.04% 98.27%       1 301094 com.apple.laf.AquaFileChooserUI.getOpenFilePanel
+ 204  0.04% 98.31%       1 301429 sun.lwawt.macosx.CPlatformView.nativeCreateView
+ 205  0.04% 98.34%       1 301339 sun.lwawt.macosx.CInputMethod.nativeInit
+ 206  0.04% 98.38%       1 300924 java.nio.Bits.getIntB
+ 207  0.04% 98.42%       1 301267 javax.swing.UIDefaults.getBoolean
+ 208  0.04% 98.45%       1 300888 java.io.File.list
+ 209  0.04% 98.49%       1 300195 java.nio.DirectLongBufferU.ix
+ 210  0.04% 98.52%       1 301205 java.util.HashMap.clear
+ 211  0.04% 98.56%       1 301053 jdk.internal.org.objectweb.asm.ClassWriter.<init>
+ 212  0.04% 98.60%       1 301438 sun.lwawt.macosx.CWrapper$NSWindow.makeKeyAndOrderFront
+ 213  0.04% 98.63%       1 300323 java.lang.invoke.MethodHandleImpl.makePairwiseConvert
+ 214  0.04% 98.67%       1 300929 java.lang.String.toLowerCase
+ 215  0.04% 98.70%       1 300930 sun.font.PhysicalFont.<init>
+ 216  0.04% 98.74%       1 300324 java.lang.Class.isArray
+ 217  0.04% 98.78%       1 301279 java.lang.Object.hashCode
+ 218  0.04% 98.81%       1 300678 sun.awt.image.IntegerComponentRaster.initIDs
+ 219  0.04% 98.85%       1 300226 sun.awt.MostRecentKeyValue.<init>
+ 220  0.04% 98.88%       1 300600 java.awt.Window.init
+ 221  0.04% 98.92%       1 301450 sun.java2d.pipe.BufferedPaints.setColor
+ 222  0.04% 98.96%       1 301360 sun.lwawt.macosx.CInputMethodDescriptor.nativeGetAvailableLocales
+ 223  0.04% 98.99%       1 301286 sun.lwawt.macosx.CPlatformComponent.nativeSetBounds
+ 224  0.04% 99.03%       1 301161 javax.swing.plaf.basic.BasicToolBarUI.createRolloverBorder
+ 225  0.04% 99.06%       1 301458 apple.laf.JRSUIControl.loadBufferWithChanges
+ 226  0.04% 99.10%       1 301365 sun.lwawt.LWContainerPeer.findPeerAt
+ 227  0.04% 99.14%       1 300978 javax.swing.JScrollPane.createVerticalScrollBar
+ 228  0.04% 99.17%       1 301461 sun.lwawt.macosx.LWCToolkit.isApplicationActive
+ 229  0.04% 99.21%       1 301367 java.security.AccessControlContext.optimize
+ 230  0.04% 99.24%       1 301463 javax.swing.RepaintManager.paintDirtyRegions
+ 231  0.04% 99.28%       1 301368 java.util.PriorityQueue.peek
+ 232  0.04% 99.32%       1 301219 javax.swing.KeyboardManager.registerKeyStroke
+ 233  0.04% 99.35%       1 301220 org.rhwlab.acetree.AceTree.<init>
+ 234  0.04% 99.39%       1 301221 javax.swing.tree.DefaultMutableTreeNode.breadthFirstEnumeration
+ 235  0.04% 99.42%       1 300862 java.awt.AWTKeyStroke.getAWTKeyStroke
+ 236  0.04% 99.46%       1 300069 java.lang.String.startsWith
+ 237  0.04% 99.50%       1 301226 javax.swing.KeyboardManager.getTopAncestor
+ 238  0.04% 99.53%       1 301025 com.apple.laf.AquaButtonExtendedTypes.getAllTypes
+ 239  0.04% 99.57%       1 301168 java.awt.Color.equals
+ 240  0.04% 99.60%       1 301169 java.lang.Thread.currentThread
+ 241  0.04% 99.64%       1 301477 sun.java2d.SunGraphics2D.checkFontInfo
+ 242  0.04% 99.68%       1 301478 sun.swing.SwingUtilities2.drawString
+ 243  0.04% 99.71%       1 301380 java.awt.Component.setName
+ 244  0.04% 99.75%       1 300553 sun.java2d.opengl.OGLSwToSurfaceTransform.<init>
+ 245  0.04% 99.78%       1 300420 com.apple.laf.AquaLookAndFeel.initComponentDefaults
+ 246  0.04% 99.82%       1 301383 sun.java2d.opengl.CGLLayer.blitTexture
+ 247  0.04% 99.86%       1 301483 java.awt.DefaultKeyboardFocusManager.dispatchEvent
+ 248  0.04% 99.89%       1 301485 java.awt.event.InvocationEvent.<init>
+ 249  0.04% 99.93%       1 301486 sun.misc.Unsafe.compareAndSwapInt
+ 250  0.04% 99.96%       1 301487 java.util.concurrent.atomic.AtomicBoolean.get
+ 251  0.04% 100.00%       1 301490 java.util.concurrent.locks.AbstractQueuedSynchronizer.transferForSignal
+CPU SAMPLES END

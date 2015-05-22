@@ -1,0 +1,370 @@
+JAVA PROFILE 1.0.1, created Tue Mar 10 18:09:20 2015
+
+Copyright (c) 2003, 2005, Oracle and/or its affiliates. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions
+are met:
+
+  - Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+
+  - Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in the
+    documentation and/or other materials provided with the distribution.
+
+  - Neither the name of Oracle nor the names of its
+    contributors may be used to endorse or promote products derived
+    from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+
+Header for -agentlib:hprof (or -Xrunhprof) ASCII Output (JDK 5.0 JVMTI based)
+
+WARNING!  This file format is under development, and is subject to
+change without notice.
+
+This file contains the following types of records:
+
+THREAD START
+THREAD END      mark the lifetime of Java threads
+
+TRACE           represents a Java stack trace.  Each trace consists
+                of a series of stack frames.  Other records refer to
+                TRACEs to identify (1) where object allocations have
+                taken place, (2) the frames in which GC roots were
+                found, and (3) frequently executed methods.
+
+HEAP DUMP       is a complete snapshot of all live objects in the Java
+                heap.  Following distinctions are made:
+
+                ROOT    root set as determined by GC
+                CLS     classes 
+                OBJ     instances
+                ARR     arrays
+
+SITES           is a sorted list of allocation sites.  This identifies
+                the most heavily allocated object types, and the TRACE
+                at which those allocations occurred.
+
+CPU SAMPLES     is a statistical profile of program execution.  The VM
+                periodically samples all running threads, and assigns
+                a quantum to active TRACEs in those threads.  Entries
+                in this record are TRACEs ranked by the percentage of
+                total quanta they consumed; top-ranked TRACEs are
+                typically hot spots in the program.
+
+CPU TIME        is a profile of program execution obtained by measuring
+                the time spent in individual methods (excluding the time
+                spent in callees), as well as by counting the number of
+                times each method is called. Entries in this record are
+                TRACEs ranked by the percentage of total CPU time. The
+                "count" field indicates the number of times each TRACE 
+                is invoked.
+
+MONITOR TIME    is a profile of monitor contention obtained by measuring
+                the time spent by a thread waiting to enter a monitor.
+                Entries in this record are TRACEs ranked by the percentage
+                of total monitor contention time and a brief description
+                of the monitor.  The "count" field indicates the number of 
+                times the monitor was contended at that TRACE.
+
+MONITOR DUMP    is a complete snapshot of all the monitors and threads in 
+                the System.
+
+HEAP DUMP, SITES, CPU SAMPLES|TIME and MONITOR DUMP|TIME records are generated 
+at program exit.  They can also be obtained during program execution by typing 
+Ctrl-\ (on Solaris) or by typing Ctrl-Break (on Win32).
+
+--------
+
+THREAD START (obj=50000184, id = 200001, name="main", group="main")
+THREAD START (obj=50000184, id = 200004, name="Java2D Disposer", group="system")
+THREAD START (obj=50000184, id = 200005, name="AWT-Shutdown", group="system")
+THREAD START (obj=50000184, id = 200006, name="AWT-Windows", group="system")
+THREAD START (obj=50000184, id = 200007, name="Image Fetcher 0", group="main")
+THREAD START (obj=500006d9, id = 200008, name="AWT-EventQueue-0", group="main")
+THREAD START (obj=50000184, id = 200009, name="Swing-Shell", group="system")
+THREAD START (obj=500006d9, id = 200010, name="Basic L&F File Loading Thread", group="main")
+THREAD END (id = 200010)
+THREAD START (obj=500006d9, id = 200011, name="Basic L&F File Loading Thread", group="main")
+THREAD END (id = 200011)
+THREAD START (obj=500006d9, id = 200012, name="Basic L&F File Loading Thread", group="main")
+THREAD END (id = 200012)
+THREAD END (id = 200001)
+THREAD START (obj=50000184, id = 200013, name="DestroyJavaVM", group="main")
+THREAD START (obj=50000184, id = 200014, name="D3D Screen Updater", group="system")
+THREAD START (obj=500006d9, id = 200015, name="Basic L&F File Loading Thread", group="main")
+THREAD END (id = 200015)
+THREAD START (obj=500006d9, id = 200016, name="Basic L&F File Loading Thread", group="main")
+THREAD END (id = 200016)
+THREAD START (obj=50000184, id = 200017, name="TimerQueue", group="system")
+THREAD END (id = 200007)
+THREAD START (obj=500006d9, id = 200018, name="Basic L&F File Loading Thread", group="main")
+THREAD END (id = 200018)
+THREAD START (obj=500006d9, id = 200019, name="Basic L&F File Loading Thread", group="main")
+THREAD END (id = 200019)
+THREAD START (obj=500006d9, id = 200020, name="Basic L&F File Loading Thread", group="main")
+THREAD END (id = 200020)
+THREAD START (obj=500006d9, id = 200021, name="Basic L&F File Loading Thread", group="main")
+THREAD END (id = 200021)
+THREAD START (obj=50000184, id = 200022, name="Image Fetcher 0", group="main")
+THREAD END (id = 200022)
+THREAD START (obj=50000184, id = 200023, name="Thread-0", group="system")
+THREAD START (obj=50000184, id = 200024, name="Thread-2", group="system")
+THREAD END (id = 200024)
+THREAD END (id = 200014)
+THREAD START (obj=50000184, id = 200025, name="Thread-1", group="main")
+THREAD END (id = 200025)
+THREAD END (id = 200009)
+THREAD END (id = 200006)
+THREAD END (id = 200023)
+THREAD END (id = 200008)
+TRACE 300433:
+	sun.awt.windows.WToolkit.eventLoop(<Unknown Source>:Unknown line)
+	sun.awt.windows.WToolkit.run(<Unknown Source>:Unknown line)
+	java.lang.Thread.run(<Unknown Source>:Unknown line)
+TRACE 301600:
+	java.util.TimSort.sort(<Unknown Source>:Unknown line)
+	java.util.Arrays.sort(<Unknown Source>:Unknown line)
+	java.util.Vector.sort(<Unknown Source>:Unknown line)
+	java.util.Collections.sort(<Unknown Source>:Unknown line)
+TRACE 301388:
+	sun.java2d.d3d.D3DScreenUpdateManager.run(<Unknown Source>:Unknown line)
+	java.lang.Thread.run(<Unknown Source>:Unknown line)
+TRACE 301389:
+	java.lang.Object.wait(<Unknown Source>:Unknown line)
+	sun.java2d.d3d.D3DScreenUpdateManager.run(<Unknown Source>:Unknown line)
+	java.lang.Thread.run(<Unknown Source>:Unknown line)
+TRACE 301454:
+	java.lang.Object.notifyAll(<Unknown Source>:Unknown line)
+	sun.java2d.d3d.D3DScreenUpdateManager.run(<Unknown Source>:Unknown line)
+	java.lang.Thread.run(<Unknown Source>:Unknown line)
+TRACE 301503:
+	sun.java2d.d3d.D3DScreenUpdateManager.run(<Unknown Source>:Unknown line)
+	java.lang.Thread.run(<Unknown Source>:Unknown line)
+TRACE 301551:
+	org.rhwlab.snight.NucleiMgr.getTokens(NucleiMgr.java:1042)
+	org.rhwlab.snight.NucleiMgr.readNuclei(NucleiMgr.java:499)
+	org.rhwlab.snight.NucleiMgr.readNuclei(NucleiMgr.java:428)
+	org.rhwlab.snight.NucleiMgr.<init>(NucleiMgr.java:161)
+TRACE 301384:
+	sun.java2d.d3d.D3DRenderQueue.flushBuffer(<Unknown Source>:Unknown line)
+	sun.java2d.d3d.D3DRenderQueue.flushBuffer(<Unknown Source>:Unknown line)
+	sun.java2d.d3d.D3DRenderQueue.flushNow(<Unknown Source>:Unknown line)
+	sun.java2d.d3d.D3DSurfaceData.swapBuffers(<Unknown Source>:Unknown line)
+TRACE 301387:
+	sun.java2d.d3d.D3DScreenUpdateManager.run(<Unknown Source>:Unknown line)
+	java.lang.Thread.run(<Unknown Source>:Unknown line)
+TRACE 301553:
+	java.util.zip.Inflater.inflateBytes(<Unknown Source>:Unknown line)
+	java.util.zip.Inflater.inflate(<Unknown Source>:Unknown line)
+	java.util.zip.InflaterInputStream.read(<Unknown Source>:Unknown line)
+	sun.nio.cs.StreamDecoder.readBytes(<Unknown Source>:Unknown line)
+TRACE 301366:
+	sun.java2d.d3d.D3DRenderQueue.flushBuffer(<Unknown Source>:Unknown line)
+	sun.java2d.d3d.D3DRenderQueue.flushBuffer(<Unknown Source>:Unknown line)
+	sun.java2d.d3d.D3DRenderQueue.flushAndInvokeNow(<Unknown Source>:Unknown line)
+	sun.java2d.d3d.D3DSurfaceData.initSurface(<Unknown Source>:Unknown line)
+TRACE 301499:
+	sun.java2d.d3d.D3DScreenUpdateManager.run(<Unknown Source>:Unknown line)
+	java.lang.Thread.run(<Unknown Source>:Unknown line)
+TRACE 301370:
+	sun.java2d.d3d.D3DRenderQueue.flushBuffer(<Unknown Source>:Unknown line)
+	sun.java2d.d3d.D3DRenderQueue.flushBuffer(<Unknown Source>:Unknown line)
+	sun.java2d.d3d.D3DRenderQueue.flushNow(<Unknown Source>:Unknown line)
+	sun.java2d.d3d.D3DBlitLoops.Blit(<Unknown Source>:Unknown line)
+TRACE 301506:
+	sun.java2d.d3d.D3DScreenUpdateManager.run(<Unknown Source>:Unknown line)
+	java.lang.Thread.run(<Unknown Source>:Unknown line)
+TRACE 301625:
+	javax.swing.tree.DefaultMutableTreeNode.removeFromParent(<Unknown Source>:Unknown line)
+	org.rhwlab.acetree.AceTree.updateRoot(AceTree.java:1018)
+	org.rhwlab.acetree.AceTree.buildTree(AceTree.java:882)
+	org.rhwlab.acetree.AceTree.bringUpSeriesUI(AceTree.java:608)
+TRACE 301543:
+	org.rhwlab.snight.NucleiMgr.readNuclei(NucleiMgr.java:501)
+	org.rhwlab.snight.NucleiMgr.readNuclei(NucleiMgr.java:428)
+	org.rhwlab.snight.NucleiMgr.<init>(NucleiMgr.java:161)
+	org.rhwlab.acetree.AceTree.bringUpSeriesData(AceTree.java:664)
+TRACE 301386:
+	sun.awt.windows.WGlobalCursorManager.setCursor(<Unknown Source>:Unknown line)
+	sun.awt.GlobalCursorManager._updateCursor(<Unknown Source>:Unknown line)
+	sun.awt.GlobalCursorManager.access$000(<Unknown Source>:Unknown line)
+	sun.awt.GlobalCursorManager$NativeUpdater.run(<Unknown Source>:Unknown line)
+TRACE 301557:
+	java.io.BufferedReader.readLine(<Unknown Source>:Unknown line)
+	org.rhwlab.snight.ZipNuclei.readLine(ZipNuclei.java:95)
+	org.rhwlab.snight.NucleiMgr.readNuclei(NucleiMgr.java:509)
+	org.rhwlab.snight.NucleiMgr.readNuclei(NucleiMgr.java:428)
+TRACE 301412:
+	sun.java2d.d3d.D3DScreenUpdateManager.run(<Unknown Source>:Unknown line)
+	java.lang.Thread.run(<Unknown Source>:Unknown line)
+TRACE 301468:
+	java.security.AccessController.getStackAccessControlContext(<Unknown Source>:Unknown line)
+	java.security.AccessController.getContext(<Unknown Source>:Unknown line)
+	java.awt.EventQueue.dispatchEvent(<Unknown Source>:Unknown line)
+	java.awt.EventDispatchThread.pumpOneEventForFilters(<Unknown Source>:Unknown line)
+TRACE 301627:
+	java.lang.Object.hashCode(<Unknown Source>:Unknown line)
+	javax.swing.tree.TreePath.hashCode(<Unknown Source>:Unknown line)
+	java.util.Hashtable.put(<Unknown Source>:Unknown line)
+	javax.swing.tree.VariableHeightLayoutCache.addMapping(<Unknown Source>:Unknown line)
+TRACE 301555:
+	org.rhwlab.snight.Nucleus.<init>(Nucleus.java:148)
+	org.rhwlab.snight.NucleiMgr.readNuclei(NucleiMgr.java:506)
+	org.rhwlab.snight.NucleiMgr.readNuclei(NucleiMgr.java:428)
+	org.rhwlab.snight.NucleiMgr.<init>(NucleiMgr.java:161)
+TRACE 301418:
+	java.lang.Class.getComponentType(<Unknown Source>:Unknown line)
+	java.util.Arrays.copyOf(<Unknown Source>:Unknown line)
+	java.util.ArrayList.toArray(<Unknown Source>:Unknown line)
+	sun.java2d.d3d.D3DScreenUpdateManager.run(<Unknown Source>:Unknown line)
+TRACE 301405:
+	java.lang.Object.hashCode(<Unknown Source>:Unknown line)
+	java.util.HashMap.hash(<Unknown Source>:Unknown line)
+	java.util.HashMap.get(<Unknown Source>:Unknown line)
+	sun.awt.AppContext.get(<Unknown Source>:Unknown line)
+TRACE 301670:
+	sun.awt.windows.WToolkit.shutdown(<Unknown Source>:Unknown line)
+	sun.awt.windows.WToolkit$$Lambda$5.1019843373.run(<Unknown Source>:Unknown line)
+	java.lang.Thread.run(<Unknown Source>:Unknown line)
+TRACE 301500:
+	java.lang.reflect.Array.newArray(<Unknown Source>:Unknown line)
+	java.lang.reflect.Array.newInstance(<Unknown Source>:Unknown line)
+	java.util.Arrays.copyOf(<Unknown Source>:Unknown line)
+	java.util.ArrayList.toArray(<Unknown Source>:Unknown line)
+TRACE 301601:
+	java.util.TimSort.gallopRight(<Unknown Source>:Unknown line)
+	java.util.TimSort.mergeAt(<Unknown Source>:Unknown line)
+	java.util.TimSort.mergeForceCollapse(<Unknown Source>:Unknown line)
+	java.util.TimSort.sort(<Unknown Source>:Unknown line)
+TRACE 301558:
+	sun.misc.FloatingDecimal.parseFloat(<Unknown Source>:Unknown line)
+	java.lang.Float.parseFloat(<Unknown Source>:Unknown line)
+	org.rhwlab.snight.Nucleus.<init>(Nucleus.java:98)
+	org.rhwlab.snight.NucleiMgr.readNuclei(NucleiMgr.java:506)
+TRACE 301515:
+	sun.java2d.d3d.D3DScreenUpdateManager.run(<Unknown Source>:Unknown line)
+	java.lang.Thread.run(<Unknown Source>:Unknown line)
+TRACE 301548:
+	java.util.zip.ZipFile.read(<Unknown Source>:Unknown line)
+	java.util.zip.ZipFile.access$1400(<Unknown Source>:Unknown line)
+	java.util.zip.ZipFile$ZipFileInputStream.read(<Unknown Source>:Unknown line)
+	java.util.zip.ZipFile$ZipFileInflaterInputStream.fill(<Unknown Source>:Unknown line)
+TRACE 301611:
+	sun.java2d.d3d.D3DScreenUpdateManager.run(<Unknown Source>:Unknown line)
+	java.lang.Thread.run(<Unknown Source>:Unknown line)
+TRACE 301079:
+	sun.awt.shell.Win32ShellFolder2.getEnumObjects(<Unknown Source>:Unknown line)
+	sun.awt.shell.Win32ShellFolder2.access$900(<Unknown Source>:Unknown line)
+	sun.awt.shell.Win32ShellFolder2$8.call(<Unknown Source>:Unknown line)
+	sun.awt.shell.Win32ShellFolder2$8.call(<Unknown Source>:Unknown line)
+TRACE 301602:
+	org.rhwlab.tree.AncesTree.extractRootCells(AncesTree.java:289)
+	org.rhwlab.tree.AncesTree.<init>(AncesTree.java:131)
+	org.rhwlab.snight.NucleiMgr.processNuclei(NucleiMgr.java:979)
+	org.rhwlab.acetree.AceTree.bringUpSeriesData(AceTree.java:668)
+TRACE 301663:
+	sun.java2d.d3d.D3DScreenUpdateManager.run(<Unknown Source>:Unknown line)
+	java.lang.Thread.run(<Unknown Source>:Unknown line)
+TRACE 300087:
+	java.lang.ClassLoader.defineClass1(<Unknown Source>:Unknown line)
+	java.lang.ClassLoader.defineClass(<Unknown Source>:Unknown line)
+	java.security.SecureClassLoader.defineClass(<Unknown Source>:Unknown line)
+	java.net.URLClassLoader.defineClass(<Unknown Source>:Unknown line)
+TRACE 301415:
+	sun.awt.windows.WGlobalCursorManager.findHeavyweightUnderCursor(<Unknown Source>:Unknown line)
+	sun.awt.GlobalCursorManager._updateCursor(<Unknown Source>:Unknown line)
+	sun.awt.GlobalCursorManager.updateCursorImmediately(<Unknown Source>:Unknown line)
+	sun.awt.windows.WComponentPeer.updateCursorImmediately(<Unknown Source>:Unknown line)
+TRACE 301471:
+	sun.awt.windows.WGlobalCursorManager.setCursor(<Unknown Source>:Unknown line)
+	sun.awt.GlobalCursorManager._updateCursor(<Unknown Source>:Unknown line)
+	sun.awt.GlobalCursorManager.updateCursorImmediately(<Unknown Source>:Unknown line)
+	sun.awt.windows.WComponentPeer.updateCursorImmediately(<Unknown Source>:Unknown line)
+TRACE 301621:
+	javax.swing.tree.DefaultMutableTreeNode.remove(<Unknown Source>:Unknown line)
+	javax.swing.tree.DefaultMutableTreeNode.remove(<Unknown Source>:Unknown line)
+	javax.swing.tree.DefaultMutableTreeNode.removeFromParent(<Unknown Source>:Unknown line)
+	org.rhwlab.acetree.AceTree.updateRoot(AceTree.java:1018)
+TRACE 301615:
+	sun.java2d.d3d.D3DScreenUpdateManager.run(<Unknown Source>:Unknown line)
+	java.lang.Thread.run(<Unknown Source>:Unknown line)
+TRACE 301498:
+	java.lang.Thread.currentThread(<Unknown Source>:Unknown line)
+	sun.java2d.d3d.D3DRenderQueue.isRenderQueueThread(<Unknown Source>:Unknown line)
+	sun.java2d.d3d.D3DSurfaceData.swapBuffers(<Unknown Source>:Unknown line)
+	sun.java2d.d3d.D3DScreenUpdateManager.run(<Unknown Source>:Unknown line)
+TRACE 301486:
+	java.lang.System.identityHashCode(<Unknown Source>:Unknown line)
+	sun.awt.SunHints$Value.hashCode(<Unknown Source>:Unknown line)
+	java.awt.font.FontRenderContext.hashCode(<Unknown Source>:Unknown line)
+	sun.font.FontDesignMetrics$MetricsKey.init(<Unknown Source>:Unknown line)
+TRACE 301636:
+	java.io.WinNTFileSystem.getBooleanAttributes(<Unknown Source>:Unknown line)
+	java.io.File.exists(<Unknown Source>:Unknown line)
+	org.rhwlab.acetree.AceTree.checkExists(AceTree.java:2001)
+	org.rhwlab.acetree.AceTree.imageNameHandler(AceTree.java:2028)
+TRACE 301476:
+	java.lang.Object.clone(<Unknown Source>:Unknown line)
+	sun.java2d.SunGraphics2D.clone(<Unknown Source>:Unknown line)
+	sun.java2d.SunGraphics2D.create(<Unknown Source>:Unknown line)
+	java.awt.Graphics.create(<Unknown Source>:Unknown line)
+CPU SAMPLES BEGIN (total = 28525) Tue Mar 10 18:16:19 2015
+rank   self  accum   count trace method
+   1 62.43% 62.43%   17809 300433 sun.awt.windows.WToolkit.eventLoop
+   2 34.64% 97.07%    9880 301600 java.util.TimSort.sort
+   3  0.54% 97.61%     155 301388 sun.java2d.d3d.D3DScreenUpdateManager.run
+   4  0.19% 97.80%      54 301389 java.lang.Object.wait
+   5  0.17% 97.97%      48 301454 java.lang.Object.notifyAll
+   6  0.15% 98.12%      43 301503 sun.java2d.d3d.D3DScreenUpdateManager.run
+   7  0.14% 98.26%      40 301551 org.rhwlab.snight.NucleiMgr.getTokens
+   8  0.11% 98.37%      30 301384 sun.java2d.d3d.D3DRenderQueue.flushBuffer
+   9  0.09% 98.46%      27 301387 sun.java2d.d3d.D3DScreenUpdateManager.run
+  10  0.07% 98.53%      19 301553 java.util.zip.Inflater.inflateBytes
+  11  0.05% 98.58%      14 301366 sun.java2d.d3d.D3DRenderQueue.flushBuffer
+  12  0.05% 98.62%      13 301499 sun.java2d.d3d.D3DScreenUpdateManager.run
+  13  0.04% 98.66%      11 301370 sun.java2d.d3d.D3DRenderQueue.flushBuffer
+  14  0.04% 98.70%      11 301506 sun.java2d.d3d.D3DScreenUpdateManager.run
+  15  0.03% 98.73%       9 301625 javax.swing.tree.DefaultMutableTreeNode.removeFromParent
+  16  0.03% 98.76%       8 301543 org.rhwlab.snight.NucleiMgr.readNuclei
+  17  0.03% 98.79%       8 301386 sun.awt.windows.WGlobalCursorManager.setCursor
+  18  0.02% 98.81%       7 301557 java.io.BufferedReader.readLine
+  19  0.02% 98.84%       7 301412 sun.java2d.d3d.D3DScreenUpdateManager.run
+  20  0.02% 98.86%       6 301468 java.security.AccessController.getStackAccessControlContext
+  21  0.02% 98.88%       6 301627 java.lang.Object.hashCode
+  22  0.02% 98.90%       6 301555 org.rhwlab.snight.Nucleus.<init>
+  23  0.02% 98.92%       6 301418 java.lang.Class.getComponentType
+  24  0.02% 98.94%       6 301405 java.lang.Object.hashCode
+  25  0.02% 98.96%       6 301670 sun.awt.windows.WToolkit.shutdown
+  26  0.02% 98.98%       6 301500 java.lang.reflect.Array.newArray
+  27  0.02% 99.00%       6 301601 java.util.TimSort.gallopRight
+  28  0.02% 99.02%       5 301558 sun.misc.FloatingDecimal.parseFloat
+  29  0.02% 99.04%       5 301515 sun.java2d.d3d.D3DScreenUpdateManager.run
+  30  0.02% 99.06%       5 301548 java.util.zip.ZipFile.read
+  31  0.02% 99.07%       5 301611 sun.java2d.d3d.D3DScreenUpdateManager.run
+  32  0.01% 99.09%       4 301079 sun.awt.shell.Win32ShellFolder2.getEnumObjects
+  33  0.01% 99.10%       4 301602 org.rhwlab.tree.AncesTree.extractRootCells
+  34  0.01% 99.12%       4 301663 sun.java2d.d3d.D3DScreenUpdateManager.run
+  35  0.01% 99.13%       4 300087 java.lang.ClassLoader.defineClass1
+  36  0.01% 99.14%       4 301415 sun.awt.windows.WGlobalCursorManager.findHeavyweightUnderCursor
+  37  0.01% 99.16%       4 301471 sun.awt.windows.WGlobalCursorManager.setCursor
+  38  0.01% 99.17%       4 301621 javax.swing.tree.DefaultMutableTreeNode.remove
+  39  0.01% 99.18%       3 301615 sun.java2d.d3d.D3DScreenUpdateManager.run
+  40  0.01% 99.19%       3 301498 java.lang.Thread.currentThread
+  41  0.01% 99.20%       3 301486 java.lang.System.identityHashCode
+  42  0.01% 99.21%       3 301636 java.io.WinNTFileSystem.getBooleanAttributes
+  43  0.01% 99.23%       3 301476 java.lang.Object.clone
+CPU SAMPLES END

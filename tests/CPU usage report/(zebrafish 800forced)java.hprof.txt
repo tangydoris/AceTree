@@ -1,0 +1,1765 @@
+JAVA PROFILE 1.0.1, created Tue Mar 03 16:43:26 2015
+
+Copyright (c) 2003, 2005, Oracle and/or its affiliates. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions
+are met:
+
+  - Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+
+  - Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in the
+    documentation and/or other materials provided with the distribution.
+
+  - Neither the name of Oracle nor the names of its
+    contributors may be used to endorse or promote products derived
+    from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+
+Header for -agentlib:hprof (or -Xrunhprof) ASCII Output (JDK 5.0 JVMTI based)
+
+WARNING!  This file format is under development, and is subject to
+change without notice.
+
+This file contains the following types of records:
+
+THREAD START
+THREAD END      mark the lifetime of Java threads
+
+TRACE           represents a Java stack trace.  Each trace consists
+                of a series of stack frames.  Other records refer to
+                TRACEs to identify (1) where object allocations have
+                taken place, (2) the frames in which GC roots were
+                found, and (3) frequently executed methods.
+
+HEAP DUMP       is a complete snapshot of all live objects in the Java
+                heap.  Following distinctions are made:
+
+                ROOT    root set as determined by GC
+                CLS     classes 
+                OBJ     instances
+                ARR     arrays
+
+SITES           is a sorted list of allocation sites.  This identifies
+                the most heavily allocated object types, and the TRACE
+                at which those allocations occurred.
+
+CPU SAMPLES     is a statistical profile of program execution.  The VM
+                periodically samples all running threads, and assigns
+                a quantum to active TRACEs in those threads.  Entries
+                in this record are TRACEs ranked by the percentage of
+                total quanta they consumed; top-ranked TRACEs are
+                typically hot spots in the program.
+
+CPU TIME        is a profile of program execution obtained by measuring
+                the time spent in individual methods (excluding the time
+                spent in callees), as well as by counting the number of
+                times each method is called. Entries in this record are
+                TRACEs ranked by the percentage of total CPU time. The
+                "count" field indicates the number of times each TRACE 
+                is invoked.
+
+MONITOR TIME    is a profile of monitor contention obtained by measuring
+                the time spent by a thread waiting to enter a monitor.
+                Entries in this record are TRACEs ranked by the percentage
+                of total monitor contention time and a brief description
+                of the monitor.  The "count" field indicates the number of 
+                times the monitor was contended at that TRACE.
+
+MONITOR DUMP    is a complete snapshot of all the monitors and threads in 
+                the System.
+
+HEAP DUMP, SITES, CPU SAMPLES|TIME and MONITOR DUMP|TIME records are generated 
+at program exit.  They can also be obtained during program execution by typing 
+Ctrl-\ (on Solaris) or by typing Ctrl-Break (on Win32).
+
+--------
+
+THREAD START (obj=5000017f, id = 200001, name="main", group="main")
+THREAD START (obj=5000017f, id = 200004, name="Java2D Disposer", group="system")
+THREAD START (obj=5000017f, id = 200005, name="AWT-Shutdown", group="system")
+THREAD START (obj=5000017f, id = 200006, name="AWT-Windows", group="system")
+THREAD START (obj=5000017f, id = 200007, name="Image Fetcher 0", group="main")
+THREAD START (obj=50000697, id = 200008, name="AWT-EventQueue-0", group="main")
+THREAD START (obj=5000017f, id = 200009, name="Swing-Shell", group="system")
+THREAD START (obj=50000697, id = 200010, name="Basic L&F File Loading Thread", group="main")
+THREAD END (id = 200010)
+THREAD START (obj=50000697, id = 200011, name="Basic L&F File Loading Thread", group="main")
+THREAD END (id = 200011)
+THREAD START (obj=50000697, id = 200012, name="Basic L&F File Loading Thread", group="main")
+THREAD END (id = 200012)
+THREAD END (id = 200001)
+THREAD START (obj=5000017f, id = 200013, name="DestroyJavaVM", group="main")
+THREAD START (obj=5000017f, id = 200014, name="D3D Screen Updater", group="system")
+THREAD START (obj=50000697, id = 200015, name="Basic L&F File Loading Thread", group="main")
+THREAD END (id = 200015)
+THREAD START (obj=50000697, id = 200016, name="Basic L&F File Loading Thread", group="main")
+THREAD END (id = 200016)
+THREAD START (obj=5000017f, id = 200017, name="TimerQueue", group="system")
+THREAD END (id = 200007)
+THREAD START (obj=50000697, id = 200018, name="Basic L&F File Loading Thread", group="main")
+THREAD END (id = 200018)
+THREAD START (obj=50000697, id = 200019, name="Basic L&F File Loading Thread", group="main")
+THREAD END (id = 200019)
+THREAD START (obj=50000697, id = 200020, name="Basic L&F File Loading Thread", group="main")
+THREAD END (id = 200020)
+THREAD START (obj=50000697, id = 200021, name="Basic L&F File Loading Thread", group="main")
+THREAD END (id = 200021)
+THREAD START (obj=5000017f, id = 200022, name="Image Fetcher 0", group="main")
+THREAD END (id = 200022)
+THREAD START (obj=5000017f, id = 200023, name="Thread-0", group="system")
+THREAD START (obj=5000017f, id = 200024, name="Thread-1", group="main")
+THREAD START (obj=5000017f, id = 200025, name="Thread-2", group="system")
+THREAD END (id = 200025)
+THREAD END (id = 200014)
+THREAD END (id = 200024)
+THREAD END (id = 200009)
+THREAD END (id = 200006)
+THREAD END (id = 200023)
+THREAD END (id = 200008)
+TRACE 300396:
+	sun.awt.windows.WToolkit.eventLoop(<Unknown Source>:Unknown line)
+	sun.awt.windows.WToolkit.run(<Unknown Source>:Unknown line)
+	java.lang.Thread.run(<Unknown Source>:Unknown line)
+TRACE 301547:
+	org.rhwlab.snight.NucleiMgr.getTokens(NucleiMgr.java:1042)
+	org.rhwlab.snight.NucleiMgr.readNuclei(NucleiMgr.java:499)
+	org.rhwlab.snight.NucleiMgr.readNuclei(NucleiMgr.java:428)
+	org.rhwlab.snight.NucleiMgr.<init>(NucleiMgr.java:161)
+TRACE 301546:
+	java.util.zip.Inflater.inflateBytes(<Unknown Source>:Unknown line)
+	java.util.zip.Inflater.inflate(<Unknown Source>:Unknown line)
+	java.util.zip.InflaterInputStream.read(<Unknown Source>:Unknown line)
+	sun.nio.cs.StreamDecoder.readBytes(<Unknown Source>:Unknown line)
+TRACE 301610:
+	javax.swing.tree.DefaultMutableTreeNode.isNodeAncestor(<Unknown Source>:Unknown line)
+	javax.swing.tree.DefaultMutableTreeNode.insert(<Unknown Source>:Unknown line)
+	javax.swing.tree.DefaultMutableTreeNode.add(<Unknown Source>:Unknown line)
+	org.rhwlab.tree.AncesTree.processEntry(AncesTree.java:569)
+TRACE 301548:
+	java.util.StringTokenizer.scanToken(<Unknown Source>:Unknown line)
+	java.util.StringTokenizer.nextToken(<Unknown Source>:Unknown line)
+	org.rhwlab.snight.NucleiMgr.getTokens(NucleiMgr.java:1042)
+	org.rhwlab.snight.NucleiMgr.readNuclei(NucleiMgr.java:499)
+TRACE 301614:
+	java.util.Hashtable.get(<Unknown Source>:Unknown line)
+	org.rhwlab.tree.AncesTree.processEntry(AncesTree.java:506)
+	org.rhwlab.tree.AncesTree.processEntries(AncesTree.java:358)
+	org.rhwlab.tree.AncesTree.<init>(AncesTree.java:127)
+TRACE 301371:
+	sun.java2d.d3d.D3DScreenUpdateManager.run(<Unknown Source>:Unknown line)
+	java.lang.Thread.run(<Unknown Source>:Unknown line)
+TRACE 301553:
+	org.rhwlab.snight.Nucleus.<init>(Nucleus.java:148)
+	org.rhwlab.snight.NucleiMgr.readNuclei(NucleiMgr.java:506)
+	org.rhwlab.snight.NucleiMgr.readNuclei(NucleiMgr.java:428)
+	org.rhwlab.snight.NucleiMgr.<init>(NucleiMgr.java:161)
+TRACE 301556:
+	sun.misc.FloatingDecimal.parseFloat(<Unknown Source>:Unknown line)
+	java.lang.Float.parseFloat(<Unknown Source>:Unknown line)
+	org.rhwlab.snight.Nucleus.<init>(Nucleus.java:98)
+	org.rhwlab.snight.NucleiMgr.readNuclei(NucleiMgr.java:506)
+TRACE 301551:
+	java.io.BufferedReader.readLine(<Unknown Source>:Unknown line)
+	org.rhwlab.snight.ZipNuclei.readLine(ZipNuclei.java:95)
+	org.rhwlab.snight.NucleiMgr.readNuclei(NucleiMgr.java:509)
+	org.rhwlab.snight.NucleiMgr.readNuclei(NucleiMgr.java:428)
+TRACE 301368:
+	sun.java2d.d3d.D3DRenderQueue.flushBuffer(<Unknown Source>:Unknown line)
+	sun.java2d.d3d.D3DRenderQueue.flushBuffer(<Unknown Source>:Unknown line)
+	sun.java2d.d3d.D3DRenderQueue.flushNow(<Unknown Source>:Unknown line)
+	sun.java2d.d3d.D3DSurfaceData.swapBuffers(<Unknown Source>:Unknown line)
+TRACE 301462:
+	sun.java2d.d3d.D3DScreenUpdateManager.run(<Unknown Source>:Unknown line)
+	java.lang.Thread.run(<Unknown Source>:Unknown line)
+TRACE 301554:
+	java.util.StringTokenizer.skipDelimiters(<Unknown Source>:Unknown line)
+	java.util.StringTokenizer.hasMoreTokens(<Unknown Source>:Unknown line)
+	org.rhwlab.snight.NucleiMgr.getTokens(NucleiMgr.java:1038)
+	org.rhwlab.snight.NucleiMgr.readNuclei(NucleiMgr.java:499)
+TRACE 301539:
+	java.util.zip.ZipFile.read(<Unknown Source>:Unknown line)
+	java.util.zip.ZipFile.access$1400(<Unknown Source>:Unknown line)
+	java.util.zip.ZipFile$ZipFileInputStream.read(<Unknown Source>:Unknown line)
+	java.util.zip.ZipFile$ZipFileInflaterInputStream.fill(<Unknown Source>:Unknown line)
+TRACE 301604:
+	org.rhwlab.snight.Identity3.identityAssignment(Identity3.java:102)
+	org.rhwlab.snight.NucleiMgr.processNuclei(NucleiMgr.java:972)
+	org.rhwlab.acetree.AceTree.bringUpSeriesData(AceTree.java:668)
+	org.rhwlab.acetree.AceTree.bringUpSeriesUI(AceTree.java:588)
+TRACE 301619:
+	org.rhwlab.tree.AncesTree.processEntry(AncesTree.java:430)
+	org.rhwlab.tree.AncesTree.processEntries(AncesTree.java:358)
+	org.rhwlab.tree.AncesTree.<init>(AncesTree.java:127)
+	org.rhwlab.snight.NucleiMgr.processNuclei(NucleiMgr.java:979)
+TRACE 301550:
+	sun.nio.cs.SingleByte.withResult(<Unknown Source>:Unknown line)
+	sun.nio.cs.SingleByte.access$000(<Unknown Source>:Unknown line)
+	sun.nio.cs.SingleByte$Decoder.decodeArrayLoop(<Unknown Source>:Unknown line)
+	sun.nio.cs.SingleByte$Decoder.decodeLoop(<Unknown Source>:Unknown line)
+TRACE 301404:
+	java.lang.Object.wait(<Unknown Source>:Unknown line)
+	sun.java2d.d3d.D3DScreenUpdateManager.run(<Unknown Source>:Unknown line)
+	java.lang.Thread.run(<Unknown Source>:Unknown line)
+TRACE 301432:
+	sun.java2d.d3d.D3DRenderQueue.flushBuffer(<Unknown Source>:Unknown line)
+	sun.java2d.d3d.D3DRenderQueue.flushBuffer(<Unknown Source>:Unknown line)
+	sun.java2d.d3d.D3DRenderQueue.flushAndInvokeNow(<Unknown Source>:Unknown line)
+	sun.java2d.d3d.D3DSurfaceData.initSurface(<Unknown Source>:Unknown line)
+TRACE 301620:
+	java.util.Hashtable.get(<Unknown Source>:Unknown line)
+	org.rhwlab.tree.AncesTree.processEntry(AncesTree.java:546)
+	org.rhwlab.tree.AncesTree.processEntries(AncesTree.java:358)
+	org.rhwlab.tree.AncesTree.<init>(AncesTree.java:127)
+TRACE 301639:
+	java.util.Hashtable.put(<Unknown Source>:Unknown line)
+	org.rhwlab.tree.AncesTree.makeCellsByNameHash(AncesTree.java:647)
+	org.rhwlab.tree.AncesTree.processEntries(AncesTree.java:366)
+	org.rhwlab.tree.AncesTree.<init>(AncesTree.java:127)
+TRACE 301507:
+	java.lang.Object.notifyAll(<Unknown Source>:Unknown line)
+	sun.java2d.d3d.D3DScreenUpdateManager.run(<Unknown Source>:Unknown line)
+	java.lang.Thread.run(<Unknown Source>:Unknown line)
+TRACE 301381:
+	java.lang.Class.getComponentType(<Unknown Source>:Unknown line)
+	java.util.Arrays.copyOf(<Unknown Source>:Unknown line)
+	java.util.ArrayList.toArray(<Unknown Source>:Unknown line)
+	sun.java2d.d3d.D3DScreenUpdateManager.run(<Unknown Source>:Unknown line)
+TRACE 301597:
+	org.rhwlab.snight.NucleiMgr.setSuccessors(NucleiMgr.java:1147)
+	org.rhwlab.snight.NucleiMgr.setAllSuccessors(NucleiMgr.java:1122)
+	org.rhwlab.snight.NucleiMgr.processNuclei(NucleiMgr.java:963)
+	org.rhwlab.acetree.AceTree.bringUpSeriesData(AceTree.java:668)
+TRACE 301359:
+	sun.java2d.d3d.D3DRenderQueue.flushBuffer(<Unknown Source>:Unknown line)
+	sun.java2d.d3d.D3DRenderQueue.flushBuffer(<Unknown Source>:Unknown line)
+	sun.java2d.d3d.D3DRenderQueue.flushNow(<Unknown Source>:Unknown line)
+	sun.java2d.d3d.D3DBlitLoops.Blit(<Unknown Source>:Unknown line)
+TRACE 301627:
+	org.rhwlab.tree.AncesTree.countAliveCellsAtIndex(AncesTree.java:381)
+	org.rhwlab.tree.AncesTree.processEntries(AncesTree.java:361)
+	org.rhwlab.tree.AncesTree.<init>(AncesTree.java:127)
+	org.rhwlab.snight.NucleiMgr.processNuclei(NucleiMgr.java:979)
+TRACE 301609:
+	org.rhwlab.snight.NucleiMgr.setSuccessors(NucleiMgr.java:1147)
+	org.rhwlab.tree.AncesTree.processEntry(AncesTree.java:421)
+	org.rhwlab.tree.AncesTree.processEntries(AncesTree.java:358)
+	org.rhwlab.tree.AncesTree.<init>(AncesTree.java:127)
+TRACE 301558:
+	java.util.StringTokenizer.setMaxDelimCodePoint(<Unknown Source>:Unknown line)
+	java.util.StringTokenizer.<init>(<Unknown Source>:Unknown line)
+	java.util.StringTokenizer.<init>(<Unknown Source>:Unknown line)
+	org.rhwlab.snight.NucleiMgr.getTokens(NucleiMgr.java:1036)
+TRACE 301476:
+	sun.java2d.d3d.D3DScreenUpdateManager.run(<Unknown Source>:Unknown line)
+	java.lang.Thread.run(<Unknown Source>:Unknown line)
+TRACE 301514:
+	sun.java2d.d3d.D3DScreenUpdateManager.run(<Unknown Source>:Unknown line)
+	java.lang.Thread.run(<Unknown Source>:Unknown line)
+TRACE 301444:
+	sun.awt.windows.WGlobalCursorManager.setCursor(<Unknown Source>:Unknown line)
+	sun.awt.GlobalCursorManager._updateCursor(<Unknown Source>:Unknown line)
+	sun.awt.GlobalCursorManager.access$000(<Unknown Source>:Unknown line)
+	sun.awt.GlobalCursorManager$NativeUpdater.run(<Unknown Source>:Unknown line)
+TRACE 301638:
+	java.util.Hashtable.rehash(<Unknown Source>:Unknown line)
+	java.util.Hashtable.addEntry(<Unknown Source>:Unknown line)
+	java.util.Hashtable.put(<Unknown Source>:Unknown line)
+	org.rhwlab.tree.AncesTree.makeCellsByNameHash(AncesTree.java:647)
+TRACE 301601:
+	org.rhwlab.snight.Identity3.clearNames(Identity3.java:156)
+	org.rhwlab.snight.Identity3.clearAllNames(Identity3.java:147)
+	org.rhwlab.snight.Identity3.identityAssignment(Identity3.java:48)
+	org.rhwlab.snight.NucleiMgr.processNuclei(NucleiMgr.java:972)
+TRACE 301555:
+	org.rhwlab.snight.Nucleus.<init>(Nucleus.java:151)
+	org.rhwlab.snight.NucleiMgr.readNuclei(NucleiMgr.java:506)
+	org.rhwlab.snight.NucleiMgr.readNuclei(NucleiMgr.java:428)
+	org.rhwlab.snight.NucleiMgr.<init>(NucleiMgr.java:161)
+TRACE 301575:
+	sun.java2d.d3d.D3DScreenUpdateManager.run(<Unknown Source>:Unknown line)
+	java.lang.Thread.run(<Unknown Source>:Unknown line)
+TRACE 301621:
+	java.lang.Integer.getChars(<Unknown Source>:Unknown line)
+	java.lang.Integer.toString(<Unknown Source>:Unknown line)
+	java.lang.String.valueOf(<Unknown Source>:Unknown line)
+	org.rhwlab.tree.AncesTree.makeHashKey(AncesTree.java:853)
+TRACE 301373:
+	java.lang.reflect.Array.newArray(<Unknown Source>:Unknown line)
+	java.lang.reflect.Array.newInstance(<Unknown Source>:Unknown line)
+	java.util.Arrays.copyOf(<Unknown Source>:Unknown line)
+	java.util.ArrayList.toArray(<Unknown Source>:Unknown line)
+TRACE 301516:
+	sun.java2d.d3d.D3DScreenUpdateManager.run(<Unknown Source>:Unknown line)
+	java.lang.Thread.run(<Unknown Source>:Unknown line)
+TRACE 301618:
+	java.util.Hashtable.get(<Unknown Source>:Unknown line)
+	org.rhwlab.tree.AncesTree.processEntry(AncesTree.java:481)
+	org.rhwlab.tree.AncesTree.processEntries(AncesTree.java:358)
+	org.rhwlab.tree.AncesTree.<init>(AncesTree.java:127)
+TRACE 301467:
+	sun.awt.shell.Win32ShellFolder2.getLinkLocation(<Unknown Source>:Unknown line)
+	sun.awt.shell.Win32ShellFolder2.access$1400(<Unknown Source>:Unknown line)
+	sun.awt.shell.Win32ShellFolder2$11.call(<Unknown Source>:Unknown line)
+	sun.awt.shell.Win32ShellFolder2$11.call(<Unknown Source>:Unknown line)
+TRACE 301690:
+	sun.awt.windows.WToolkit.shutdown(<Unknown Source>:Unknown line)
+	sun.awt.windows.WToolkit$$Lambda$5.1703084668.run(<Unknown Source>:Unknown line)
+	java.lang.Thread.run(<Unknown Source>:Unknown line)
+TRACE 301505:
+	sun.awt.windows.WGlobalCursorManager.findHeavyweightUnderCursor(<Unknown Source>:Unknown line)
+	sun.awt.GlobalCursorManager._updateCursor(<Unknown Source>:Unknown line)
+	sun.awt.GlobalCursorManager.updateCursorImmediately(<Unknown Source>:Unknown line)
+	sun.awt.windows.WComponentPeer.updateCursorImmediately(<Unknown Source>:Unknown line)
+TRACE 301642:
+	java.util.Hashtable.get(<Unknown Source>:Unknown line)
+	org.rhwlab.tree.AncesTree.makeCellsByNameHash(AncesTree.java:641)
+	org.rhwlab.tree.AncesTree.processEntries(AncesTree.java:366)
+	org.rhwlab.tree.AncesTree.<init>(AncesTree.java:127)
+TRACE 301617:
+	org.rhwlab.tree.AncesTree.processEntry(AncesTree.java:580)
+	org.rhwlab.tree.AncesTree.processEntries(AncesTree.java:358)
+	org.rhwlab.tree.AncesTree.<init>(AncesTree.java:127)
+	org.rhwlab.snight.NucleiMgr.processNuclei(NucleiMgr.java:979)
+TRACE 301674:
+	java.awt.image.ComponentColorModel.getRGBComponent(<Unknown Source>:Unknown line)
+	java.awt.image.ComponentColorModel.getRed(<Unknown Source>:Unknown line)
+	java.awt.image.ComponentColorModel.getRGB(<Unknown Source>:Unknown line)
+	sun.java2d.loops.OpaqueCopyAnyToArgb.Blit(<Unknown Source>:Unknown line)
+TRACE 301561:
+	org.rhwlab.snight.Nucleus.<init>(Nucleus.java:155)
+	org.rhwlab.snight.NucleiMgr.readNuclei(NucleiMgr.java:506)
+	org.rhwlab.snight.NucleiMgr.readNuclei(NucleiMgr.java:428)
+	org.rhwlab.snight.NucleiMgr.<init>(NucleiMgr.java:161)
+TRACE 301650:
+	java.io.WinNTFileSystem.getBooleanAttributes(<Unknown Source>:Unknown line)
+	java.io.File.exists(<Unknown Source>:Unknown line)
+	org.rhwlab.acetree.AceTree.checkExists(AceTree.java:2001)
+	org.rhwlab.acetree.AceTree.imageNameHandler(AceTree.java:2028)
+TRACE 301535:
+	java.io.WinNTFileSystem.getBooleanAttributes(<Unknown Source>:Unknown line)
+	java.io.File.isFile(<Unknown Source>:Unknown line)
+	org.rhwlab.snight.Config.setStartingParms(Config.java:209)
+	org.rhwlab.snight.XMLConfig.endDocument(XMLConfig.java:152)
+TRACE 301595:
+	org.rhwlab.snight.NucleiMgr.computeRWeights(NucleiMgr.java:252)
+	org.rhwlab.snight.NucleiMgr.<init>(NucleiMgr.java:170)
+	org.rhwlab.acetree.AceTree.bringUpSeriesData(AceTree.java:664)
+	org.rhwlab.acetree.AceTree.bringUpSeriesUI(AceTree.java:588)
+TRACE 301564:
+	sun.misc.FloatingDecimal.parseFloat(<Unknown Source>:Unknown line)
+	java.lang.Float.parseFloat(<Unknown Source>:Unknown line)
+	org.rhwlab.snight.Nucleus.<init>(Nucleus.java:98)
+	org.rhwlab.snight.NucleiMgr.readNuclei(NucleiMgr.java:506)
+TRACE 301480:
+	sun.java2d.d3d.D3DSurfaceData.initTexture(<Unknown Source>:Unknown line)
+	sun.java2d.d3d.D3DSurfaceData.initSurfaceNow(<Unknown Source>:Unknown line)
+	sun.java2d.d3d.D3DSurfaceData.access$000(<Unknown Source>:Unknown line)
+	sun.java2d.d3d.D3DSurfaceData$1.run(<Unknown Source>:Unknown line)
+TRACE 301631:
+	java.util.Hashtable.put(<Unknown Source>:Unknown line)
+	org.rhwlab.tree.AncesTree.processEntry(AncesTree.java:577)
+	org.rhwlab.tree.AncesTree.processEntries(AncesTree.java:358)
+	org.rhwlab.tree.AncesTree.<init>(AncesTree.java:127)
+TRACE 301370:
+	sun.java2d.d3d.D3DScreenUpdateManager.run(<Unknown Source>:Unknown line)
+	java.lang.Thread.run(<Unknown Source>:Unknown line)
+TRACE 301402:
+	sun.awt.AWTAutoShutdown.setToolkitBusy(<Unknown Source>:Unknown line)
+	sun.awt.AWTAutoShutdown.notifyToolkitThreadBusy(<Unknown Source>:Unknown line)
+	sun.awt.windows.WToolkit.eventLoop(<Unknown Source>:Unknown line)
+	sun.awt.windows.WToolkit.run(<Unknown Source>:Unknown line)
+TRACE 301588:
+	java.io.FileInputStream.readBytes(<Unknown Source>:Unknown line)
+	java.io.FileInputStream.read(<Unknown Source>:Unknown line)
+	ij.io.ImageReader.read8bitImage(ImageReader.java:56)
+	ij.io.ImageReader.readPixels(ImageReader.java:768)
+TRACE 301569:
+	sun.java2d.d3d.D3DScreenUpdateManager.run(<Unknown Source>:Unknown line)
+	java.lang.Thread.run(<Unknown Source>:Unknown line)
+TRACE 301445:
+	java.security.AccessController.getStackAccessControlContext(<Unknown Source>:Unknown line)
+	java.security.AccessController.getContext(<Unknown Source>:Unknown line)
+	java.awt.EventQueue.dispatchEvent(<Unknown Source>:Unknown line)
+	java.awt.EventDispatchThread.pumpOneEventForFilters(<Unknown Source>:Unknown line)
+TRACE 301536:
+	java.util.zip.ZipFile.open(<Unknown Source>:Unknown line)
+	java.util.zip.ZipFile.<init>(<Unknown Source>:Unknown line)
+	java.util.zip.ZipFile.<init>(<Unknown Source>:Unknown line)
+	java.util.zip.ZipFile.<init>(<Unknown Source>:Unknown line)
+TRACE 301543:
+	org.rhwlab.snight.NucleiMgr.readNuclei(NucleiMgr.java:508)
+	org.rhwlab.snight.NucleiMgr.readNuclei(NucleiMgr.java:428)
+	org.rhwlab.snight.NucleiMgr.<init>(NucleiMgr.java:161)
+	org.rhwlab.acetree.AceTree.bringUpSeriesData(AceTree.java:664)
+TRACE 301629:
+	java.util.Hashtable.rehash(<Unknown Source>:Unknown line)
+	java.util.Hashtable.addEntry(<Unknown Source>:Unknown line)
+	java.util.Hashtable.put(<Unknown Source>:Unknown line)
+	org.rhwlab.tree.AncesTree.processEntry(AncesTree.java:577)
+TRACE 301465:
+	sun.awt.shell.Win32ShellFolder2.getNextChild(<Unknown Source>:Unknown line)
+	sun.awt.shell.Win32ShellFolder2.access$1100(<Unknown Source>:Unknown line)
+	sun.awt.shell.Win32ShellFolder2$9.call(<Unknown Source>:Unknown line)
+	sun.awt.shell.Win32ShellFolder2$9.call(<Unknown Source>:Unknown line)
+TRACE 301641:
+	java.util.Hashtable.put(<Unknown Source>:Unknown line)
+	org.rhwlab.tree.AncesTree.makeCellsByNameHash(AncesTree.java:647)
+	org.rhwlab.tree.AncesTree.processEntries(AncesTree.java:366)
+	org.rhwlab.tree.AncesTree.<init>(AncesTree.java:127)
+TRACE 301640:
+	org.rhwlab.tree.AncesTree.makeCellsByNameHash(AncesTree.java:647)
+	org.rhwlab.tree.AncesTree.processEntries(AncesTree.java:366)
+	org.rhwlab.tree.AncesTree.<init>(AncesTree.java:127)
+	org.rhwlab.snight.NucleiMgr.processNuclei(NucleiMgr.java:979)
+TRACE 301457:
+	java.lang.Thread.currentThread(<Unknown Source>:Unknown line)
+	sun.java2d.d3d.D3DRenderQueue.isRenderQueueThread(<Unknown Source>:Unknown line)
+	sun.java2d.d3d.D3DSurfaceData.swapBuffers(<Unknown Source>:Unknown line)
+	sun.java2d.d3d.D3DScreenUpdateManager.run(<Unknown Source>:Unknown line)
+TRACE 301461:
+	sun.awt.windows.WGlobalCursorManager.findHeavyweightUnderCursor(<Unknown Source>:Unknown line)
+	sun.awt.GlobalCursorManager._updateCursor(<Unknown Source>:Unknown line)
+	sun.awt.GlobalCursorManager.access$000(<Unknown Source>:Unknown line)
+	sun.awt.GlobalCursorManager$NativeUpdater.run(<Unknown Source>:Unknown line)
+TRACE 301630:
+	org.rhwlab.snight.NucleiMgr.setSuccessors(NucleiMgr.java:1133)
+	org.rhwlab.tree.AncesTree.processEntry(AncesTree.java:421)
+	org.rhwlab.tree.AncesTree.processEntries(AncesTree.java:358)
+	org.rhwlab.tree.AncesTree.<init>(AncesTree.java:127)
+TRACE 301540:
+	org.rhwlab.snight.NucleiMgr.readNuclei(NucleiMgr.java:501)
+	org.rhwlab.snight.NucleiMgr.readNuclei(NucleiMgr.java:428)
+	org.rhwlab.snight.NucleiMgr.<init>(NucleiMgr.java:161)
+	org.rhwlab.acetree.AceTree.bringUpSeriesData(AceTree.java:664)
+TRACE 301577:
+	sun.java2d.d3d.D3DScreenUpdateManager.run(<Unknown Source>:Unknown line)
+	java.lang.Thread.run(<Unknown Source>:Unknown line)
+TRACE 301573:
+	org.rhwlab.snight.Nucleus.<init>(Nucleus.java:153)
+	org.rhwlab.snight.NucleiMgr.readNuclei(NucleiMgr.java:506)
+	org.rhwlab.snight.NucleiMgr.readNuclei(NucleiMgr.java:428)
+	org.rhwlab.snight.NucleiMgr.<init>(NucleiMgr.java:161)
+TRACE 301632:
+	org.rhwlab.tree.AncesTree.processEntry(AncesTree.java:569)
+	org.rhwlab.tree.AncesTree.processEntries(AncesTree.java:358)
+	org.rhwlab.tree.AncesTree.<init>(AncesTree.java:127)
+	org.rhwlab.snight.NucleiMgr.processNuclei(NucleiMgr.java:979)
+TRACE 301633:
+	java.util.Hashtable.put(<Unknown Source>:Unknown line)
+	org.rhwlab.tree.AncesTree.processEntry(AncesTree.java:577)
+	org.rhwlab.tree.AncesTree.processEntries(AncesTree.java:358)
+	org.rhwlab.tree.AncesTree.<init>(AncesTree.java:127)
+TRACE 301511:
+	sun.awt.shell.Win32ShellFolder2.getEnumObjects(<Unknown Source>:Unknown line)
+	sun.awt.shell.Win32ShellFolder2.access$900(<Unknown Source>:Unknown line)
+	sun.awt.shell.Win32ShellFolder2$8.call(<Unknown Source>:Unknown line)
+	sun.awt.shell.Win32ShellFolder2$8.call(<Unknown Source>:Unknown line)
+TRACE 301599:
+	org.rhwlab.snight.NucleiMgr.setSuccessors(NucleiMgr.java:1133)
+	org.rhwlab.snight.NucleiMgr.setAllSuccessors(NucleiMgr.java:1122)
+	org.rhwlab.snight.NucleiMgr.processNuclei(NucleiMgr.java:963)
+	org.rhwlab.acetree.AceTree.bringUpSeriesData(AceTree.java:668)
+TRACE 301475:
+	sun.awt.windows.WGlobalCursorManager.setCursor(<Unknown Source>:Unknown line)
+	sun.awt.GlobalCursorManager._updateCursor(<Unknown Source>:Unknown line)
+	sun.awt.GlobalCursorManager.updateCursorImmediately(<Unknown Source>:Unknown line)
+	sun.awt.windows.WComponentPeer.updateCursorImmediately(<Unknown Source>:Unknown line)
+TRACE 300632:
+	sun.java2d.d3d.D3DRenderQueue.flushBuffer(<Unknown Source>:Unknown line)
+	sun.java2d.d3d.D3DRenderQueue.flushBuffer(<Unknown Source>:Unknown line)
+	sun.java2d.d3d.D3DRenderQueue.flushAndInvokeNow(<Unknown Source>:Unknown line)
+	sun.java2d.d3d.D3DGraphicsDevice.getDeviceCaps(<Unknown Source>:Unknown line)
+TRACE 301570:
+	sun.java2d.d3d.D3DScreenUpdateManager.run(<Unknown Source>:Unknown line)
+	java.lang.Thread.run(<Unknown Source>:Unknown line)
+TRACE 301603:
+	java.lang.StringBuilder.append(<Unknown Source>:Unknown line)
+	org.rhwlab.snight.Identity3.identityAssignment(Identity3.java:113)
+	org.rhwlab.snight.NucleiMgr.processNuclei(NucleiMgr.java:972)
+	org.rhwlab.acetree.AceTree.bringUpSeriesData(AceTree.java:668)
+TRACE 301484:
+	java.lang.Object.hashCode(<Unknown Source>:Unknown line)
+	java.util.HashMap.hash(<Unknown Source>:Unknown line)
+	java.util.HashMap.get(<Unknown Source>:Unknown line)
+	sun.awt.AppContext.get(<Unknown Source>:Unknown line)
+TRACE 300633:
+	sun.java2d.d3d.D3DGraphicsDevice.getDeviceCapsNative(<Unknown Source>:Unknown line)
+	sun.java2d.d3d.D3DGraphicsDevice.access$000(<Unknown Source>:Unknown line)
+	sun.java2d.d3d.D3DGraphicsDevice$1.run(<Unknown Source>:Unknown line)
+	sun.awt.windows.WToolkit.eventLoop(<Unknown Source>:Unknown line)
+TRACE 301478:
+	sun.dc.pr.PathFiller.writeAlpha8(<Unknown Source>:Unknown line)
+	sun.dc.pr.PathFiller.writeAlpha(<Unknown Source>:Unknown line)
+	sun.dc.pr.Rasterizer.getAlpha(<Unknown Source>:Unknown line)
+	sun.java2d.pipe.AAShapePipe.renderTiles(<Unknown Source>:Unknown line)
+TRACE 301508:
+	java.security.AccessController.getStackAccessControlContext(<Unknown Source>:Unknown line)
+	java.security.AccessController.getContext(<Unknown Source>:Unknown line)
+	java.awt.AWTEvent.<init>(<Unknown Source>:Unknown line)
+	java.awt.event.ComponentEvent.<init>(<Unknown Source>:Unknown line)
+TRACE 300522:
+	java.lang.Class.forName0(<Unknown Source>:Unknown line)
+	java.lang.Class.forName(<Unknown Source>:Unknown line)
+	javax.swing.plaf.nimbus.NimbusDefaults$LazyStyle$Part.<init>(<Unknown Source>:Unknown line)
+	javax.swing.plaf.nimbus.NimbusDefaults$LazyStyle.<init>(<Unknown Source>:Unknown line)
+TRACE 301495:
+	java.lang.Object.hashCode(<Unknown Source>:Unknown line)
+	javax.swing.plaf.nimbus.ImageCache.hash(<Unknown Source>:Unknown line)
+	javax.swing.plaf.nimbus.ImageCache.getImage(<Unknown Source>:Unknown line)
+	javax.swing.plaf.nimbus.AbstractRegionPainter.getImage(<Unknown Source>:Unknown line)
+TRACE 301512:
+	java.lang.Thread.isInterrupted(<Unknown Source>:Unknown line)
+	java.lang.Thread.interrupted(<Unknown Source>:Unknown line)
+	java.util.concurrent.FutureTask.awaitDone(<Unknown Source>:Unknown line)
+	java.util.concurrent.FutureTask.get(<Unknown Source>:Unknown line)
+TRACE 301585:
+	java.io.RandomAccessFile.read0(<Unknown Source>:Unknown line)
+	java.io.RandomAccessFile.read(<Unknown Source>:Unknown line)
+	ij.io.RandomAccessStream.read(RandomAccessStream.java:56)
+	ij.io.TiffDecoder.getShort(TiffDecoder.java:100)
+TRACE 301625:
+	java.util.Hashtable.get(<Unknown Source>:Unknown line)
+	org.rhwlab.tree.AncesTree.processEntry(AncesTree.java:506)
+	org.rhwlab.tree.AncesTree.processEntries(AncesTree.java:358)
+	org.rhwlab.tree.AncesTree.<init>(AncesTree.java:127)
+TRACE 301490:
+	java.security.AccessController.doPrivileged(<Unknown Source>:Unknown line)
+	javax.swing.Timer.post(<Unknown Source>:Unknown line)
+	javax.swing.TimerQueue.run(<Unknown Source>:Unknown line)
+	java.lang.Thread.run(<Unknown Source>:Unknown line)
+TRACE 301626:
+	java.util.Vector.ensureCapacityHelper(<Unknown Source>:Unknown line)
+	java.util.Vector.add(<Unknown Source>:Unknown line)
+	org.rhwlab.tree.Cell.updateCellData(Cell.java:498)
+	org.rhwlab.tree.AncesTree.processEntry(AncesTree.java:519)
+TRACE 301580:
+	java.util.Vector.ensureCapacityHelper(<Unknown Source>:Unknown line)
+	java.util.Vector.add(<Unknown Source>:Unknown line)
+	org.rhwlab.snight.NucleiMgr.readNuclei(NucleiMgr.java:508)
+	org.rhwlab.snight.NucleiMgr.readNuclei(NucleiMgr.java:428)
+TRACE 301542:
+	java.lang.String.substring(<Unknown Source>:Unknown line)
+	java.util.StringTokenizer.nextToken(<Unknown Source>:Unknown line)
+	org.rhwlab.snight.NucleiMgr.getTokens(NucleiMgr.java:1042)
+	org.rhwlab.snight.NucleiMgr.readNuclei(NucleiMgr.java:499)
+TRACE 301628:
+	org.rhwlab.tree.AncesTree.processEntry(AncesTree.java:577)
+	org.rhwlab.tree.AncesTree.processEntries(AncesTree.java:358)
+	org.rhwlab.tree.AncesTree.<init>(AncesTree.java:127)
+	org.rhwlab.snight.NucleiMgr.processNuclei(NucleiMgr.java:979)
+TRACE 301675:
+	java.awt.image.ComponentColorModel.getRGBComponent(<Unknown Source>:Unknown line)
+	java.awt.image.ComponentColorModel.getGreen(<Unknown Source>:Unknown line)
+	java.awt.image.ComponentColorModel.getRGB(<Unknown Source>:Unknown line)
+	sun.java2d.loops.OpaqueCopyAnyToArgb.Blit(<Unknown Source>:Unknown line)
+TRACE 301635:
+	org.rhwlab.tree.AncesTree.makeCellsByNameHash(AncesTree.java:644)
+	org.rhwlab.tree.AncesTree.processEntries(AncesTree.java:366)
+	org.rhwlab.tree.AncesTree.<init>(AncesTree.java:127)
+	org.rhwlab.snight.NucleiMgr.processNuclei(NucleiMgr.java:979)
+TRACE 301643:
+	java.util.Hashtable.get(<Unknown Source>:Unknown line)
+	org.rhwlab.tree.AncesTree.makeCellsByNameHash(AncesTree.java:641)
+	org.rhwlab.tree.AncesTree.processEntries(AncesTree.java:366)
+	org.rhwlab.tree.AncesTree.<init>(AncesTree.java:127)
+TRACE 301464:
+	sun.awt.shell.Win32ShellFolder2.doGetColumnInfo(<Unknown Source>:Unknown line)
+	sun.awt.shell.Win32ShellFolder2.access$2900(<Unknown Source>:Unknown line)
+	sun.awt.shell.Win32ShellFolder2$16.call(<Unknown Source>:Unknown line)
+	sun.awt.shell.Win32ShellFolder2$16.call(<Unknown Source>:Unknown line)
+TRACE 301557:
+	java.util.Arrays.copyOfRange(<Unknown Source>:Unknown line)
+	java.lang.String.<init>(<Unknown Source>:Unknown line)
+	java.lang.String.substring(<Unknown Source>:Unknown line)
+	java.util.StringTokenizer.nextToken(<Unknown Source>:Unknown line)
+TRACE 301606:
+	org.rhwlab.tree.AncesTree.processEntry(AncesTree.java:434)
+	org.rhwlab.tree.AncesTree.processEntries(AncesTree.java:358)
+	org.rhwlab.tree.AncesTree.<init>(AncesTree.java:127)
+	org.rhwlab.snight.NucleiMgr.processNuclei(NucleiMgr.java:979)
+TRACE 301453:
+	java.lang.Object.hashCode(<Unknown Source>:Unknown line)
+	java.util.WeakHashMap.hash(<Unknown Source>:Unknown line)
+	java.util.WeakHashMap.get(<Unknown Source>:Unknown line)
+	java.util.Collections$SynchronizedMap.get(<Unknown Source>:Unknown line)
+TRACE 301608:
+	java.util.Hashtable.get(<Unknown Source>:Unknown line)
+	org.rhwlab.tree.AncesTree.processEntry(AncesTree.java:506)
+	org.rhwlab.tree.AncesTree.processEntries(AncesTree.java:358)
+	org.rhwlab.tree.AncesTree.<init>(AncesTree.java:127)
+TRACE 301572:
+	java.util.Arrays.copyOf(<Unknown Source>:Unknown line)
+	java.util.Vector.grow(<Unknown Source>:Unknown line)
+	java.util.Vector.ensureCapacityHelper(<Unknown Source>:Unknown line)
+	java.util.Vector.add(<Unknown Source>:Unknown line)
+TRACE 301571:
+	java.util.ArrayList.toArray(<Unknown Source>:Unknown line)
+	sun.java2d.d3d.D3DScreenUpdateManager.run(<Unknown Source>:Unknown line)
+	java.lang.Thread.run(<Unknown Source>:Unknown line)
+TRACE 301611:
+	org.rhwlab.tree.AncesTree.processEntry(AncesTree.java:496)
+	org.rhwlab.tree.AncesTree.processEntries(AncesTree.java:358)
+	org.rhwlab.tree.AncesTree.<init>(AncesTree.java:127)
+	org.rhwlab.snight.NucleiMgr.processNuclei(NucleiMgr.java:979)
+TRACE 301613:
+	org.rhwlab.tree.Cell.updateCellData(Cell.java:498)
+	org.rhwlab.tree.AncesTree.processEntry(AncesTree.java:519)
+	org.rhwlab.tree.AncesTree.processEntries(AncesTree.java:358)
+	org.rhwlab.tree.AncesTree.<init>(AncesTree.java:127)
+TRACE 301498:
+	sun.dc.pr.PathFiller.setFillMode(<Unknown Source>:Unknown line)
+	sun.dc.pr.Rasterizer.setUsage(<Unknown Source>:Unknown line)
+	sun.dc.DuctusRenderingEngine.getAATileGenerator(<Unknown Source>:Unknown line)
+	sun.java2d.pipe.AAShapePipe.renderPath(<Unknown Source>:Unknown line)
+TRACE 301567:
+	sun.java2d.d3d.D3DScreenUpdateManager.run(<Unknown Source>:Unknown line)
+	java.lang.Thread.run(<Unknown Source>:Unknown line)
+TRACE 301566:
+	java.io.BufferedReader.readLine(<Unknown Source>:Unknown line)
+	java.io.BufferedReader.readLine(<Unknown Source>:Unknown line)
+	org.rhwlab.snight.ZipNuclei.readLine(ZipNuclei.java:95)
+	org.rhwlab.snight.NucleiMgr.readNuclei(NucleiMgr.java:509)
+TRACE 301565:
+	java.io.BufferedReader.readLine(<Unknown Source>:Unknown line)
+	java.io.BufferedReader.readLine(<Unknown Source>:Unknown line)
+	org.rhwlab.snight.ZipNuclei.readLine(ZipNuclei.java:95)
+	org.rhwlab.snight.NucleiMgr.readNuclei(NucleiMgr.java:509)
+TRACE 301568:
+	sun.nio.cs.StreamDecoder.implRead(<Unknown Source>:Unknown line)
+	sun.nio.cs.StreamDecoder.read(<Unknown Source>:Unknown line)
+	java.io.InputStreamReader.read(<Unknown Source>:Unknown line)
+	java.io.BufferedReader.fill(<Unknown Source>:Unknown line)
+TRACE 301563:
+	java.util.zip.ZipFile.getNextEntry(<Unknown Source>:Unknown line)
+	java.util.zip.ZipFile.access$500(<Unknown Source>:Unknown line)
+	java.util.zip.ZipFile$ZipEntryIterator.next(<Unknown Source>:Unknown line)
+	java.util.zip.ZipFile$ZipEntryIterator.nextElement(<Unknown Source>:Unknown line)
+TRACE 301562:
+	java.util.zip.ZipCoder.toString(<Unknown Source>:Unknown line)
+	java.util.zip.ZipFile.getZipEntry(<Unknown Source>:Unknown line)
+	java.util.zip.ZipFile.access$900(<Unknown Source>:Unknown line)
+	java.util.zip.ZipFile$ZipEntryIterator.next(<Unknown Source>:Unknown line)
+TRACE 301574:
+	org.rhwlab.snight.NucleiMgr.readNuclei(NucleiMgr.java:518)
+	org.rhwlab.snight.NucleiMgr.readNuclei(NucleiMgr.java:428)
+	org.rhwlab.snight.NucleiMgr.<init>(NucleiMgr.java:161)
+	org.rhwlab.acetree.AceTree.bringUpSeriesData(AceTree.java:664)
+TRACE 301560:
+	java.util.zip.ZipFile.getInputStream(<Unknown Source>:Unknown line)
+	org.rhwlab.snight.ZipNuclei.readLine(ZipNuclei.java:92)
+	org.rhwlab.snight.NucleiMgr.readNuclei(NucleiMgr.java:477)
+	org.rhwlab.snight.NucleiMgr.readNuclei(NucleiMgr.java:428)
+TRACE 301559:
+	sun.java2d.d3d.D3DScreenUpdateManager.run(<Unknown Source>:Unknown line)
+	java.lang.Thread.run(<Unknown Source>:Unknown line)
+TRACE 301637:
+	org.rhwlab.tree.AncesTree.makeCellsByNameHash(AncesTree.java:644)
+	org.rhwlab.tree.AncesTree.processEntries(AncesTree.java:366)
+	org.rhwlab.tree.AncesTree.<init>(AncesTree.java:127)
+	org.rhwlab.snight.NucleiMgr.processNuclei(NucleiMgr.java:979)
+TRACE 300095:
+	sun.misc.Unsafe.compareAndSwapLong(<Unknown Source>:Unknown line)
+	java.util.concurrent.ConcurrentHashMap.addCount(<Unknown Source>:Unknown line)
+	java.util.concurrent.ConcurrentHashMap.putVal(<Unknown Source>:Unknown line)
+	java.util.concurrent.ConcurrentHashMap.putIfAbsent(<Unknown Source>:Unknown line)
+TRACE 300094:
+	java.util.concurrent.ConcurrentHashMap.transfer(<Unknown Source>:Unknown line)
+	java.util.concurrent.ConcurrentHashMap.addCount(<Unknown Source>:Unknown line)
+	java.util.concurrent.ConcurrentHashMap.putVal(<Unknown Source>:Unknown line)
+	java.util.concurrent.ConcurrentHashMap.putIfAbsent(<Unknown Source>:Unknown line)
+TRACE 300025:
+	sun.misc.Perf$GetPerfAction.run(<Unknown Source>:Unknown line)
+	sun.misc.Perf$GetPerfAction.run(<Unknown Source>:Unknown line)
+	java.security.AccessController.doPrivileged(<Unknown Source>:Unknown line)
+	sun.misc.PerfCounter.<clinit>(<Unknown Source>:Unknown line)
+TRACE 301576:
+	org.rhwlab.snight.NucleiMgr.getTokens(NucleiMgr.java:1035)
+	org.rhwlab.snight.NucleiMgr.readNuclei(NucleiMgr.java:499)
+	org.rhwlab.snight.NucleiMgr.readNuclei(NucleiMgr.java:428)
+	org.rhwlab.snight.NucleiMgr.<init>(NucleiMgr.java:161)
+TRACE 301644:
+	org.rhwlab.acetree.AceTree.bringUpSeriesUI(AceTree.java:598)
+	org.rhwlab.acetree.AceMenuBar.actionPerformed(AceMenuBar.java:630)
+	javax.swing.AbstractButton.fireActionPerformed(<Unknown Source>:Unknown line)
+	javax.swing.AbstractButton$Handler.actionPerformed(<Unknown Source>:Unknown line)
+TRACE 301552:
+	java.util.Arrays.copyOfRange(<Unknown Source>:Unknown line)
+	java.lang.String.<init>(<Unknown Source>:Unknown line)
+	java.lang.String.substring(<Unknown Source>:Unknown line)
+	java.lang.String.trim(<Unknown Source>:Unknown line)
+TRACE 301645:
+	java.lang.AbstractStringBuilder.<init>(<Unknown Source>:Unknown line)
+	java.lang.StringBuilder.<init>(<Unknown Source>:Unknown line)
+	org.rhwlab.acetree.AceTree.buildTree(AceTree.java:871)
+	org.rhwlab.acetree.AceTree.bringUpSeriesUI(AceTree.java:608)
+TRACE 301578:
+	sun.java2d.d3d.D3DScreenUpdateManager.run(<Unknown Source>:Unknown line)
+	java.lang.Thread.run(<Unknown Source>:Unknown line)
+TRACE 301549:
+	java.util.zip.ZipFile.getEntryMethod(<Unknown Source>:Unknown line)
+	java.util.zip.ZipFile.getInputStream(<Unknown Source>:Unknown line)
+	org.rhwlab.snight.ZipNuclei.readLine(ZipNuclei.java:92)
+	org.rhwlab.snight.NucleiMgr.readNuclei(NucleiMgr.java:477)
+TRACE 301651:
+	java.io.FileInputStream.readBytes(<Unknown Source>:Unknown line)
+	java.io.FileInputStream.read(<Unknown Source>:Unknown line)
+	ij.io.Opener.getFileType(Opener.java:1042)
+	ij.io.Opener.openImage(Opener.java:262)
+TRACE 301652:
+	java.io.RandomAccessFile.read0(<Unknown Source>:Unknown line)
+	java.io.RandomAccessFile.read(<Unknown Source>:Unknown line)
+	ij.io.RandomAccessStream.read(RandomAccessStream.java:56)
+	ij.io.TiffDecoder.getInt(TiffDecoder.java:92)
+TRACE 301653:
+	org.rhwlab.image.ImageWindow.buildImagePlus(ImageWindow.java:662)
+	org.rhwlab.image.ImageWindow.convertToRGB(ImageWindow.java:576)
+	org.rhwlab.image.ImageWindow.doMakeImageFromTif(ImageWindow.java:401)
+	org.rhwlab.image.ImageWindow.makeImage2(ImageWindow.java:299)
+TRACE 301545:
+	java.lang.Object.hashCode(<Unknown Source>:Unknown line)
+	java.util.WeakHashMap.hash(<Unknown Source>:Unknown line)
+	java.util.WeakHashMap.remove(<Unknown Source>:Unknown line)
+	java.util.zip.ZipFile$ZipFileInflaterInputStream.close(<Unknown Source>:Unknown line)
+TRACE 301544:
+	org.rhwlab.snight.NucleiMgr.readNuclei(NucleiMgr.java:499)
+	org.rhwlab.snight.NucleiMgr.readNuclei(NucleiMgr.java:428)
+	org.rhwlab.snight.NucleiMgr.<init>(NucleiMgr.java:161)
+	org.rhwlab.acetree.AceTree.bringUpSeriesData(AceTree.java:664)
+TRACE 301579:
+	java.lang.String.substring(<Unknown Source>:Unknown line)
+	java.lang.String.trim(<Unknown Source>:Unknown line)
+	org.rhwlab.snight.NucleiMgr.getTokens(NucleiMgr.java:1042)
+	org.rhwlab.snight.NucleiMgr.readNuclei(NucleiMgr.java:499)
+TRACE 300089:
+	java.lang.ClassLoader.defineClass1(<Unknown Source>:Unknown line)
+	java.lang.ClassLoader.defineClass(<Unknown Source>:Unknown line)
+	java.security.SecureClassLoader.defineClass(<Unknown Source>:Unknown line)
+	java.net.URLClassLoader.defineClass(<Unknown Source>:Unknown line)
+TRACE 301541:
+	org.rhwlab.snight.NucleiMgr.readNuclei(NucleiMgr.java:508)
+	org.rhwlab.snight.NucleiMgr.readNuclei(NucleiMgr.java:428)
+	org.rhwlab.snight.NucleiMgr.<init>(NucleiMgr.java:161)
+	org.rhwlab.acetree.AceTree.bringUpSeriesData(AceTree.java:664)
+TRACE 301581:
+	sun.java2d.d3d.D3DSurfaceData$D3DWindowSurfaceData.isDirty(<Unknown Source>:Unknown line)
+	sun.java2d.d3d.D3DScreenUpdateManager.run(<Unknown Source>:Unknown line)
+	java.lang.Thread.run(<Unknown Source>:Unknown line)
+TRACE 301654:
+	java.io.WinNTFileSystem.getBooleanAttributes(<Unknown Source>:Unknown line)
+	java.io.File.isDirectory(<Unknown Source>:Unknown line)
+	java.io.WinNTFileSystem.canonicalize(<Unknown Source>:Unknown line)
+	java.io.File.getCanonicalPath(<Unknown Source>:Unknown line)
+TRACE 301538:
+	sun.misc.FloatingDecimal.readJavaFormatString(<Unknown Source>:Unknown line)
+	sun.misc.FloatingDecimal.parseFloat(<Unknown Source>:Unknown line)
+	java.lang.Float.parseFloat(<Unknown Source>:Unknown line)
+	org.rhwlab.snight.Nucleus.<init>(Nucleus.java:98)
+TRACE 301583:
+	java.util.zip.Inflater.inflateBytes(<Unknown Source>:Unknown line)
+	java.util.zip.Inflater.inflate(<Unknown Source>:Unknown line)
+	java.util.zip.InflaterInputStream.read(<Unknown Source>:Unknown line)
+	sun.misc.Resource.getBytes(<Unknown Source>:Unknown line)
+TRACE 301584:
+	java.io.FileInputStream.open(<Unknown Source>:Unknown line)
+	java.io.FileInputStream.<init>(<Unknown Source>:Unknown line)
+	ij.io.Opener.getFileType(Opener.java:1041)
+	ij.io.Opener.openImage(Opener.java:262)
+TRACE 301534:
+	java.io.FileInputStream.readBytes(<Unknown Source>:Unknown line)
+	java.io.FileInputStream.read(<Unknown Source>:Unknown line)
+	sun.nio.cs.StreamDecoder.readBytes(<Unknown Source>:Unknown line)
+	sun.nio.cs.StreamDecoder.implRead(<Unknown Source>:Unknown line)
+TRACE 301533:
+	java.lang.ClassLoader.loadClass(<Unknown Source>:Unknown line)
+	java.lang.ClassLoader.loadClass(<Unknown Source>:Unknown line)
+	sun.misc.Launcher$AppClassLoader.loadClass(<Unknown Source>:Unknown line)
+	java.lang.ClassLoader.loadClass(<Unknown Source>:Unknown line)
+TRACE 301655:
+	net.sf.ij.jaiio.BufferedImageCreator.create(BufferedImageCreator.java:287)
+	org.rhwlab.image.ImageWindow.<init>(ImageWindow.java:198)
+	org.rhwlab.acetree.AceTree.handleImage(AceTree.java:1892)
+	org.rhwlab.acetree.AceTree.updateDisplay(AceTree.java:1849)
+TRACE 301530:
+	org.rhwlab.acetree.AceTree.bringUpSeriesUI(AceTree.java:576)
+	org.rhwlab.acetree.AceMenuBar.actionPerformed(AceMenuBar.java:630)
+	javax.swing.AbstractButton.fireActionPerformed(<Unknown Source>:Unknown line)
+	javax.swing.AbstractButton$Handler.actionPerformed(<Unknown Source>:Unknown line)
+TRACE 301528:
+	java.awt.EventQueue.removeSourceEvents(<Unknown Source>:Unknown line)
+	java.awt.Component.removeNotify(<Unknown Source>:Unknown line)
+	java.awt.Container.removeNotify(<Unknown Source>:Unknown line)
+	javax.swing.JComponent.removeNotify(<Unknown Source>:Unknown line)
+TRACE 301525:
+	sun.java2d.SunGraphics2D.constrain(<Unknown Source>:Unknown line)
+	sun.java2d.SunGraphics2D.constrain(<Unknown Source>:Unknown line)
+	java.awt.Component.getGraphics(<Unknown Source>:Unknown line)
+	javax.swing.JComponent.getGraphics(<Unknown Source>:Unknown line)
+TRACE 301522:
+	java.security.AccessController.doPrivileged(<Unknown Source>:Unknown line)
+	java.security.ProtectionDomain$1.doIntersectionPrivilege(<Unknown Source>:Unknown line)
+	java.awt.EventQueue.dispatchEvent(<Unknown Source>:Unknown line)
+	java.awt.EventDispatchThread.pumpOneEventForFilters(<Unknown Source>:Unknown line)
+TRACE 301521:
+	sun.java2d.d3d.D3DScreenUpdateManager.run(<Unknown Source>:Unknown line)
+	java.lang.Thread.run(<Unknown Source>:Unknown line)
+TRACE 301520:
+	java.lang.Thread.isInterrupted(<Unknown Source>:Unknown line)
+	java.lang.Thread.interrupted(<Unknown Source>:Unknown line)
+	java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.checkInterruptWhileWaiting(<Unknown Source>:Unknown line)
+	java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(<Unknown Source>:Unknown line)
+TRACE 301519:
+	java.util.concurrent.locks.AbstractQueuedSynchronizer.transferAfterCancelledWait(<Unknown Source>:Unknown line)
+	java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(<Unknown Source>:Unknown line)
+	java.util.concurrent.DelayQueue.take(<Unknown Source>:Unknown line)
+	javax.swing.TimerQueue.run(<Unknown Source>:Unknown line)
+TRACE 301518:
+	sun.misc.Unsafe.unpark(<Unknown Source>:Unknown line)
+	java.util.concurrent.locks.LockSupport.unpark(<Unknown Source>:Unknown line)
+	java.util.concurrent.locks.AbstractQueuedSynchronizer.unparkSuccessor(<Unknown Source>:Unknown line)
+	java.util.concurrent.locks.AbstractQueuedSynchronizer.release(<Unknown Source>:Unknown line)
+TRACE 301517:
+	java.io.WinNTFileSystem.getBooleanAttributes(<Unknown Source>:Unknown line)
+	java.io.File.exists(<Unknown Source>:Unknown line)
+	sun.awt.shell.ShellFolder.exists(<Unknown Source>:Unknown line)
+	sun.swing.FilePane.canWrite(<Unknown Source>:Unknown line)
+TRACE 301657:
+	javax.swing.plaf.synth.SynthButtonUI.propertyChange(<Unknown Source>:Unknown line)
+	java.beans.PropertyChangeSupport.fire(<Unknown Source>:Unknown line)
+	java.beans.PropertyChangeSupport.firePropertyChange(<Unknown Source>:Unknown line)
+	java.beans.PropertyChangeSupport.firePropertyChange(<Unknown Source>:Unknown line)
+TRACE 301515:
+	java.awt.Component.reshape(<Unknown Source>:Unknown line)
+	javax.swing.JComponent.reshape(<Unknown Source>:Unknown line)
+	java.awt.Component.setBounds(<Unknown Source>:Unknown line)
+	javax.swing.CellRendererPane.paintComponent(<Unknown Source>:Unknown line)
+TRACE 301665:
+	javax.swing.text.GapContent$StickyPosition.getOffset(<Unknown Source>:Unknown line)
+	javax.swing.text.AbstractDocument$LeafElement.getStartOffset(<Unknown Source>:Unknown line)
+	javax.swing.text.GlyphView.getStartOffset(<Unknown Source>:Unknown line)
+	javax.swing.text.GlyphView.getBreakWeight(<Unknown Source>:Unknown line)
+TRACE 301513:
+	sun.java2d.d3d.D3DScreenUpdateManager.run(<Unknown Source>:Unknown line)
+	java.lang.Thread.run(<Unknown Source>:Unknown line)
+TRACE 300152:
+	sun.awt.windows.WComponentPeer.<clinit>(<Unknown Source>:Unknown line)
+	java.awt.Component.initIDs(<Unknown Source>:Unknown line)
+	java.awt.Component.<clinit>(<Unknown Source>:Unknown line)
+	org.rhwlab.acetree.AceTreeLauncher.main(AceTreeLauncher.java:21)
+TRACE 301586:
+	java.io.RandomAccessFile.read0(<Unknown Source>:Unknown line)
+	java.io.RandomAccessFile.read(<Unknown Source>:Unknown line)
+	ij.io.RandomAccessStream.read(RandomAccessStream.java:56)
+	ij.io.TiffDecoder.getInt(TiffDecoder.java:91)
+TRACE 301589:
+	ij.io.FileOpener.open(FileOpener.java:72)
+	ij.io.Opener.openTiff2(Opener.java:942)
+	ij.io.Opener.openTiff(Opener.java:762)
+	ij.io.Opener.openImage(Opener.java:267)
+TRACE 301510:
+	sun.awt.shell.Win32ShellFolder2.compareIDs(<Unknown Source>:Unknown line)
+	sun.awt.shell.Win32ShellFolder2.access$600(<Unknown Source>:Unknown line)
+	sun.awt.shell.Win32ShellFolder2$5.call(<Unknown Source>:Unknown line)
+	sun.awt.shell.Win32ShellFolder2$5.call(<Unknown Source>:Unknown line)
+TRACE 301509:
+	sun.java2d.pipe.BufferedTextPipe.enqueueGlyphList(<Unknown Source>:Unknown line)
+	sun.java2d.pipe.BufferedTextPipe.drawGlyphList(<Unknown Source>:Unknown line)
+	sun.java2d.pipe.GlyphListPipe.drawString(<Unknown Source>:Unknown line)
+	sun.java2d.pipe.ValidatePipe.drawString(<Unknown Source>:Unknown line)
+TRACE 301590:
+	ij.ImagePlus.getCalibration(ImagePlus.java:1866)
+	ij.io.FileOpener.setCalibration(FileOpener.java:364)
+	ij.io.FileOpener.open(FileOpener.java:139)
+	ij.io.Opener.openTiff2(Opener.java:942)
+TRACE 301591:
+	org.rhwlab.image.ImageWindow.convertTo8Bits(ImageWindow.java:618)
+	org.rhwlab.image.ImageWindow.convertToRGB(ImageWindow.java:559)
+	org.rhwlab.image.ImageWindow.doMakeImageFromTif(ImageWindow.java:401)
+	org.rhwlab.image.ImageWindow.makeImage(ImageWindow.java:263)
+TRACE 301506:
+	java.security.AccessController.getStackAccessControlContext(<Unknown Source>:Unknown line)
+	java.security.AccessController.getContext(<Unknown Source>:Unknown line)
+	java.security.ProtectionDomain$1.doIntersectionPrivilege(<Unknown Source>:Unknown line)
+	java.awt.EventQueue$4.run(<Unknown Source>:Unknown line)
+TRACE 301624:
+	sun.java2d.d3d.D3DScreenUpdateManager.run(<Unknown Source>:Unknown line)
+	java.lang.Thread.run(<Unknown Source>:Unknown line)
+TRACE 301504:
+	sun.awt.AWTAutoShutdown.notifyThreadBusy(<Unknown Source>:Unknown line)
+	java.awt.EventQueue.postEvent(<Unknown Source>:Unknown line)
+	java.awt.EventQueue.postEventPrivate(<Unknown Source>:Unknown line)
+	java.awt.EventQueue.postEvent(<Unknown Source>:Unknown line)
+TRACE 301503:
+	java.lang.Thread.currentThread(<Unknown Source>:Unknown line)
+	java.util.concurrent.locks.AbstractQueuedSynchronizer.addWaiter(<Unknown Source>:Unknown line)
+	java.util.concurrent.locks.AbstractQueuedSynchronizer.acquire(<Unknown Source>:Unknown line)
+	java.util.concurrent.locks.ReentrantLock$NonfairSync.lock(<Unknown Source>:Unknown line)
+TRACE 301502:
+	java.security.AccessController.getInheritedAccessControlContext(<Unknown Source>:Unknown line)
+	java.security.AccessControlContext.optimize(<Unknown Source>:Unknown line)
+	java.security.AccessController.getContext(<Unknown Source>:Unknown line)
+	java.awt.AWTEvent.<init>(<Unknown Source>:Unknown line)
+TRACE 301501:
+	sun.misc.Unsafe.getLongVolatile(<Unknown Source>:Unknown line)
+	sun.misc.Unsafe.getAndAddLong(<Unknown Source>:Unknown line)
+	java.util.concurrent.atomic.AtomicLong.getAndIncrement(<Unknown Source>:Unknown line)
+	javax.swing.TimerQueue$DelayedTimer.<init>(<Unknown Source>:Unknown line)
+TRACE 301499:
+	java.awt.Component.setFont(<Unknown Source>:Unknown line)
+	java.awt.Container.setFont(<Unknown Source>:Unknown line)
+	javax.swing.JComponent.setFont(<Unknown Source>:Unknown line)
+	javax.swing.DefaultListCellRenderer.getListCellRendererComponent(<Unknown Source>:Unknown line)
+TRACE 301592:
+	ij.process.ColorProcessor.getRGB(ColorProcessor.java:473)
+	org.rhwlab.image.ImageWindow.convertToRGB(ImageWindow.java:568)
+	org.rhwlab.image.ImageWindow.doMakeImageFromTif(ImageWindow.java:401)
+	org.rhwlab.image.ImageWindow.makeImage(ImageWindow.java:263)
+TRACE 301497:
+	javax.swing.plaf.synth.SynthButtonUI.getSynthIcon(<Unknown Source>:Unknown line)
+	javax.swing.plaf.synth.SynthButtonUI.getEnabledIcon(<Unknown Source>:Unknown line)
+	javax.swing.plaf.synth.SynthButtonUI.getIcon(<Unknown Source>:Unknown line)
+	javax.swing.plaf.synth.SynthButtonUI.paint(<Unknown Source>:Unknown line)
+TRACE 301496:
+	sun.java2d.d3d.D3DSurfaceData.initFlipBackbuffer(<Unknown Source>:Unknown line)
+	sun.java2d.d3d.D3DSurfaceData.initSurfaceNow(<Unknown Source>:Unknown line)
+	sun.java2d.d3d.D3DSurfaceData.access$000(<Unknown Source>:Unknown line)
+	sun.java2d.d3d.D3DSurfaceData$1.run(<Unknown Source>:Unknown line)
+TRACE 301593:
+	org.rhwlab.snight.NucleiMgr.computeRWeight(NucleiMgr.java:261)
+	org.rhwlab.snight.NucleiMgr.computeRWeights(NucleiMgr.java:255)
+	org.rhwlab.snight.NucleiMgr.<init>(NucleiMgr.java:170)
+	org.rhwlab.acetree.AceTree.bringUpSeriesData(AceTree.java:664)
+TRACE 301494:
+	sun.java2d.pipe.AlphaPaintPipe$TileContext.<init>(<Unknown Source>:Unknown line)
+	sun.java2d.pipe.AlphaPaintPipe.startSequence(<Unknown Source>:Unknown line)
+	sun.java2d.pipe.AAShapePipe.renderTiles(<Unknown Source>:Unknown line)
+	sun.java2d.pipe.AAShapePipe.renderPath(<Unknown Source>:Unknown line)
+TRACE 301493:
+	javax.swing.text.FieldView.getFontMetrics(<Unknown Source>:Unknown line)
+	javax.swing.text.FieldView.getPreferredSpan(<Unknown Source>:Unknown line)
+	javax.swing.plaf.basic.BasicTextUI$RootView.getPreferredSpan(<Unknown Source>:Unknown line)
+	javax.swing.plaf.basic.BasicTextUI.getPreferredSize(<Unknown Source>:Unknown line)
+TRACE 301492:
+	javax.swing.JComponent.paintChildren(<Unknown Source>:Unknown line)
+	javax.swing.JComponent.paint(<Unknown Source>:Unknown line)
+	javax.swing.CellRendererPane.paintComponent(<Unknown Source>:Unknown line)
+	javax.swing.plaf.basic.BasicListUI.paintCell(<Unknown Source>:Unknown line)
+TRACE 301491:
+	javax.swing.plaf.nimbus.ComboBoxPainter.decodeGradient5(<Unknown Source>:Unknown line)
+	javax.swing.plaf.nimbus.ComboBoxPainter.paintBackgroundEnabled(<Unknown Source>:Unknown line)
+	javax.swing.plaf.nimbus.ComboBoxPainter.doPaint(<Unknown Source>:Unknown line)
+	javax.swing.plaf.nimbus.AbstractRegionPainter.paint0(<Unknown Source>:Unknown line)
+TRACE 301594:
+	org.rhwlab.snight.NucleiMgr.computeRWeights(NucleiMgr.java:255)
+	org.rhwlab.snight.NucleiMgr.<init>(NucleiMgr.java:170)
+	org.rhwlab.acetree.AceTree.bringUpSeriesData(AceTree.java:664)
+	org.rhwlab.acetree.AceTree.bringUpSeriesUI(AceTree.java:588)
+TRACE 301489:
+	sun.font.Font2D.getStrike(<Unknown Source>:Unknown line)
+	sun.java2d.SunGraphics2D.checkFontInfo(<Unknown Source>:Unknown line)
+	sun.java2d.SunGraphics2D.getFontInfo(<Unknown Source>:Unknown line)
+	sun.java2d.pipe.GlyphListPipe.drawString(<Unknown Source>:Unknown line)
+TRACE 301488:
+	java.lang.Object.clone(<Unknown Source>:Unknown line)
+	java.lang.Class.getInterfaces(<Unknown Source>:Unknown line)
+	sun.awt.SunToolkit.isInstanceOf(<Unknown Source>:Unknown line)
+	sun.awt.SunToolkit.isInstanceOf(<Unknown Source>:Unknown line)
+TRACE 301487:
+	java.awt.KeyboardFocusManager.getGlobalFocusOwner(<Unknown Source>:Unknown line)
+	java.awt.KeyboardFocusManager.processCurrentLightweightRequests(<Unknown Source>:Unknown line)
+	java.awt.KeyboardFocusManager.retargetFocusEvent(<Unknown Source>:Unknown line)
+	java.awt.Component.dispatchEventImpl(<Unknown Source>:Unknown line)
+TRACE 301486:
+	java.lang.StringBuilder.append(<Unknown Source>:Unknown line)
+	javax.swing.plaf.nimbus.NimbusIcon.paintIcon(<Unknown Source>:Unknown line)
+	sun.swing.plaf.synth.SynthIcon.paintIcon(<Unknown Source>:Unknown line)
+	javax.swing.plaf.synth.SynthGraphicsUtils.paintText(<Unknown Source>:Unknown line)
+TRACE 301485:
+	java.lang.StringBuilder.append(<Unknown Source>:Unknown line)
+	javax.swing.plaf.nimbus.NimbusIcon.paintIcon(<Unknown Source>:Unknown line)
+	sun.swing.plaf.synth.SynthIcon.paintIcon(<Unknown Source>:Unknown line)
+	javax.swing.plaf.synth.SynthGraphicsUtils.paintText(<Unknown Source>:Unknown line)
+TRACE 300074:
+	java.security.AccessController.doPrivileged(<Unknown Source>:Unknown line)
+	java.net.URLClassLoader.findClass(<Unknown Source>:Unknown line)
+	java.lang.ClassLoader.loadClass(<Unknown Source>:Unknown line)
+	java.lang.ClassLoader.loadClass(<Unknown Source>:Unknown line)
+TRACE 301483:
+	java.lang.Thread.holdsLock(<Unknown Source>:Unknown line)
+	java.awt.Component.checkTreeLock(<Unknown Source>:Unknown line)
+	java.awt.Container.createHierarchyEvents(<Unknown Source>:Unknown line)
+	java.awt.Container.removeAll(<Unknown Source>:Unknown line)
+TRACE 301482:
+	java.awt.Component.setFont(<Unknown Source>:Unknown line)
+	java.awt.Container.setFont(<Unknown Source>:Unknown line)
+	javax.swing.JComponent.setFont(<Unknown Source>:Unknown line)
+	sun.swing.FilePane$FileRenderer.getListCellRendererComponent(<Unknown Source>:Unknown line)
+TRACE 301481:
+	java.awt.geom.RoundRectIterator.next(<Unknown Source>:Unknown line)
+	sun.dc.DuctusRenderingEngine.getAATileGenerator(<Unknown Source>:Unknown line)
+	sun.java2d.pipe.AAShapePipe.renderPath(<Unknown Source>:Unknown line)
+	sun.java2d.pipe.AAShapePipe.fill(<Unknown Source>:Unknown line)
+TRACE 301596:
+	org.rhwlab.acetree.AceTree.bringUpSeriesData(AceTree.java:668)
+	org.rhwlab.acetree.AceTree.bringUpSeriesUI(AceTree.java:588)
+	org.rhwlab.acetree.AceMenuBar.actionPerformed(AceMenuBar.java:630)
+	javax.swing.AbstractButton.fireActionPerformed(<Unknown Source>:Unknown line)
+TRACE 301479:
+	java.awt.Component.invalidate(<Unknown Source>:Unknown line)
+	java.awt.Container.invalidate(<Unknown Source>:Unknown line)
+	javax.swing.JComponent.revalidate(<Unknown Source>:Unknown line)
+	javax.swing.JComponent.setBorder(<Unknown Source>:Unknown line)
+TRACE 301636:
+	java.util.Hashtable.get(<Unknown Source>:Unknown line)
+	org.rhwlab.tree.AncesTree.makeCellsByNameHash(AncesTree.java:641)
+	org.rhwlab.tree.AncesTree.processEntries(AncesTree.java:366)
+	org.rhwlab.tree.AncesTree.<init>(AncesTree.java:127)
+TRACE 301598:
+	org.rhwlab.snight.NucleiMgr.setSuccessors(NucleiMgr.java:1158)
+	org.rhwlab.snight.NucleiMgr.setAllSuccessors(NucleiMgr.java:1122)
+	org.rhwlab.snight.NucleiMgr.processNuclei(NucleiMgr.java:963)
+	org.rhwlab.acetree.AceTree.bringUpSeriesData(AceTree.java:668)
+TRACE 300069:
+	sun.net.www.ParseUtil.decode(<Unknown Source>:Unknown line)
+	sun.misc.URLClassPath$JarLoader.<init>(<Unknown Source>:Unknown line)
+	sun.misc.URLClassPath$3.run(<Unknown Source>:Unknown line)
+	sun.misc.URLClassPath$3.run(<Unknown Source>:Unknown line)
+TRACE 301473:
+	java.awt.Font.createGlyphVector(<Unknown Source>:Unknown line)
+	sun.swing.SwingUtilities2$LSBCacheEntry.getLeftSideBearing(<Unknown Source>:Unknown line)
+	sun.swing.SwingUtilities2.getLeftSideBearing(<Unknown Source>:Unknown line)
+	sun.swing.SwingUtilities2.getLeftSideBearing(<Unknown Source>:Unknown line)
+TRACE 301472:
+	sun.swing.FilePane$DetailsTableModel.contentsChanged(<Unknown Source>:Unknown line)
+	javax.swing.AbstractListModel.fireContentsChanged(<Unknown Source>:Unknown line)
+	javax.swing.plaf.basic.BasicDirectoryModel.fireContentsChanged(<Unknown Source>:Unknown line)
+	javax.swing.plaf.basic.BasicDirectoryModel$DoChangeContents.run(<Unknown Source>:Unknown line)
+TRACE 301470:
+	java.lang.Thread.isInterrupted(<Unknown Source>:Unknown line)
+	java.lang.Thread.interrupted(<Unknown Source>:Unknown line)
+	java.util.concurrent.ThreadPoolExecutor.runWorker(<Unknown Source>:Unknown line)
+	java.util.concurrent.ThreadPoolExecutor$Worker.run(<Unknown Source>:Unknown line)
+TRACE 301469:
+	sun.java2d.pipe.BufferedMaskBlit.enqueueTile(<Unknown Source>:Unknown line)
+	sun.java2d.pipe.BufferedMaskBlit.MaskBlit(<Unknown Source>:Unknown line)
+	sun.java2d.pipe.AlphaPaintPipe.renderPathTile(<Unknown Source>:Unknown line)
+	sun.java2d.pipe.AAShapePipe.renderTiles(<Unknown Source>:Unknown line)
+TRACE 301468:
+	sun.awt.shell.ShellFolder.invoke(<Unknown Source>:Unknown line)
+	sun.awt.shell.Win32ShellFolder2.hasAttribute(<Unknown Source>:Unknown line)
+	sun.awt.shell.Win32ShellFolder2.isLink(<Unknown Source>:Unknown line)
+	javax.swing.filechooser.FileSystemView.isFileSystem(<Unknown Source>:Unknown line)
+TRACE 301676:
+	sun.java2d.loops.MaskBlit.MaskBlit(<Unknown Source>:Unknown line)
+	sun.java2d.loops.MaskBlit$General.MaskBlit(<Unknown Source>:Unknown line)
+	sun.java2d.loops.Blit$GeneralMaskBlit.Blit(<Unknown Source>:Unknown line)
+	sun.java2d.loops.GraphicsPrimitive.convertFrom(<Unknown Source>:Unknown line)
+TRACE 301466:
+	sun.awt.shell.Win32ShellFolder2.getAttributes0(<Unknown Source>:Unknown line)
+	sun.awt.shell.Win32ShellFolder2.access$700(<Unknown Source>:Unknown line)
+	sun.awt.shell.Win32ShellFolder2$9.call(<Unknown Source>:Unknown line)
+	sun.awt.shell.Win32ShellFolder2$9.call(<Unknown Source>:Unknown line)
+TRACE 301600:
+	org.rhwlab.snight.Identity3.clearAllNames(Identity3.java:142)
+	org.rhwlab.snight.Identity3.identityAssignment(Identity3.java:48)
+	org.rhwlab.snight.NucleiMgr.processNuclei(NucleiMgr.java:972)
+	org.rhwlab.acetree.AceTree.bringUpSeriesData(AceTree.java:668)
+TRACE 301602:
+	org.rhwlab.snight.Identity3.identityAssignment(Identity3.java:104)
+	org.rhwlab.snight.NucleiMgr.processNuclei(NucleiMgr.java:972)
+	org.rhwlab.acetree.AceTree.bringUpSeriesData(AceTree.java:668)
+	org.rhwlab.acetree.AceTree.bringUpSeriesUI(AceTree.java:588)
+TRACE 301677:
+	javax.swing.plaf.nimbus.TreePainter.<init>(<Unknown Source>:Unknown line)
+	sun.reflect.NativeConstructorAccessorImpl.newInstance0(<Unknown Source>:Unknown line)
+	sun.reflect.NativeConstructorAccessorImpl.newInstance(<Unknown Source>:Unknown line)
+	sun.reflect.DelegatingConstructorAccessorImpl.newInstance(<Unknown Source>:Unknown line)
+TRACE 301634:
+	org.rhwlab.tree.AncesTree.makeCellsByNameHash(AncesTree.java:639)
+	org.rhwlab.tree.AncesTree.processEntries(AncesTree.java:366)
+	org.rhwlab.tree.AncesTree.<init>(AncesTree.java:127)
+	org.rhwlab.snight.NucleiMgr.processNuclei(NucleiMgr.java:979)
+TRACE 301460:
+	sun.awt.AWTAutoShutdown.setToolkitBusy(<Unknown Source>:Unknown line)
+	sun.awt.AWTAutoShutdown.notifyToolkitThreadFree(<Unknown Source>:Unknown line)
+	sun.awt.windows.WToolkit.eventLoop(<Unknown Source>:Unknown line)
+	sun.awt.windows.WToolkit.run(<Unknown Source>:Unknown line)
+TRACE 300201:
+	java.util.zip.Inflater.inflateBytes(<Unknown Source>:Unknown line)
+	java.util.zip.Inflater.inflate(<Unknown Source>:Unknown line)
+	java.util.zip.InflaterInputStream.read(<Unknown Source>:Unknown line)
+	sun.misc.IOUtils.readFully(<Unknown Source>:Unknown line)
+TRACE 301459:
+	java.lang.System.identityHashCode(<Unknown Source>:Unknown line)
+	java.util.IdentityHashMap.hash(<Unknown Source>:Unknown line)
+	java.util.IdentityHashMap.get(<Unknown Source>:Unknown line)
+	sun.awt.AWTAutoShutdown.getPeer(<Unknown Source>:Unknown line)
+TRACE 301458:
+	java.lang.Thread.holdsLock(<Unknown Source>:Unknown line)
+	java.awt.Component.checkTreeLock(<Unknown Source>:Unknown line)
+	java.awt.Container.hasHeavyweightDescendants(<Unknown Source>:Unknown line)
+	java.awt.Component.isMixingNeeded(<Unknown Source>:Unknown line)
+TRACE 301605:
+	org.rhwlab.tree.AncesTree.processEntry(AncesTree.java:534)
+	org.rhwlab.tree.AncesTree.processEntries(AncesTree.java:358)
+	org.rhwlab.tree.AncesTree.<init>(AncesTree.java:127)
+	org.rhwlab.snight.NucleiMgr.processNuclei(NucleiMgr.java:979)
+TRACE 301455:
+	java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(<Unknown Source>:Unknown line)
+	java.util.concurrent.DelayQueue.take(<Unknown Source>:Unknown line)
+	javax.swing.TimerQueue.run(<Unknown Source>:Unknown line)
+	java.lang.Thread.run(<Unknown Source>:Unknown line)
+TRACE 301454:
+	java.security.AccessController.getStackAccessControlContext(<Unknown Source>:Unknown line)
+	java.security.AccessController.getContext(<Unknown Source>:Unknown line)
+	javax.swing.RepaintManager.paintDirtyRegions(<Unknown Source>:Unknown line)
+	javax.swing.RepaintManager.paintDirtyRegions(<Unknown Source>:Unknown line)
+TRACE 301607:
+	org.rhwlab.tree.AncesTree.processEntry(AncesTree.java:518)
+	org.rhwlab.tree.AncesTree.processEntries(AncesTree.java:358)
+	org.rhwlab.tree.AncesTree.<init>(AncesTree.java:127)
+	org.rhwlab.snight.NucleiMgr.processNuclei(NucleiMgr.java:979)
+TRACE 301452:
+	sun.java2d.d3d.D3DScreenUpdateManager.run(<Unknown Source>:Unknown line)
+	java.lang.Thread.run(<Unknown Source>:Unknown line)
+TRACE 301451:
+	java.lang.Thread.holdsLock(<Unknown Source>:Unknown line)
+	java.awt.Component.checkTreeLock(<Unknown Source>:Unknown line)
+	java.awt.Container.findComponentAtImpl(<Unknown Source>:Unknown line)
+	java.awt.Container.findComponentAtImpl(<Unknown Source>:Unknown line)
+TRACE 301612:
+	org.rhwlab.tree.AncesTree.processEntry(AncesTree.java:432)
+	org.rhwlab.tree.AncesTree.processEntries(AncesTree.java:358)
+	org.rhwlab.tree.AncesTree.<init>(AncesTree.java:127)
+	org.rhwlab.snight.NucleiMgr.processNuclei(NucleiMgr.java:979)
+TRACE 301680:
+	java.util.concurrent.locks.AbstractQueuedSynchronizer.acquire(<Unknown Source>:Unknown line)
+	java.util.concurrent.locks.ReentrantLock$NonfairSync.lock(<Unknown Source>:Unknown line)
+	java.util.concurrent.locks.ReentrantLock.lock(<Unknown Source>:Unknown line)
+	sun.awt.SunToolkit.awtLock(<Unknown Source>:Unknown line)
+TRACE 301443:
+	sun.java2d.StateTrackableDelegate$1.isCurrent(<Unknown Source>:Unknown line)
+	sun.java2d.d3d.D3DSurfaceData$D3DWindowSurfaceData.isDirty(<Unknown Source>:Unknown line)
+	sun.java2d.d3d.D3DScreenUpdateManager.run(<Unknown Source>:Unknown line)
+	java.lang.Thread.run(<Unknown Source>:Unknown line)
+TRACE 301442:
+	sun.java2d.d3d.D3DScreenUpdateManager.run(<Unknown Source>:Unknown line)
+	java.lang.Thread.run(<Unknown Source>:Unknown line)
+TRACE 301441:
+	javax.swing.JComponent.paint(<Unknown Source>:Unknown line)
+	javax.swing.JComponent.paintChildren(<Unknown Source>:Unknown line)
+	javax.swing.JComponent.paint(<Unknown Source>:Unknown line)
+	javax.swing.JComponent.paintChildren(<Unknown Source>:Unknown line)
+TRACE 301437:
+	java.util.concurrent.locks.AbstractQueuedSynchronizer.release(<Unknown Source>:Unknown line)
+	java.util.concurrent.locks.ReentrantLock.unlock(<Unknown Source>:Unknown line)
+	sun.awt.SunToolkit.awtUnlock(<Unknown Source>:Unknown line)
+	sun.java2d.pipe.RenderQueue.unlock(<Unknown Source>:Unknown line)
+TRACE 301434:
+	java.awt.LinearGradientPaint.<init>(<Unknown Source>:Unknown line)
+	java.awt.LinearGradientPaint.<init>(<Unknown Source>:Unknown line)
+	java.awt.LinearGradientPaint.<init>(<Unknown Source>:Unknown line)
+	javax.swing.plaf.nimbus.AbstractRegionPainter.decodeGradient(<Unknown Source>:Unknown line)
+TRACE 301681:
+	sun.java2d.StateTrackableDelegate$1.isCurrent(<Unknown Source>:Unknown line)
+	sun.java2d.d3d.D3DSurfaceData$D3DWindowSurfaceData.isDirty(<Unknown Source>:Unknown line)
+	sun.java2d.d3d.D3DScreenUpdateManager.run(<Unknown Source>:Unknown line)
+	java.lang.Thread.run(<Unknown Source>:Unknown line)
+TRACE 301424:
+	java.awt.Dialog.show(<Unknown Source>:Unknown line)
+	javax.swing.JFileChooser.showDialog(<Unknown Source>:Unknown line)
+	javax.swing.JFileChooser.showOpenDialog(<Unknown Source>:Unknown line)
+	org.rhwlab.acetree.AceMenuBar.actionPerformed(AceMenuBar.java:624)
+TRACE 301413:
+	java.awt.Component.addNotify(<Unknown Source>:Unknown line)
+	java.awt.Container.addNotify(<Unknown Source>:Unknown line)
+	javax.swing.JComponent.addNotify(<Unknown Source>:Unknown line)
+	java.awt.Container.addImpl(<Unknown Source>:Unknown line)
+TRACE 301409:
+	java.awt.Window.pack(<Unknown Source>:Unknown line)
+	javax.swing.JFileChooser.createDialog(<Unknown Source>:Unknown line)
+	javax.swing.JFileChooser.showDialog(<Unknown Source>:Unknown line)
+	javax.swing.JFileChooser.showOpenDialog(<Unknown Source>:Unknown line)
+TRACE 301405:
+	sun.java2d.d3d.D3DSurfaceData.getBounds(<Unknown Source>:Unknown line)
+	sun.java2d.d3d.D3DScreenUpdateManager.run(<Unknown Source>:Unknown line)
+	java.lang.Thread.run(<Unknown Source>:Unknown line)
+TRACE 301682:
+	sun.java2d.d3d.D3DScreenUpdateManager.run(<Unknown Source>:Unknown line)
+	java.lang.Thread.run(<Unknown Source>:Unknown line)
+TRACE 301403:
+	sun.java2d.d3d.D3DScreenUpdateManager.run(<Unknown Source>:Unknown line)
+	java.lang.Thread.run(<Unknown Source>:Unknown line)
+TRACE 301615:
+	org.rhwlab.tree.AncesTree.processEntry(AncesTree.java:506)
+	org.rhwlab.tree.AncesTree.processEntries(AncesTree.java:358)
+	org.rhwlab.tree.AncesTree.<init>(AncesTree.java:127)
+	org.rhwlab.snight.NucleiMgr.processNuclei(NucleiMgr.java:979)
+TRACE 301400:
+	sun.awt.AWTAutoShutdown.notifyThreadFree(<Unknown Source>:Unknown line)
+	java.awt.EventQueue.getNextEvent(<Unknown Source>:Unknown line)
+	java.awt.EventDispatchThread.pumpOneEventForFilters(<Unknown Source>:Unknown line)
+	java.awt.EventDispatchThread.pumpEventsForFilter(<Unknown Source>:Unknown line)
+TRACE 301393:
+	javax.swing.PopupFactory.getLightWeightPopup(<Unknown Source>:Unknown line)
+	javax.swing.PopupFactory.getPopup(<Unknown Source>:Unknown line)
+	javax.swing.PopupFactory.getPopup(<Unknown Source>:Unknown line)
+	javax.swing.plaf.PopupMenuUI.getPopup(<Unknown Source>:Unknown line)
+TRACE 301683:
+	sun.java2d.d3d.D3DScreenUpdateManager.createGraphics(<Unknown Source>:Unknown line)
+	sun.awt.windows.WComponentPeer.getGraphics(<Unknown Source>:Unknown line)
+	java.awt.Component.getGraphics(<Unknown Source>:Unknown line)
+	javax.swing.JFrame.getGraphics(<Unknown Source>:Unknown line)
+TRACE 301379:
+	sun.java2d.d3d.D3DScreenUpdateManager.run(<Unknown Source>:Unknown line)
+	java.lang.Thread.run(<Unknown Source>:Unknown line)
+TRACE 301684:
+	javax.swing.text.BoxView.isAllocationValid(<Unknown Source>:Unknown line)
+	javax.swing.text.BoxView.getChildAllocation(<Unknown Source>:Unknown line)
+	javax.swing.text.CompositeView.modelToView(<Unknown Source>:Unknown line)
+	javax.swing.text.BoxView.modelToView(<Unknown Source>:Unknown line)
+TRACE 301372:
+	java.lang.Object.getClass(<Unknown Source>:Unknown line)
+	java.util.ArrayList.toArray(<Unknown Source>:Unknown line)
+	sun.java2d.d3d.D3DScreenUpdateManager.run(<Unknown Source>:Unknown line)
+	java.lang.Thread.run(<Unknown Source>:Unknown line)
+TRACE 301685:
+	javax.swing.text.DefaultHighlighter.paint(<Unknown Source>:Unknown line)
+	javax.swing.plaf.basic.BasicTextUI.paintSafely(<Unknown Source>:Unknown line)
+	javax.swing.plaf.basic.BasicTextUI.paint(<Unknown Source>:Unknown line)
+	javax.swing.plaf.synth.SynthEditorPaneUI.paint(<Unknown Source>:Unknown line)
+TRACE 301616:
+	java.util.Hashtable.get(<Unknown Source>:Unknown line)
+	org.rhwlab.tree.AncesTree.processEntry(AncesTree.java:481)
+	org.rhwlab.tree.AncesTree.processEntries(AncesTree.java:358)
+	org.rhwlab.tree.AncesTree.<init>(AncesTree.java:127)
+TRACE 301369:
+	sun.java2d.d3d.D3DScreenUpdateManager.run(<Unknown Source>:Unknown line)
+	java.lang.Thread.run(<Unknown Source>:Unknown line)
+TRACE 301686:
+	javax.swing.BoxLayout.checkRequests(<Unknown Source>:Unknown line)
+	javax.swing.BoxLayout.preferredLayoutSize(<Unknown Source>:Unknown line)
+	java.awt.Container.preferredSize(<Unknown Source>:Unknown line)
+	java.awt.Container.getPreferredSize(<Unknown Source>:Unknown line)
+TRACE 301687:
+	javax.swing.text.GlyphPainter1.paint(<Unknown Source>:Unknown line)
+	javax.swing.text.GlyphView.paintTextUsingColor(<Unknown Source>:Unknown line)
+	javax.swing.text.GlyphView.paint(<Unknown Source>:Unknown line)
+	javax.swing.text.BoxView.paintChild(<Unknown Source>:Unknown line)
+TRACE 301353:
+	java.lang.System.arraycopy(<Unknown Source>:Unknown line)
+	java.awt.geom.Path2D$Float$CopyIterator.currentSegment(<Unknown Source>:Unknown line)
+	sun.java2d.loops.ProcessPath.doProcessPath(<Unknown Source>:Unknown line)
+	sun.java2d.loops.ProcessPath.fillPath(<Unknown Source>:Unknown line)
+TRACE 301308:
+	java.util.AbstractList$Itr.<init>(<Unknown Source>:Unknown line)
+	java.util.AbstractList$Itr.<init>(<Unknown Source>:Unknown line)
+	java.util.AbstractList.iterator(<Unknown Source>:Unknown line)
+	java.util.Collections$UnmodifiableCollection$1.<init>(<Unknown Source>:Unknown line)
+TRACE 301288:
+	sun.java2d.d3d.D3DSurfaceData.<clinit>(<Unknown Source>:Unknown line)
+	sun.java2d.d3d.D3DScreenUpdateManager.createScreenSurface(<Unknown Source>:Unknown line)
+	sun.awt.windows.WComponentPeer.createScreenSurface(<Unknown Source>:Unknown line)
+	sun.awt.windows.WComponentPeer.replaceSurfaceData(<Unknown Source>:Unknown line)
+TRACE 301255:
+	sun.awt.windows.WComponentPeer.addNativeDropTarget(<Unknown Source>:Unknown line)
+	sun.awt.windows.WComponentPeer.addDropTarget(<Unknown Source>:Unknown line)
+	java.awt.dnd.DropTarget.addNotify(<Unknown Source>:Unknown line)
+	java.awt.Component.addNotify(<Unknown Source>:Unknown line)
+TRACE 301224:
+	sun.java2d.SurfaceData.setBlitProxyKey(<Unknown Source>:Unknown line)
+	sun.java2d.windows.GDIWindowSurfaceData.<init>(<Unknown Source>:Unknown line)
+	sun.java2d.windows.GDIWindowSurfaceData.createData(<Unknown Source>:Unknown line)
+	sun.java2d.d3d.D3DScreenUpdateManager.createScreenSurface(<Unknown Source>:Unknown line)
+TRACE 301198:
+	sun.awt.windows.WToolkit.createFrame(<Unknown Source>:Unknown line)
+	java.awt.Frame.addNotify(<Unknown Source>:Unknown line)
+	java.awt.Window.pack(<Unknown Source>:Unknown line)
+	org.rhwlab.acetree.AceTree.createAndShowGUI(AceTree.java:3725)
+TRACE 300242:
+	sun.java2d.loops.SurfaceType.<clinit>(<Unknown Source>:Unknown line)
+	sun.java2d.NullSurfaceData.<init>(<Unknown Source>:Unknown line)
+	sun.java2d.NullSurfaceData.<clinit>(<Unknown Source>:Unknown line)
+	sun.java2d.SurfaceData.initIDs(<Unknown Source>:Unknown line)
+TRACE 301193:
+	java.io.BufferedReader.readLine(<Unknown Source>:Unknown line)
+	java.io.BufferedReader.readLine(<Unknown Source>:Unknown line)
+	org.rhwlab.tree.EventFile.getEvents(EventFile.java:56)
+	org.rhwlab.tree.EventFile.<init>(EventFile.java:42)
+TRACE 301192:
+	javax.swing.text.StyleContext$SmallAttributeSet.hashCode(<Unknown Source>:Unknown line)
+	java.util.WeakHashMap.hash(<Unknown Source>:Unknown line)
+	java.util.WeakHashMap.get(<Unknown Source>:Unknown line)
+	java.util.Collections$SynchronizedMap.get(<Unknown Source>:Unknown line)
+TRACE 301187:
+	javax.swing.Spring.height(<Unknown Source>:Unknown line)
+	javax.swing.SpringLayout.applyDefaults(<Unknown Source>:Unknown line)
+	javax.swing.SpringLayout.putConstraints(<Unknown Source>:Unknown line)
+	javax.swing.SpringLayout.getConstraints(<Unknown Source>:Unknown line)
+TRACE 301154:
+	javax.swing.text.DefaultStyledDocument.setLogicalStyle(<Unknown Source>:Unknown line)
+	javax.swing.text.DefaultStyledDocument.<init>(<Unknown Source>:Unknown line)
+	javax.swing.text.DefaultStyledDocument.<init>(<Unknown Source>:Unknown line)
+	javax.swing.text.StyledEditorKit.createDefaultDocument(<Unknown Source>:Unknown line)
+TRACE 301134:
+	java.security.AccessController.getStackAccessControlContext(<Unknown Source>:Unknown line)
+	java.security.AccessController.getContext(<Unknown Source>:Unknown line)
+	java.awt.AWTEvent.<init>(<Unknown Source>:Unknown line)
+	java.awt.event.InvocationEvent.<init>(<Unknown Source>:Unknown line)
+TRACE 301131:
+	sun.awt.shell.Win32ShellFolder2.bindToObject(<Unknown Source>:Unknown line)
+	sun.awt.shell.Win32ShellFolder2.access$500(<Unknown Source>:Unknown line)
+	sun.awt.shell.Win32ShellFolder2$4.call(<Unknown Source>:Unknown line)
+	sun.awt.shell.Win32ShellFolder2$4.call(<Unknown Source>:Unknown line)
+TRACE 301130:
+	sun.misc.Unsafe.compareAndSwapObject(<Unknown Source>:Unknown line)
+	java.util.concurrent.ConcurrentLinkedQueue$Node.casNext(<Unknown Source>:Unknown line)
+	java.util.concurrent.ConcurrentLinkedQueue.offer(<Unknown Source>:Unknown line)
+	javax.swing.plaf.synth.SynthContext.releaseContext(<Unknown Source>:Unknown line)
+TRACE 301120:
+	javax.swing.tree.DefaultTreeCellRenderer.updateUI(<Unknown Source>:Unknown line)
+	javax.swing.SwingUtilities.updateComponentTreeUI0(<Unknown Source>:Unknown line)
+	javax.swing.SwingUtilities.updateComponentTreeUI(<Unknown Source>:Unknown line)
+	javax.swing.SwingUtilities.updateRendererOrEditorUI(<Unknown Source>:Unknown line)
+TRACE 301106:
+	java.util.Currency.getSymbol(<Unknown Source>:Unknown line)
+	java.text.DecimalFormatSymbols.initialize(<Unknown Source>:Unknown line)
+	java.text.DecimalFormatSymbols.<init>(<Unknown Source>:Unknown line)
+	sun.util.locale.provider.DecimalFormatSymbolsProviderImpl.getInstance(<Unknown Source>:Unknown line)
+TRACE 301092:
+	javax.swing.DefaultButtonModel.addChangeListener(<Unknown Source>:Unknown line)
+	javax.swing.AbstractButton.setModel(<Unknown Source>:Unknown line)
+	javax.swing.JMenuItem.setModel(<Unknown Source>:Unknown line)
+	javax.swing.JMenuItem.<init>(<Unknown Source>:Unknown line)
+TRACE 301080:
+	javax.swing.plaf.basic.BasicFileChooserUI$BasicFileView.getIcon(<Unknown Source>:Unknown line)
+	javax.swing.JFileChooser.getIcon(<Unknown Source>:Unknown line)
+	sun.swing.plaf.synth.SynthFileChooserUIImpl$DirectoryComboBoxRenderer.getListCellRendererComponent(<Unknown Source>:Unknown line)
+	sun.swing.plaf.synth.SynthFileChooserUIImpl$DirectoryComboBoxRenderer.getListCellRendererComponent(<Unknown Source>:Unknown line)
+TRACE 301076:
+	java.lang.Thread.currentThread(<Unknown Source>:Unknown line)
+	java.util.concurrent.locks.ReentrantLock$NonfairSync.lock(<Unknown Source>:Unknown line)
+	java.util.concurrent.locks.ReentrantLock.lock(<Unknown Source>:Unknown line)
+	java.util.concurrent.LinkedBlockingQueue.offer(<Unknown Source>:Unknown line)
+TRACE 301065:
+	sun.awt.shell.Win32ShellFolder2.getDisplayNameOf(<Unknown Source>:Unknown line)
+	sun.awt.shell.Win32ShellFolder2.getFileSystemPath(<Unknown Source>:Unknown line)
+	sun.awt.shell.Win32ShellFolder2.access$400(<Unknown Source>:Unknown line)
+	sun.awt.shell.Win32ShellFolder2$10.call(<Unknown Source>:Unknown line)
+TRACE 301045:
+	sun.nio.ch.Util.getTemporaryDirectBuffer(<Unknown Source>:Unknown line)
+	sun.nio.ch.IOUtil.read(<Unknown Source>:Unknown line)
+	sun.nio.ch.FileChannelImpl.read(<Unknown Source>:Unknown line)
+	sun.font.TrueTypeFont.readBlock(<Unknown Source>:Unknown line)
+TRACE 300997:
+	sun.swing.DefaultLookup.get(<Unknown Source>:Unknown line)
+	javax.swing.plaf.basic.BasicScrollBarUI.getInputMap(<Unknown Source>:Unknown line)
+	javax.swing.plaf.basic.BasicScrollBarUI.installKeyboardActions(<Unknown Source>:Unknown line)
+	javax.swing.plaf.basic.BasicScrollBarUI.installUI(<Unknown Source>:Unknown line)
+TRACE 300960:
+	java.lang.Class.getDeclaredConstructors0(<Unknown Source>:Unknown line)
+	java.lang.Class.privateGetDeclaredConstructors(<Unknown Source>:Unknown line)
+	java.lang.Class.getConstructor0(<Unknown Source>:Unknown line)
+	java.lang.Class.newInstance(<Unknown Source>:Unknown line)
+TRACE 300911:
+	javax.swing.text.AbstractDocument.<init>(<Unknown Source>:Unknown line)
+	javax.swing.text.AbstractDocument.<init>(<Unknown Source>:Unknown line)
+	javax.swing.text.PlainDocument.<init>(<Unknown Source>:Unknown line)
+	javax.swing.text.PlainDocument.<init>(<Unknown Source>:Unknown line)
+TRACE 301688:
+	javax.swing.JComponent._paintImmediately(<Unknown Source>:Unknown line)
+	javax.swing.JComponent.paintImmediately(<Unknown Source>:Unknown line)
+	javax.swing.RepaintManager$4.run(<Unknown Source>:Unknown line)
+	javax.swing.RepaintManager$4.run(<Unknown Source>:Unknown line)
+TRACE 300838:
+	java.beans.PropertyChangeSupport$PropertyChangeListenerMap.newArray(<Unknown Source>:Unknown line)
+	java.beans.PropertyChangeSupport$PropertyChangeListenerMap.newArray(<Unknown Source>:Unknown line)
+	java.beans.ChangeListenerMap.add(<Unknown Source>:Unknown line)
+	java.beans.PropertyChangeSupport.addPropertyChangeListener(<Unknown Source>:Unknown line)
+TRACE 300801:
+	javax.swing.plaf.basic.BasicComboPopup.getHandler(<Unknown Source>:Unknown line)
+	javax.swing.plaf.basic.BasicComboPopup.createListMouseListener(<Unknown Source>:Unknown line)
+	javax.swing.plaf.basic.BasicComboPopup.installListListeners(<Unknown Source>:Unknown line)
+	javax.swing.plaf.synth.SynthComboPopup.configureList(<Unknown Source>:Unknown line)
+TRACE 300759:
+	java.lang.Class.forName0(<Unknown Source>:Unknown line)
+	java.lang.Class.forName(<Unknown Source>:Unknown line)
+	javax.swing.plaf.nimbus.NimbusDefaults$LazyPainter.createValue(<Unknown Source>:Unknown line)
+	javax.swing.plaf.nimbus.NimbusStyle.getPainter(<Unknown Source>:Unknown line)
+TRACE 300722:
+	javax.swing.plaf.basic.BasicPopupMenuUI.installListeners(<Unknown Source>:Unknown line)
+	javax.swing.plaf.synth.SynthPopupMenuUI.installListeners(<Unknown Source>:Unknown line)
+	javax.swing.plaf.basic.BasicPopupMenuUI.installUI(<Unknown Source>:Unknown line)
+	javax.swing.JComponent.setUI(<Unknown Source>:Unknown line)
+TRACE 300687:
+	sun.awt.image.ImageRepresentation.createImage(<Unknown Source>:Unknown line)
+	sun.awt.image.ImageRepresentation.createBufferedImage(<Unknown Source>:Unknown line)
+	sun.awt.image.ImageRepresentation.setPixels(<Unknown Source>:Unknown line)
+	sun.awt.image.ImageDecoder.setPixels(<Unknown Source>:Unknown line)
+TRACE 300640:
+	java.awt.Window.init(<Unknown Source>:Unknown line)
+	java.awt.Window.<init>(<Unknown Source>:Unknown line)
+	java.awt.Frame.<init>(<Unknown Source>:Unknown line)
+	javax.swing.JFrame.<init>(<Unknown Source>:Unknown line)
+TRACE 301622:
+	org.rhwlab.tree.AncesTree.processEntries(AncesTree.java:358)
+	org.rhwlab.tree.AncesTree.<init>(AncesTree.java:127)
+	org.rhwlab.snight.NucleiMgr.processNuclei(NucleiMgr.java:979)
+	org.rhwlab.acetree.AceTree.bringUpSeriesData(AceTree.java:668)
+TRACE 301623:
+	org.rhwlab.tree.AncesTree.processEntries(AncesTree.java:361)
+	org.rhwlab.tree.AncesTree.<init>(AncesTree.java:127)
+	org.rhwlab.snight.NucleiMgr.processNuclei(NucleiMgr.java:979)
+	org.rhwlab.acetree.AceTree.bringUpSeriesData(AceTree.java:668)
+TRACE 300625:
+	sun.java2d.d3d.D3DGraphicsDevice.initD3D(<Unknown Source>:Unknown line)
+	sun.java2d.d3d.D3DGraphicsDevice.<clinit>(<Unknown Source>:Unknown line)
+	sun.awt.Win32GraphicsEnvironment.makeScreenDevice(<Unknown Source>:Unknown line)
+	sun.java2d.SunGraphicsEnvironment.getScreenDevices(<Unknown Source>:Unknown line)
+TRACE 300592:
+	sun.net.www.protocol.jar.Handler.openConnection(<Unknown Source>:Unknown line)
+	java.net.URL.openConnection(<Unknown Source>:Unknown line)
+	sun.reflect.misc.MethodUtil.getBytes(<Unknown Source>:Unknown line)
+	sun.reflect.misc.MethodUtil.defineClass(<Unknown Source>:Unknown line)
+TRACE 300553:
+	javax.swing.plaf.nimbus.NimbusDefaults.initializeDefaults(<Unknown Source>:Unknown line)
+	javax.swing.plaf.nimbus.NimbusLookAndFeel.getDefaults(<Unknown Source>:Unknown line)
+	javax.swing.UIManager.setLookAndFeel(<Unknown Source>:Unknown line)
+	javax.swing.UIManager.setLookAndFeel(<Unknown Source>:Unknown line)
+TRACE 301673:
+	sun.java2d.loops.OpaqueCopyAnyToArgb.Blit(<Unknown Source>:Unknown line)
+	sun.java2d.loops.GraphicsPrimitive.convertFrom(<Unknown Source>:Unknown line)
+	sun.java2d.loops.GraphicsPrimitive.convertFrom(<Unknown Source>:Unknown line)
+	sun.java2d.loops.MaskBlit$General.MaskBlit(<Unknown Source>:Unknown line)
+TRACE 300490:
+	sun.font.SunFontManager.registerDeferredFont(<Unknown Source>:Unknown line)
+	sun.font.SunFontManager.registerFonts(<Unknown Source>:Unknown line)
+	sun.font.SunFontManager.addDirFonts(<Unknown Source>:Unknown line)
+	sun.font.SunFontManager.registerFontsInDir(<Unknown Source>:Unknown line)
+TRACE 300439:
+	sun.misc.FloatingDecimal$BinaryToASCIIBuffer.<clinit>(<Unknown Source>:Unknown line)
+	sun.misc.FloatingDecimal.<clinit>(<Unknown Source>:Unknown line)
+	java.lang.Float.parseFloat(<Unknown Source>:Unknown line)
+	sun.java2d.SunGraphicsEnvironment$1.run(<Unknown Source>:Unknown line)
+TRACE 301532:
+	sun.java2d.d3d.D3DRenderQueue.flushBuffer(<Unknown Source>:Unknown line)
+	sun.java2d.d3d.D3DRenderQueue.flushBuffer(<Unknown Source>:Unknown line)
+	sun.java2d.d3d.D3DRenderQueue.flushNow(<Unknown Source>:Unknown line)
+	sun.java2d.d3d.D3DSurfaceData.dispose(<Unknown Source>:Unknown line)
+TRACE 300395:
+	sun.awt.AppContext.<init>(<Unknown Source>:Unknown line)
+	sun.awt.SunToolkit.createNewAppContext(<Unknown Source>:Unknown line)
+	sun.awt.AppContext$2.run(<Unknown Source>:Unknown line)
+	sun.awt.AppContext$2.run(<Unknown Source>:Unknown line)
+TRACE 300354:
+	sun.security.util.SecurityConstants.<clinit>(<Unknown Source>:Unknown line)
+	java.lang.Class.getProtectionDomain(<Unknown Source>:Unknown line)
+	java.security.AccessController$1.run(<Unknown Source>:Unknown line)
+	java.security.AccessController$1.run(<Unknown Source>:Unknown line)
+TRACE 300330:
+	java.lang.invoke.MethodTypeForm.canonicalize(<Unknown Source>:Unknown line)
+	java.lang.invoke.MethodTypeForm.canonicalizes(<Unknown Source>:Unknown line)
+	java.lang.invoke.MethodTypeForm.canonicalize(<Unknown Source>:Unknown line)
+	java.lang.invoke.MethodTypeForm.findForm(<Unknown Source>:Unknown line)
+TRACE 300309:
+	java.lang.invoke.MethodType.fromMethodDescriptorString(<Unknown Source>:Unknown line)
+	java.lang.invoke.MemberName.getMethodType(<Unknown Source>:Unknown line)
+	java.lang.invoke.LambdaForm.computeInitialPreparedForms(<Unknown Source>:Unknown line)
+	java.lang.invoke.LambdaForm.<clinit>(<Unknown Source>:Unknown line)
+CPU SAMPLES BEGIN (total = 6433) Tue Mar 03 16:44:50 2015
+rank   self  accum   count trace method
+   1 65.10% 65.10%    4188 300396 sun.awt.windows.WToolkit.eventLoop
+   2  6.11% 71.21%     393 301547 org.rhwlab.snight.NucleiMgr.getTokens
+   3  3.33% 74.54%     214 301546 java.util.zip.Inflater.inflateBytes
+   4  2.98% 77.52%     192 301610 javax.swing.tree.DefaultMutableTreeNode.isNodeAncestor
+   5  2.81% 80.34%     181 301548 java.util.StringTokenizer.scanToken
+   6  1.13% 81.47%      73 301614 java.util.Hashtable.get
+   7  1.10% 82.57%      71 301371 sun.java2d.d3d.D3DScreenUpdateManager.run
+   8  1.06% 83.63%      68 301553 org.rhwlab.snight.Nucleus.<init>
+   9  0.95% 84.58%      61 301556 sun.misc.FloatingDecimal.parseFloat
+  10  0.90% 85.48%      58 301551 java.io.BufferedReader.readLine
+  11  0.62% 86.10%      40 301368 sun.java2d.d3d.D3DRenderQueue.flushBuffer
+  12  0.62% 86.72%      40 301462 sun.java2d.d3d.D3DScreenUpdateManager.run
+  13  0.56% 87.28%      36 301554 java.util.StringTokenizer.skipDelimiters
+  14  0.54% 87.83%      35 301539 java.util.zip.ZipFile.read
+  15  0.50% 88.33%      32 301604 org.rhwlab.snight.Identity3.identityAssignment
+  16  0.42% 88.75%      27 301619 org.rhwlab.tree.AncesTree.processEntry
+  17  0.39% 89.13%      25 301550 sun.nio.cs.SingleByte.withResult
+  18  0.39% 89.52%      25 301404 java.lang.Object.wait
+  19  0.37% 89.90%      24 301432 sun.java2d.d3d.D3DRenderQueue.flushBuffer
+  20  0.31% 90.21%      20 301620 java.util.Hashtable.get
+  21  0.28% 90.49%      18 301639 java.util.Hashtable.put
+  22  0.25% 90.74%      16 301507 java.lang.Object.notifyAll
+  23  0.23% 90.97%      15 301381 java.lang.Class.getComponentType
+  24  0.20% 91.17%      13 301597 org.rhwlab.snight.NucleiMgr.setSuccessors
+  25  0.19% 91.36%      12 301359 sun.java2d.d3d.D3DRenderQueue.flushBuffer
+  26  0.17% 91.53%      11 301627 org.rhwlab.tree.AncesTree.countAliveCellsAtIndex
+  27  0.17% 91.70%      11 301609 org.rhwlab.snight.NucleiMgr.setSuccessors
+  28  0.16% 91.85%      10 301558 java.util.StringTokenizer.setMaxDelimCodePoint
+  29  0.16% 92.01%      10 301476 sun.java2d.d3d.D3DScreenUpdateManager.run
+  30  0.16% 92.17%      10 301514 sun.java2d.d3d.D3DScreenUpdateManager.run
+  31  0.16% 92.32%      10 301444 sun.awt.windows.WGlobalCursorManager.setCursor
+  32  0.16% 92.48%      10 301638 java.util.Hashtable.rehash
+  33  0.14% 92.62%       9 301601 org.rhwlab.snight.Identity3.clearNames
+  34  0.14% 92.76%       9 301555 org.rhwlab.snight.Nucleus.<init>
+  35  0.14% 92.90%       9 301575 sun.java2d.d3d.D3DScreenUpdateManager.run
+  36  0.14% 93.04%       9 301621 java.lang.Integer.getChars
+  37  0.12% 93.16%       8 301373 java.lang.reflect.Array.newArray
+  38  0.12% 93.28%       8 301516 sun.java2d.d3d.D3DScreenUpdateManager.run
+  39  0.12% 93.41%       8 301618 java.util.Hashtable.get
+  40  0.12% 93.53%       8 301467 sun.awt.shell.Win32ShellFolder2.getLinkLocation
+  41  0.11% 93.64%       7 301690 sun.awt.windows.WToolkit.shutdown
+  42  0.11% 93.75%       7 301505 sun.awt.windows.WGlobalCursorManager.findHeavyweightUnderCursor
+  43  0.11% 93.86%       7 301642 java.util.Hashtable.get
+  44  0.11% 93.97%       7 301617 org.rhwlab.tree.AncesTree.processEntry
+  45  0.09% 94.06%       6 301674 java.awt.image.ComponentColorModel.getRGBComponent
+  46  0.09% 94.16%       6 301561 org.rhwlab.snight.Nucleus.<init>
+  47  0.09% 94.25%       6 301650 java.io.WinNTFileSystem.getBooleanAttributes
+  48  0.09% 94.34%       6 301535 java.io.WinNTFileSystem.getBooleanAttributes
+  49  0.09% 94.43%       6 301595 org.rhwlab.snight.NucleiMgr.computeRWeights
+  50  0.09% 94.53%       6 301564 sun.misc.FloatingDecimal.parseFloat
+  51  0.09% 94.62%       6 301480 sun.java2d.d3d.D3DSurfaceData.initTexture
+  52  0.09% 94.71%       6 301631 java.util.Hashtable.put
+  53  0.08% 94.79%       5 301370 sun.java2d.d3d.D3DScreenUpdateManager.run
+  54  0.08% 94.87%       5 301402 sun.awt.AWTAutoShutdown.setToolkitBusy
+  55  0.08% 94.95%       5 301588 java.io.FileInputStream.readBytes
+  56  0.08% 95.03%       5 301569 sun.java2d.d3d.D3DScreenUpdateManager.run
+  57  0.08% 95.10%       5 301445 java.security.AccessController.getStackAccessControlContext
+  58  0.08% 95.18%       5 301536 java.util.zip.ZipFile.open
+  59  0.08% 95.26%       5 301543 org.rhwlab.snight.NucleiMgr.readNuclei
+  60  0.08% 95.34%       5 301629 java.util.Hashtable.rehash
+  61  0.08% 95.41%       5 301465 sun.awt.shell.Win32ShellFolder2.getNextChild
+  62  0.08% 95.49%       5 301641 java.util.Hashtable.put
+  63  0.08% 95.57%       5 301640 org.rhwlab.tree.AncesTree.makeCellsByNameHash
+  64  0.06% 95.63%       4 301457 java.lang.Thread.currentThread
+  65  0.06% 95.69%       4 301461 sun.awt.windows.WGlobalCursorManager.findHeavyweightUnderCursor
+  66  0.06% 95.76%       4 301630 org.rhwlab.snight.NucleiMgr.setSuccessors
+  67  0.06% 95.82%       4 301540 org.rhwlab.snight.NucleiMgr.readNuclei
+  68  0.06% 95.88%       4 301577 sun.java2d.d3d.D3DScreenUpdateManager.run
+  69  0.06% 95.94%       4 301573 org.rhwlab.snight.Nucleus.<init>
+  70  0.06% 96.00%       4 301632 org.rhwlab.tree.AncesTree.processEntry
+  71  0.06% 96.07%       4 301633 java.util.Hashtable.put
+  72  0.06% 96.13%       4 301511 sun.awt.shell.Win32ShellFolder2.getEnumObjects
+  73  0.05% 96.18%       3 301599 org.rhwlab.snight.NucleiMgr.setSuccessors
+  74  0.05% 96.22%       3 301475 sun.awt.windows.WGlobalCursorManager.setCursor
+  75  0.05% 96.27%       3 300632 sun.java2d.d3d.D3DRenderQueue.flushBuffer
+  76  0.05% 96.32%       3 301570 sun.java2d.d3d.D3DScreenUpdateManager.run
+  77  0.05% 96.36%       3 301603 java.lang.StringBuilder.append
+  78  0.05% 96.41%       3 301484 java.lang.Object.hashCode
+  79  0.05% 96.46%       3 300633 sun.java2d.d3d.D3DGraphicsDevice.getDeviceCapsNative
+  80  0.05% 96.50%       3 301478 sun.dc.pr.PathFiller.writeAlpha8
+  81  0.03% 96.53%       2 301508 java.security.AccessController.getStackAccessControlContext
+  82  0.03% 96.56%       2 300522 java.lang.Class.forName0
+  83  0.03% 96.60%       2 301495 java.lang.Object.hashCode
+  84  0.03% 96.63%       2 301512 java.lang.Thread.isInterrupted
+  85  0.03% 96.66%       2 301585 java.io.RandomAccessFile.read0
+  86  0.03% 96.69%       2 301625 java.util.Hashtable.get
+  87  0.03% 96.72%       2 301490 java.security.AccessController.doPrivileged
+  88  0.03% 96.75%       2 301626 java.util.Vector.ensureCapacityHelper
+  89  0.03% 96.78%       2 301580 java.util.Vector.ensureCapacityHelper
+  90  0.03% 96.81%       2 301542 java.lang.String.substring
+  91  0.03% 96.84%       2 301628 org.rhwlab.tree.AncesTree.processEntry
+  92  0.03% 96.88%       2 301675 java.awt.image.ComponentColorModel.getRGBComponent
+  93  0.03% 96.91%       2 301635 org.rhwlab.tree.AncesTree.makeCellsByNameHash
+  94  0.03% 96.94%       2 301643 java.util.Hashtable.get
+  95  0.03% 96.97%       2 301464 sun.awt.shell.Win32ShellFolder2.doGetColumnInfo
+  96  0.03% 97.00%       2 301557 java.util.Arrays.copyOfRange
+  97  0.03% 97.03%       2 301606 org.rhwlab.tree.AncesTree.processEntry
+  98  0.03% 97.06%       2 301453 java.lang.Object.hashCode
+  99  0.03% 97.09%       2 301608 java.util.Hashtable.get
+ 100  0.03% 97.12%       2 301572 java.util.Arrays.copyOf
+ 101  0.03% 97.16%       2 301571 java.util.ArrayList.toArray
+ 102  0.03% 97.19%       2 301611 org.rhwlab.tree.AncesTree.processEntry
+ 103  0.03% 97.22%       2 301613 org.rhwlab.tree.Cell.updateCellData
+ 104  0.03% 97.25%       2 301498 sun.dc.pr.PathFiller.setFillMode
+ 105  0.03% 97.28%       2 301567 sun.java2d.d3d.D3DScreenUpdateManager.run
+ 106  0.02% 97.30%       1 301566 java.io.BufferedReader.readLine
+ 107  0.02% 97.31%       1 301565 java.io.BufferedReader.readLine
+ 108  0.02% 97.33%       1 301568 sun.nio.cs.StreamDecoder.implRead
+ 109  0.02% 97.34%       1 301563 java.util.zip.ZipFile.getNextEntry
+ 110  0.02% 97.36%       1 301562 java.util.zip.ZipCoder.toString
+ 111  0.02% 97.37%       1 301574 org.rhwlab.snight.NucleiMgr.readNuclei
+ 112  0.02% 97.39%       1 301560 java.util.zip.ZipFile.getInputStream
+ 113  0.02% 97.40%       1 301559 sun.java2d.d3d.D3DScreenUpdateManager.run
+ 114  0.02% 97.42%       1 301637 org.rhwlab.tree.AncesTree.makeCellsByNameHash
+ 115  0.02% 97.44%       1 300095 sun.misc.Unsafe.compareAndSwapLong
+ 116  0.02% 97.45%       1 300094 java.util.concurrent.ConcurrentHashMap.transfer
+ 117  0.02% 97.47%       1 300025 sun.misc.Perf$GetPerfAction.run
+ 118  0.02% 97.48%       1 301576 org.rhwlab.snight.NucleiMgr.getTokens
+ 119  0.02% 97.50%       1 301644 org.rhwlab.acetree.AceTree.bringUpSeriesUI
+ 120  0.02% 97.51%       1 301552 java.util.Arrays.copyOfRange
+ 121  0.02% 97.53%       1 301645 java.lang.AbstractStringBuilder.<init>
+ 122  0.02% 97.54%       1 301578 sun.java2d.d3d.D3DScreenUpdateManager.run
+ 123  0.02% 97.56%       1 301549 java.util.zip.ZipFile.getEntryMethod
+ 124  0.02% 97.58%       1 301651 java.io.FileInputStream.readBytes
+ 125  0.02% 97.59%       1 301652 java.io.RandomAccessFile.read0
+ 126  0.02% 97.61%       1 301653 org.rhwlab.image.ImageWindow.buildImagePlus
+ 127  0.02% 97.62%       1 301545 java.lang.Object.hashCode
+ 128  0.02% 97.64%       1 301544 org.rhwlab.snight.NucleiMgr.readNuclei
+ 129  0.02% 97.65%       1 301579 java.lang.String.substring
+ 130  0.02% 97.67%       1 300089 java.lang.ClassLoader.defineClass1
+ 131  0.02% 97.68%       1 301541 org.rhwlab.snight.NucleiMgr.readNuclei
+ 132  0.02% 97.70%       1 301581 sun.java2d.d3d.D3DSurfaceData$D3DWindowSurfaceData.isDirty
+ 133  0.02% 97.71%       1 301654 java.io.WinNTFileSystem.getBooleanAttributes
+ 134  0.02% 97.73%       1 301538 sun.misc.FloatingDecimal.readJavaFormatString
+ 135  0.02% 97.75%       1 301583 java.util.zip.Inflater.inflateBytes
+ 136  0.02% 97.76%       1 301584 java.io.FileInputStream.open
+ 137  0.02% 97.78%       1 301534 java.io.FileInputStream.readBytes
+ 138  0.02% 97.79%       1 301533 java.lang.ClassLoader.loadClass
+ 139  0.02% 97.81%       1 301655 net.sf.ij.jaiio.BufferedImageCreator.create
+ 140  0.02% 97.82%       1 301530 org.rhwlab.acetree.AceTree.bringUpSeriesUI
+ 141  0.02% 97.84%       1 301528 java.awt.EventQueue.removeSourceEvents
+ 142  0.02% 97.85%       1 301525 sun.java2d.SunGraphics2D.constrain
+ 143  0.02% 97.87%       1 301522 java.security.AccessController.doPrivileged
+ 144  0.02% 97.89%       1 301521 sun.java2d.d3d.D3DScreenUpdateManager.run
+ 145  0.02% 97.90%       1 301520 java.lang.Thread.isInterrupted
+ 146  0.02% 97.92%       1 301519 java.util.concurrent.locks.AbstractQueuedSynchronizer.transferAfterCancelledWait
+ 147  0.02% 97.93%       1 301518 sun.misc.Unsafe.unpark
+ 148  0.02% 97.95%       1 301517 java.io.WinNTFileSystem.getBooleanAttributes
+ 149  0.02% 97.96%       1 301657 javax.swing.plaf.synth.SynthButtonUI.propertyChange
+ 150  0.02% 97.98%       1 301515 java.awt.Component.reshape
+ 151  0.02% 97.99%       1 301665 javax.swing.text.GapContent$StickyPosition.getOffset
+ 152  0.02% 98.01%       1 301513 sun.java2d.d3d.D3DScreenUpdateManager.run
+ 153  0.02% 98.03%       1 300152 sun.awt.windows.WComponentPeer.<clinit>
+ 154  0.02% 98.04%       1 301586 java.io.RandomAccessFile.read0
+ 155  0.02% 98.06%       1 301589 ij.io.FileOpener.open
+ 156  0.02% 98.07%       1 301510 sun.awt.shell.Win32ShellFolder2.compareIDs
+ 157  0.02% 98.09%       1 301509 sun.java2d.pipe.BufferedTextPipe.enqueueGlyphList
+ 158  0.02% 98.10%       1 301590 ij.ImagePlus.getCalibration
+ 159  0.02% 98.12%       1 301591 org.rhwlab.image.ImageWindow.convertTo8Bits
+ 160  0.02% 98.13%       1 301506 java.security.AccessController.getStackAccessControlContext
+ 161  0.02% 98.15%       1 301624 sun.java2d.d3d.D3DScreenUpdateManager.run
+ 162  0.02% 98.17%       1 301504 sun.awt.AWTAutoShutdown.notifyThreadBusy
+ 163  0.02% 98.18%       1 301503 java.lang.Thread.currentThread
+ 164  0.02% 98.20%       1 301502 java.security.AccessController.getInheritedAccessControlContext
+ 165  0.02% 98.21%       1 301501 sun.misc.Unsafe.getLongVolatile
+ 166  0.02% 98.23%       1 301499 java.awt.Component.setFont
+ 167  0.02% 98.24%       1 301592 ij.process.ColorProcessor.getRGB
+ 168  0.02% 98.26%       1 301497 javax.swing.plaf.synth.SynthButtonUI.getSynthIcon
+ 169  0.02% 98.27%       1 301496 sun.java2d.d3d.D3DSurfaceData.initFlipBackbuffer
+ 170  0.02% 98.29%       1 301593 org.rhwlab.snight.NucleiMgr.computeRWeight
+ 171  0.02% 98.31%       1 301494 sun.java2d.pipe.AlphaPaintPipe$TileContext.<init>
+ 172  0.02% 98.32%       1 301493 javax.swing.text.FieldView.getFontMetrics
+ 173  0.02% 98.34%       1 301492 javax.swing.JComponent.paintChildren
+ 174  0.02% 98.35%       1 301491 javax.swing.plaf.nimbus.ComboBoxPainter.decodeGradient5
+ 175  0.02% 98.37%       1 301594 org.rhwlab.snight.NucleiMgr.computeRWeights
+ 176  0.02% 98.38%       1 301489 sun.font.Font2D.getStrike
+ 177  0.02% 98.40%       1 301488 java.lang.Object.clone
+ 178  0.02% 98.41%       1 301487 java.awt.KeyboardFocusManager.getGlobalFocusOwner
+ 179  0.02% 98.43%       1 301486 java.lang.StringBuilder.append
+ 180  0.02% 98.45%       1 301485 java.lang.StringBuilder.append
+ 181  0.02% 98.46%       1 300074 java.security.AccessController.doPrivileged
+ 182  0.02% 98.48%       1 301483 java.lang.Thread.holdsLock
+ 183  0.02% 98.49%       1 301482 java.awt.Component.setFont
+ 184  0.02% 98.51%       1 301481 java.awt.geom.RoundRectIterator.next
+ 185  0.02% 98.52%       1 301596 org.rhwlab.acetree.AceTree.bringUpSeriesData
+ 186  0.02% 98.54%       1 301479 java.awt.Component.invalidate
+ 187  0.02% 98.55%       1 301636 java.util.Hashtable.get
+ 188  0.02% 98.57%       1 301598 org.rhwlab.snight.NucleiMgr.setSuccessors
+ 189  0.02% 98.59%       1 300069 sun.net.www.ParseUtil.decode
+ 190  0.02% 98.60%       1 301473 java.awt.Font.createGlyphVector
+ 191  0.02% 98.62%       1 301472 sun.swing.FilePane$DetailsTableModel.contentsChanged
+ 192  0.02% 98.63%       1 301470 java.lang.Thread.isInterrupted
+ 193  0.02% 98.65%       1 301469 sun.java2d.pipe.BufferedMaskBlit.enqueueTile
+ 194  0.02% 98.66%       1 301468 sun.awt.shell.ShellFolder.invoke
+ 195  0.02% 98.68%       1 301676 sun.java2d.loops.MaskBlit.MaskBlit
+ 196  0.02% 98.69%       1 301466 sun.awt.shell.Win32ShellFolder2.getAttributes0
+ 197  0.02% 98.71%       1 301600 org.rhwlab.snight.Identity3.clearAllNames
+ 198  0.02% 98.73%       1 301602 org.rhwlab.snight.Identity3.identityAssignment
+ 199  0.02% 98.74%       1 301677 javax.swing.plaf.nimbus.TreePainter.<init>
+ 200  0.02% 98.76%       1 301634 org.rhwlab.tree.AncesTree.makeCellsByNameHash
+ 201  0.02% 98.77%       1 301460 sun.awt.AWTAutoShutdown.setToolkitBusy
+ 202  0.02% 98.79%       1 300201 java.util.zip.Inflater.inflateBytes
+ 203  0.02% 98.80%       1 301459 java.lang.System.identityHashCode
+ 204  0.02% 98.82%       1 301458 java.lang.Thread.holdsLock
+ 205  0.02% 98.83%       1 301605 org.rhwlab.tree.AncesTree.processEntry
+ 206  0.02% 98.85%       1 301455 java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos
+ 207  0.02% 98.87%       1 301454 java.security.AccessController.getStackAccessControlContext
+ 208  0.02% 98.88%       1 301607 org.rhwlab.tree.AncesTree.processEntry
+ 209  0.02% 98.90%       1 301452 sun.java2d.d3d.D3DScreenUpdateManager.run
+ 210  0.02% 98.91%       1 301451 java.lang.Thread.holdsLock
+ 211  0.02% 98.93%       1 301612 org.rhwlab.tree.AncesTree.processEntry
+ 212  0.02% 98.94%       1 301680 java.util.concurrent.locks.AbstractQueuedSynchronizer.acquire
+ 213  0.02% 98.96%       1 301443 sun.java2d.StateTrackableDelegate$1.isCurrent
+ 214  0.02% 98.97%       1 301442 sun.java2d.d3d.D3DScreenUpdateManager.run
+ 215  0.02% 98.99%       1 301441 javax.swing.JComponent.paint
+ 216  0.02% 99.01%       1 301437 java.util.concurrent.locks.AbstractQueuedSynchronizer.release
+ 217  0.02% 99.02%       1 301434 java.awt.LinearGradientPaint.<init>
+ 218  0.02% 99.04%       1 301681 sun.java2d.StateTrackableDelegate$1.isCurrent
+ 219  0.02% 99.05%       1 301424 java.awt.Dialog.show
+ 220  0.02% 99.07%       1 301413 java.awt.Component.addNotify
+ 221  0.02% 99.08%       1 301409 java.awt.Window.pack
+ 222  0.02% 99.10%       1 301405 sun.java2d.d3d.D3DSurfaceData.getBounds
+ 223  0.02% 99.11%       1 301682 sun.java2d.d3d.D3DScreenUpdateManager.run
+ 224  0.02% 99.13%       1 301403 sun.java2d.d3d.D3DScreenUpdateManager.run
+ 225  0.02% 99.15%       1 301615 org.rhwlab.tree.AncesTree.processEntry
+ 226  0.02% 99.16%       1 301400 sun.awt.AWTAutoShutdown.notifyThreadFree
+ 227  0.02% 99.18%       1 301393 javax.swing.PopupFactory.getLightWeightPopup
+ 228  0.02% 99.19%       1 301683 sun.java2d.d3d.D3DScreenUpdateManager.createGraphics
+ 229  0.02% 99.21%       1 301379 sun.java2d.d3d.D3DScreenUpdateManager.run
+ 230  0.02% 99.22%       1 301684 javax.swing.text.BoxView.isAllocationValid
+ 231  0.02% 99.24%       1 301372 java.lang.Object.getClass
+ 232  0.02% 99.25%       1 301685 javax.swing.text.DefaultHighlighter.paint
+ 233  0.02% 99.27%       1 301616 java.util.Hashtable.get
+ 234  0.02% 99.28%       1 301369 sun.java2d.d3d.D3DScreenUpdateManager.run
+ 235  0.02% 99.30%       1 301686 javax.swing.BoxLayout.checkRequests
+ 236  0.02% 99.32%       1 301687 javax.swing.text.GlyphPainter1.paint
+ 237  0.02% 99.33%       1 301353 java.lang.System.arraycopy
+ 238  0.02% 99.35%       1 301308 java.util.AbstractList$Itr.<init>
+ 239  0.02% 99.36%       1 301288 sun.java2d.d3d.D3DSurfaceData.<clinit>
+ 240  0.02% 99.38%       1 301255 sun.awt.windows.WComponentPeer.addNativeDropTarget
+ 241  0.02% 99.39%       1 301224 sun.java2d.SurfaceData.setBlitProxyKey
+ 242  0.02% 99.41%       1 301198 sun.awt.windows.WToolkit.createFrame
+ 243  0.02% 99.42%       1 300242 sun.java2d.loops.SurfaceType.<clinit>
+ 244  0.02% 99.44%       1 301193 java.io.BufferedReader.readLine
+ 245  0.02% 99.46%       1 301192 javax.swing.text.StyleContext$SmallAttributeSet.hashCode
+ 246  0.02% 99.47%       1 301187 javax.swing.Spring.height
+ 247  0.02% 99.49%       1 301154 javax.swing.text.DefaultStyledDocument.setLogicalStyle
+ 248  0.02% 99.50%       1 301134 java.security.AccessController.getStackAccessControlContext
+ 249  0.02% 99.52%       1 301131 sun.awt.shell.Win32ShellFolder2.bindToObject
+ 250  0.02% 99.53%       1 301130 sun.misc.Unsafe.compareAndSwapObject
+ 251  0.02% 99.55%       1 301120 javax.swing.tree.DefaultTreeCellRenderer.updateUI
+ 252  0.02% 99.56%       1 301106 java.util.Currency.getSymbol
+ 253  0.02% 99.58%       1 301092 javax.swing.DefaultButtonModel.addChangeListener
+ 254  0.02% 99.60%       1 301080 javax.swing.plaf.basic.BasicFileChooserUI$BasicFileView.getIcon
+ 255  0.02% 99.61%       1 301076 java.lang.Thread.currentThread
+ 256  0.02% 99.63%       1 301065 sun.awt.shell.Win32ShellFolder2.getDisplayNameOf
+ 257  0.02% 99.64%       1 301045 sun.nio.ch.Util.getTemporaryDirectBuffer
+ 258  0.02% 99.66%       1 300997 sun.swing.DefaultLookup.get
+ 259  0.02% 99.67%       1 300960 java.lang.Class.getDeclaredConstructors0
+ 260  0.02% 99.69%       1 300911 javax.swing.text.AbstractDocument.<init>
+ 261  0.02% 99.70%       1 301688 javax.swing.JComponent._paintImmediately
+ 262  0.02% 99.72%       1 300838 java.beans.PropertyChangeSupport$PropertyChangeListenerMap.newArray
+ 263  0.02% 99.74%       1 300801 javax.swing.plaf.basic.BasicComboPopup.getHandler
+ 264  0.02% 99.75%       1 300759 java.lang.Class.forName0
+ 265  0.02% 99.77%       1 300722 javax.swing.plaf.basic.BasicPopupMenuUI.installListeners
+ 266  0.02% 99.78%       1 300687 sun.awt.image.ImageRepresentation.createImage
+ 267  0.02% 99.80%       1 300640 java.awt.Window.init
+ 268  0.02% 99.81%       1 301622 org.rhwlab.tree.AncesTree.processEntries
+ 269  0.02% 99.83%       1 301623 org.rhwlab.tree.AncesTree.processEntries
+ 270  0.02% 99.84%       1 300625 sun.java2d.d3d.D3DGraphicsDevice.initD3D
+ 271  0.02% 99.86%       1 300592 sun.net.www.protocol.jar.Handler.openConnection
+ 272  0.02% 99.88%       1 300553 javax.swing.plaf.nimbus.NimbusDefaults.initializeDefaults
+ 273  0.02% 99.89%       1 301673 sun.java2d.loops.OpaqueCopyAnyToArgb.Blit
+ 274  0.02% 99.91%       1 300490 sun.font.SunFontManager.registerDeferredFont
+ 275  0.02% 99.92%       1 300439 sun.misc.FloatingDecimal$BinaryToASCIIBuffer.<clinit>
+ 276  0.02% 99.94%       1 301532 sun.java2d.d3d.D3DRenderQueue.flushBuffer
+ 277  0.02% 99.95%       1 300395 sun.awt.AppContext.<init>
+ 278  0.02% 99.97%       1 300354 sun.security.util.SecurityConstants.<clinit>
+ 279  0.02% 99.98%       1 300330 java.lang.invoke.MethodTypeForm.canonicalize
+ 280  0.02% 100.00%       1 300309 java.lang.invoke.MethodType.fromMethodDescriptorString
+CPU SAMPLES END

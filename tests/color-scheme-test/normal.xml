@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+<lineages>
+<lineage name="ABa" color="red"/>
+<lineage name="ABp" color="blue"/>
+<lineage name="C" color="magenta"/>
+<lineage name="D" color="pink"/>
+<lineage name="E" color="green"/>
+<lineage name="MS" color="cyan"/>
+<lineage name="P" color="yellow"/>
+<lineage name="polar" color="gray"/>
+<lineage name="" color="green"/>
+<lineage name="" color="green"/>
+<lineage name="" color="green"/>
+<lineage name="" color="green"/>
+<lineage name="" color="green"/>
+<lineage name="" color="green"/>
+<lineage name="" color="green"/>
+<lineage name="" color="green"/>
+<lineage name="" color="green"/>
+<lineage name="" color="green"/>
+<lineage name="" color="green"/>
+<lineage name="" color="green"/>
+<lineage name="" color="green"/>
+<lineage name="" color="green"/>
+<lineage name="" color="green"/>
+<lineage name="" color="green"/>
+</lineages>

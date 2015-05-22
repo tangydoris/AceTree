@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+<rotations>
+<rotation radians="0.5235987755982988" axis="x"/>
+<rotation radians="0.5235987755982988" axis="x"/>
+<rotation radians="0.5235987755982988" axis="x"/>
+<rotation radians="0.5235987755982988" axis="y"/>
+<rotation radians="0.5235987755982988" axis="y"/>
+<rotation radians="0.5235987755982988" axis="z"/>
+<rotation radians="-0.5235987755982988" axis="z"/>
+<rotation radians="-0.5235987755982988" axis="z"/>
+</rotations>
