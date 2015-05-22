@@ -181,7 +181,8 @@ public class TreePanel extends JPanel {
         //System.out.println("paintComponent2: " + getSize());
     }
 
-    private void displayHash() {
+    @SuppressWarnings("unused")
+	private void displayHash() {
         Enumeration eKeys = iCellXHash.keys();
         while (eKeys.hasMoreElements()) {
             Integer x = (Integer)eKeys.nextElement();
@@ -210,7 +211,8 @@ public class TreePanel extends JPanel {
         ,MINWIDTH = 400
     ;
 
-    private Cell findIt(int x, int y) {
+    @SuppressWarnings("unused")
+	private Cell findIt(int x, int y) {
         Enumeration ev = iCellXHash.elements();
         int xs = 10000;
         Cell cs = null;

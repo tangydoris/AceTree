@@ -73,7 +73,7 @@ public class VTree implements ActionListener {
 
         iFrame.getContentPane().add(pWhole);
         iFrame.pack();
-        iFrame.show();
+        iFrame.setVisible(true);
 
     }
 

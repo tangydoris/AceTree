@@ -226,6 +226,7 @@ public class AceExecuter extends Executer {
 	 ---
 	 * Allows crop settings to persist in time.
 	 */
+	@SuppressWarnings("deprecation")
 	public void setROI() {
 		if (AceUniverse.getSettings().containsKey("ROI")) {
         	Roi roi = (Roi)AceUniverse.getSettings().get("ROI");
@@ -537,6 +538,7 @@ public class AceExecuter extends Executer {
 		 */
 		protected abstract void setValue(final ContentInstant c, final int v);
 
+		@SuppressWarnings("unused")
 		@Override
 		public void run() {
 			go = true;

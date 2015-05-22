@@ -179,7 +179,8 @@ public class VTreeImplZ {
 
     };
 
-    private Vector segregate(Vector vIn, Vector vSep) {
+    @SuppressWarnings("unused")
+	private Vector segregate(Vector vIn, Vector vSep) {
         Vector va = new Vector();
         Vector v = null;
         String pattern = null;
@@ -264,7 +265,8 @@ public class VTreeImplZ {
         return v;
     }
 
-    public double [] findYLimits() {
+    @SuppressWarnings("unused")
+	public double [] findYLimits() {
         int ymax = 0;
         int ymin = Integer.MAX_VALUE;
         int offset = 100;
@@ -508,7 +510,8 @@ public class VTreeImplZ {
         ,SEPARATORS = 6
         ;
 
-    public void prepare(String rootName) {
+    @SuppressWarnings("unused")
+	public void prepare(String rootName) {
         Hashtable doneHash = new Hashtable();
         iDaughters = new Hashtable();
         String s = "";
@@ -681,7 +684,8 @@ public class VTreeImplZ {
 
 
     // returns a Vector where each item is a Cell at the leaf level
-    private Vector getLeaves(String rootName) {
+    @SuppressWarnings("unused")
+	private Vector getLeaves(String rootName) {
         Vector v = new Vector();
         Cell d = (Cell)iCellsByName.get(rootName);
         int last = d.getLeafCount();
@@ -718,7 +722,8 @@ public class VTreeImplZ {
             if (!iWasDrawn) System.out.println(s);
         }
 
-        public void paint(Graphics g) {
+        @SuppressWarnings("unused")
+		public void paint(Graphics g) {
             g.setColor(Color.white);
             g.fillRect(0, 0, getWidth(), getHeight());
             int offset = OFFSET;

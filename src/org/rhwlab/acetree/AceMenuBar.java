@@ -587,7 +587,8 @@ public class AceMenuBar extends JMenuBar implements ActionListener, ItemListener
     /* (non-Javadoc)
      * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
      */
-    public void actionPerformed(ActionEvent e) {
+    @SuppressWarnings("unused")
+	public void actionPerformed(ActionEvent e) {
         Object o = e.getSource();
         if (iRecent!=null&&iRecent.isMenuComponent((JMenuItem)o)) {
             String item = ((JMenuItem)e.getSource()).getText();
@@ -852,7 +853,7 @@ public class AceMenuBar extends JMenuBar implements ActionListener, ItemListener
             JOptionPane pane = new JOptionPane(message);
             //pane.set.Xxxx(...); // Configure
             JDialog dialog = pane.createDialog(iAceTree, "About AceTree");
-            dialog.show();
+            dialog.setVisible(true);
         } else if (iHelp!=null&&iHelp.isMenuComponent((JMenuItem)o)) {
             String item = ((JMenuItem)e.getSource()).getText();
             item = "/org/rhwlab/help/html/" + item + ".html";

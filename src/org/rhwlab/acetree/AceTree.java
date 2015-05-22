@@ -110,6 +110,7 @@ import java.util.Collections;
 import java.util.Enumeration;
 import java.util.GregorianCalendar;
 import java.util.Hashtable;
+import java.util.LinkedList;
 import java.util.Vector;
 
 import javax.swing.AbstractAction;
@@ -289,6 +290,8 @@ public class AceTree extends JPanel
     private JButton				iAddActiveCell;
     
     private SulstonTree			iSulstonTree;
+    
+    private LinkedList<Integer>	iKeyQueue;
 
     private static boolean fullGUI = false;
     
@@ -377,6 +380,8 @@ public class AceTree extends JPanel
         } catch (Throwable t) {
         	new GeneralStartupError(getMainFrame(), t);
         }
+        
+        iKeyQueue = new LinkedList<Integer>();
     }
 
     /* Function: transformTitle
@@ -1188,7 +1193,7 @@ public class AceTree extends JPanel
         treev.add(treeView);
         add(treev);
 
-	//INFO PANE
+        //INFO PANE
         JPanel textv = new JPanel();
         textv.setLayout(new BorderLayout());
         textv.setMaximumSize(new Dimension(Integer.MAX_VALUE,150));
@@ -1199,17 +1204,17 @@ public class AceTree extends JPanel
         textView.setPreferredSize(new Dimension(WIDTH,HEIGHT100));
         textv.add(textView);
         add(textv);
-	// CELL TIME CHOOSER
+        // CELL TIME CHOOSER
         iInputCtrl = new InputCtrl(this);
         add(iInputCtrl);
 
-	//create panel for tools
-	 iToolControls=new JPanel();
-	 iToolControls.setLayout(new BoxLayout(iToolControls,BoxLayout.PAGE_AXIS));
-	// PLAYER CONTROL
+        //create panel for tools
+        iToolControls=new JPanel();
+	 	iToolControls.setLayout(new BoxLayout(iToolControls,BoxLayout.PAGE_AXIS));
+	 	// PLAYER CONTROL
         iPlayerControl = new PlayerControl(this);
         iToolControls.add(iPlayerControl);
-	//KEYPAD
+        //KEYPAD
         JPanel pad = createPad();
         iToolControls.add(pad);
         //iTree.addTreeSelectionListener(this);
@@ -1217,8 +1222,8 @@ public class AceTree extends JPanel
         JPanel textv2 = new JPanel();
         textv2.setLayout(new BorderLayout());
         //changed this to half size to reflect absence of cell name portion
-	textv2.setPreferredSize(new Dimension(WIDTH/2,HEIGHT30));
-	textv2.setMaximumSize(new Dimension(WIDTH,HEIGHT30));
+		textv2.setPreferredSize(new Dimension(WIDTH/2,HEIGHT30));
+		textv2.setMaximumSize(new Dimension(WIDTH,HEIGHT30));
         iText2 = new JTextPane();
         iText2.setPreferredSize(new Dimension(WIDTH/2, HEIGHT30));
         iText2.setEditable(false);
@@ -1252,7 +1257,7 @@ public class AceTree extends JPanel
         iDown.addActionListener(this);
         iHome.addActionListener(this);
         //p.setLayout(new GridLayout(1,7));
-	p.setLayout(new BoxLayout(p, BoxLayout.LINE_AXIS));
+        p.setLayout(new BoxLayout(p, BoxLayout.LINE_AXIS));
         iShow = new JButton(SHOW);
         iShowC = new JButton(SHOWC);
         iClear = new JButton(CLEAR);
@@ -1262,8 +1267,8 @@ public class AceTree extends JPanel
         //JButton x1 = new JButton("");
         //JButton x3 = new JButton("");
 
-	JButton iDepthViews=new JButton(DEPTHVIEWS);
-	iDepthViews.addActionListener(this);
+		JButton iDepthViews=new JButton(DEPTHVIEWS);
+		iDepthViews.addActionListener(this);
 	
 
         iCopy = new JButton(COPY);
@@ -1319,7 +1324,8 @@ public class AceTree extends JPanel
     }
 
 
-    private void setSpecialKeyboardActions() {
+    @SuppressWarnings("unused")
+	private void setSpecialKeyboardActions() {
     	KeyStroke key = null;
     	String xxx = null;
     	final AceTree aceTree = this;
@@ -1702,8 +1708,7 @@ public class AceTree extends JPanel
                 copyImage();
             }
         };
-        getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).
-            put(KeyStroke.getKeyStroke(s), s);
+        getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(s), s);
         getActionMap().put(s, end );
 
         s = "HOME";
@@ -1713,8 +1718,7 @@ public class AceTree extends JPanel
                 updateDisplay();
             }
         };
-        getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).
-            put(KeyStroke.getKeyStroke(s), s);
+        getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(s), s);
         getActionMap().put(s, home );
 
         s = "UP";
@@ -1726,16 +1730,27 @@ public class AceTree extends JPanel
                 updateDisplay();
             }
         };
-        getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).
-            put(KeyStroke.getKeyStroke(s), s);
+        getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(s), s);
         getActionMap().put(s, up );
 
         actionKey = "w_up";
         stroke = KeyStroke.getKeyStroke("typed w");
         inputMap = this.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
         inputMap.put(stroke, actionKey);
-        actionMap = this.getActionMap();
-        actionMap.put(actionKey, up);
+        getActionMap().put(actionKey, up);
+        
+        // Fast (skipping a few planes) UP using CTRL
+        s = "control UP";
+        Action ctrl_up = new AbstractAction() {
+        	public void actionPerformed(ActionEvent e) {
+        		System.out.println("ctrl-up key pressed--skipping planes");
+        		incPlane(-5);
+        		iTrackPosition = ImageWindow.NONE;
+        		updateDisplay();
+        	}
+        };
+        getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(s), s);
+        getActionMap().put(s, ctrl_up);
 
         s = "DOWN";
         Action down = new AbstractAction() {
@@ -1746,8 +1761,7 @@ public class AceTree extends JPanel
                 updateDisplay();
             }
         };
-        getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).
-            put(KeyStroke.getKeyStroke(s), s);
+        getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(s), s);
         getActionMap().put(s, down );
 
         actionKey = "s_down";
@@ -1756,11 +1770,26 @@ public class AceTree extends JPanel
         inputMap.put(stroke, actionKey);
         actionMap = this.getActionMap();
         actionMap.put(actionKey, down);
+        
+        // Fast (skipping a few planes) DOWN using CTRL
+        s = "control DOWN";
+        Action ctrl_down = new AbstractAction() {
+        	public void actionPerformed(ActionEvent e) {
+        		System.out.println("ctrl-down key pressed--skipping planes");
+        		incPlane(5);
+        		iTrackPosition = ImageWindow.NONE;
+        		updateDisplay();
+        	}
+        };
+        getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(s), s);
+        getActionMap().put(s, ctrl_down);
 
 
         s = "LEFT";
         Action left = new AbstractAction("LEFT") {
-            public void actionPerformed(ActionEvent e) {
+            @SuppressWarnings("unused")
+			public void actionPerformed(ActionEvent e) {
+            	System.out.println("LEFT pressed.");
             	AWTEvent awt = (AWTEvent)e;
                 //System.out.println("AceTree--left key pressed, " + e);
                 //System.out.println("AceTree--left key pressed, awt, " + awt);
@@ -1782,15 +1811,7 @@ public class AceTree extends JPanel
         s = "RIGHT";
         Action right = new AbstractAction(s) {
             public void actionPerformed(ActionEvent e) {
-                // nextTime() has the drawing of the second daughter lingering
-            	// Does not happen in nextImage()
-                //if (nextTime()) {
-            	/*
-            	if (nextImage()) {
-                	System.out.println("right key pressed, nextTime() true.");
-                	updateDisplay();
-                }
-                */
+            	System.out.println("RIGHT pressed.");
             	nextImage();
             }
         };
@@ -2563,7 +2584,7 @@ public class AceTree extends JPanel
     public void imageDown() {
         incPlane(1);
         iTrackPosition = ImageWindow.NONE;
-	iCallSaveImage = true;
+        iCallSaveImage = true;
         updateDisplay();
     }
 
@@ -2592,8 +2613,10 @@ public class AceTree extends JPanel
         if (e.getActionCommand().equals(NEXTT)) {
             doUpdate = nextTime(); //incTime(1);
         }
-        else if (cmd.equals("F2")) println("AceTree.actionPerformed, F2");
-        else if (e.getActionCommand().equals(PREV)) prevTime(); //incTime(-1);
+        else if (cmd.equals("F2"))
+        	println("AceTree.actionPerformed, F2");
+        else if (e.getActionCommand().equals(PREV))
+        		prevTime(); //incTime(-1);
         else if (e.getActionCommand().equals(UP)) {
             imageUp();
             return;
@@ -2857,7 +2880,7 @@ public class AceTree extends JPanel
         return iNucleiMgr;
     }
     
-   public boolean nextTime() {
+    public boolean nextTime() {
 	   //System.out.println("AceTree.nextTime: " + iImageTime + CS + iTimeInc + CS + iEndingIndex);
        //new Throwable().printStackTrace();
         
@@ -3204,21 +3227,26 @@ public class AceTree extends JPanel
 
     }
 
-
-
+    // NOT USED
+    /*
     private void incTime(int inc) {
         if (inc > 0) {
-            if (iImageTime + iTimeInc < iEndingIndex) iTimeInc ++;
+            if (iImageTime + iTimeInc < iEndingIndex)
+            	iTimeInc++;
         }
-        else if (iImageTime + iTimeInc > iStartingIndex) iTimeInc--;
+        else if (iImageTime + iTimeInc > iStartingIndex)
+        	iTimeInc--;
     }
+    */
 
     private void incPlane(int inc) {
     	println("AceTree.incPlane, " + inc);
         if (inc > 0) {
-            if (iImagePlane + iPlaneInc < iPlaneEnd) iPlaneInc ++;
+            if (iImagePlane + iPlaneInc < iPlaneEnd)
+            	iPlaneInc++;
         }
-        else if (iImagePlane + iPlaneInc > 1) iPlaneInc --;
+        else if (iImagePlane + iPlaneInc > 1)
+        	iPlaneInc--;
     }
 
     private void handleSisterRequest() {
@@ -3583,9 +3611,29 @@ public class AceTree extends JPanel
         updateDisplay();
         return b;
     }
+    
+    public boolean nextImageFast() {
+    	if(iImgWin!=null)
+		    iImgWin.setSpecialEffect(null);
+        boolean b = nextTime();
+        for (int i = 0; i < 4; i++)
+        	b = nextTime();
+        updateDisplay();
+        return b;
+    }
 
     public boolean prevImage() {
         boolean b = prevTime();
+        updateDisplay();
+        return b;
+    }
+    
+    public boolean prevImageFast() {
+    	if(iImgWin!=null)
+		    iImgWin.setSpecialEffect(null);
+        boolean b = nextTime();
+        for (int i = 0; i < 4; i++)
+        	b = prevTime();
         updateDisplay();
         return b;
     }

@@ -76,7 +76,8 @@ public class SubTrees extends JPanel implements ActionListener {
     }
 
 
-    private int estimate350CellStage() {
+    @SuppressWarnings("unused")
+	private int estimate350CellStage() {
         int stage = 355;
         int r = 0;
         int size = 0;

@@ -42,7 +42,8 @@ public class EventFile {
         getEvents();
     }
 
-    public void getEvents() {
+    @SuppressWarnings("unused")
+	public void getEvents() {
         iEvt = new Vector();
         try {
             //System.out.println(iEvtFile);
@@ -65,7 +66,8 @@ public class EventFile {
         }
     }
     
-    public String [] getNextEvent() throws ArrayIndexOutOfBoundsException {
+    @SuppressWarnings("unused")
+	public String [] getNextEvent() throws ArrayIndexOutOfBoundsException {
         String x = (String)iEvt.elementAt(iNext++);
         StringTokenizer st = new StringTokenizer(x, "\t" );
         StringBuffer sb = new StringBuffer();

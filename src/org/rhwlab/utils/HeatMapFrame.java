@@ -28,15 +28,11 @@ import javax.swing.border.Border;
 /*
  * Created on Nov 10, 2005
  *
- * TODO To change the template for this generated file go to
- * Window - Preferences - Java - Code Style - Code Templates
  */
 
 /**
  * @author biowolp
  *
- * TODO To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Style - Code Templates
  */
 public class HeatMapFrame extends JFrame {
     
@@ -64,7 +60,7 @@ public class HeatMapFrame extends JFrame {
         getContentPane().add(iTabbedPane);        
         //scroller.add(heatMapPanel);
         pack();
-        show();
+        setVisible(true);
     }
     
     public void addHeatMap(ScrollPane heatMapPane) {
@@ -172,10 +168,10 @@ public class HeatMapFrame extends JFrame {
             return iPanel;
         }
 
-        public void actionPerformed(ActionEvent e) {
+		public void actionPerformed(ActionEvent e) {
             //System.out.println("actionPerformed: " + e);
             Object o = e.getSource();
-            String command = e.getActionCommand();
+            //String command = e.getActionCommand();
             if (o == iSetMinMax) {
                 int min = Integer.parseInt(iMin.getText());
                 int max = Integer.parseInt(iMax.getText());
@@ -190,7 +186,8 @@ public class HeatMapFrame extends JFrame {
 
     }
         
-    public static void main(String [] args) {
+    @SuppressWarnings("unused")
+	public static void main(String [] args) {
         //HeatMap heatMap = new HeatMap();
         //new HeatMapFrame("HeatMap Frame", heatMap);
         //int [][] test = {{1,2,3},{1,2,3}};

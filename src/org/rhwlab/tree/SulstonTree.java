@@ -159,7 +159,7 @@ public class SulstonTree extends JFrame implements ActionListener, WindowFocusLi
         refreshTree();
         //iTreeCanvas.setLateTime(Integer.parseInt(iLateTimeField.getText()));
         pack();
-        show();
+        setVisible(true);
         addWindowFocusListener(this);
         
         // Add ListModel reference to bookmarked cells
@@ -271,7 +271,8 @@ public class SulstonTree extends JFrame implements ActionListener, WindowFocusLi
     }
 
 
-    public void saveImage() {
+    @SuppressWarnings("unused")
+	public void saveImage() {
         listWriters();
         JFileChooser iFC;
         iFC = new JFileChooser();

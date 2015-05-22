@@ -124,7 +124,8 @@ public class Newick extends JPanel {
      * @param x Cell to visit next
      * @param v Vector of results up to this point
      */
-    private void preorder(Cell x, Vector v) {
+    @SuppressWarnings("unused")
+	private void preorder(Cell x, Vector v) {
         Cell p = (Cell)x.getParent();
         String name = x.toString();
         String vname = name;
@@ -217,7 +218,8 @@ public class Newick extends JPanel {
     }
     */
     
-    private void saveNewickFile(String s) {
+    @SuppressWarnings("unused")
+	private void saveNewickFile(String s) {
         JFileChooser fc = new JFileChooser(new File("."));
         int returnVal = fc.showSaveDialog(this);
 

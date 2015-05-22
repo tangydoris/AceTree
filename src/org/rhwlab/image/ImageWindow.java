@@ -491,7 +491,8 @@ public class ImageWindow extends JFrame implements  KeyListener, Runnable {
         return ip;
     }
 
-    public static ImagePlus readData(FileInputStream fis, boolean bogus) {
+    @SuppressWarnings("unused")
+	public static ImagePlus readData(FileInputStream fis, boolean bogus) {
         if (fis == null)
         	return null;
         int byteCount;
@@ -518,7 +519,8 @@ public class ImageWindow extends JFrame implements  KeyListener, Runnable {
         return openTiff(new ByteArrayInputStream(ba), true);
     }
 
-    public static byte[] readByteArray(FileInputStream fis) {
+    @SuppressWarnings("unused")
+	public static byte[] readByteArray(FileInputStream fis) {
         if (fis == null) return null;
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         int byteCount;
@@ -594,7 +596,8 @@ public class ImageWindow extends JFrame implements  KeyListener, Runnable {
      * @param ip an Image processor obtained from the image file
      * @return
      */
-    private static ImagePlus convertToRGB(ImagePlus ip) {
+    @SuppressWarnings("unused")
+	private static ImagePlus convertToRGB(ImagePlus ip) {
         //System.out.println("convertToRGB entered");
     	// this is where ted put code for splitting which need to test
 
@@ -700,7 +703,8 @@ public class ImageWindow extends JFrame implements  KeyListener, Runnable {
 	   return ip;
     }
 
-    private static ImagePlus convertTo8Bits(ImagePlus img) {
+    @SuppressWarnings("unused")
+	private static ImagePlus convertTo8Bits(ImagePlus img) {
 	ImageProcessor ip = img.getProcessor();
 	if (ip instanceof ColorProcessor) {
 	    MedianCut mc = new MedianCut((int[])ip.getPixels(), ip.getWidth(), ip.getHeight());
@@ -712,10 +716,10 @@ public class ImageWindow extends JFrame implements  KeyListener, Runnable {
 	    //else scale to byte range and copy to byte array
 	    short [] pixels =(short[])ip.getPixels();
 	    byte []bpixels=new byte[pixels.length];
-	    float tone=1400;
-	    float toneb=20;
-	    float ttwo=3000;//%this was 2600 in current wrong
-	    float ttwob=235;
+	    float tone = 1400;
+	    float toneb = 20;
+	    float ttwo = 3000;//%this was 2600 in current wrong
+	    float ttwob = 235;
 	    double minval=9000000;
 	    double maxval=0;
 	    
@@ -788,7 +792,8 @@ public class ImageWindow extends JFrame implements  KeyListener, Runnable {
 
 
 
-    private static byte[] getRedChannel(byte [] R) {
+    @SuppressWarnings("unused")
+	private static byte[] getRedChannel(byte [] R) {
         String fileName = makeRedChannelName();
         //System.out.println("getRedChannel: " + fileName);
         File f = new File(fileName);
@@ -922,7 +927,8 @@ public class ImageWindow extends JFrame implements  KeyListener, Runnable {
         //SublineageDisplayProperty []    iDispProps;
         ColorSchemeUI []                 iCSUI;
 
-        public PropertiesTab() {
+        @SuppressWarnings("unused")
+		public PropertiesTab() {
             Border blackline = BorderFactory.createLineBorder(Color.black);
             iDispProps = getDisplayProps();
             iCSUI = new ColorSchemeUI[iDispProps.length];
@@ -1101,6 +1107,8 @@ public class ImageWindow extends JFrame implements  KeyListener, Runnable {
             iImageTime = iAceTree.getImageTime();
             iImagePlane = iAceTree.getImagePlane();
             imagewindowPlaneNumber = iAceTree.getImagePlane()+iPlaneInc;
+            
+            System.out.println("Plane #, plane increment: "+iImagePlane+CS+iPlaneInc);
         } else {
             iTimeInc = 0;
             iPlaneInc = 0;
@@ -1218,7 +1226,8 @@ public class ImageWindow extends JFrame implements  KeyListener, Runnable {
         }
     }
 
-    private void sendToEIDialog2(int keycode, boolean alt, boolean ctrl) {
+    @SuppressWarnings("unused")
+	private void sendToEIDialog2(int keycode, boolean alt, boolean ctrl) {
     	println("sendToEIDialog2, ");
     	ActionEvent a = null;
         switch(keycode) {
@@ -1323,7 +1332,8 @@ public class ImageWindow extends JFrame implements  KeyListener, Runnable {
 
     ////////////////////////////////////////
 
-    public void addAnnotation(int mx, int my, boolean dontRemove) {
+    @SuppressWarnings("unused")
+	public void addAnnotation(int mx, int my, boolean dontRemove) {
         if (iIsMainImgWindow) {
             iTimeInc = iAceTree.getTimeInc();
             iImageTime = iAceTree.getImageTime();
@@ -1376,7 +1386,8 @@ public class ImageWindow extends JFrame implements  KeyListener, Runnable {
 
     public static final int [] WIDTHS = {1,2,3,4,5,6,7,8,9,10};
     
-    protected void showCentroids() {
+    @SuppressWarnings("unused")
+	protected void showCentroids() {
         int time = iImageTime + iTimeInc;
         if (time < 0) {
             iImageTime = 1;
@@ -1420,7 +1431,8 @@ public class ImageWindow extends JFrame implements  KeyListener, Runnable {
         }
     }
 
-    private void drawRoi(int plane, Nucleus c, ImageProcessor iproc) {
+    @SuppressWarnings("unused")
+	private void drawRoi(int plane, Nucleus c, ImageProcessor iproc) {
         double d = cNucleiMgr.nucDiameter(c, plane);
         float fxx = c.x;
         float fyy = c.y;
@@ -1459,7 +1471,8 @@ public class ImageWindow extends JFrame implements  KeyListener, Runnable {
 
     }
 
-    protected void showAnnotations() {
+    @SuppressWarnings("unused")
+	protected void showAnnotations() {
         //showWhichAnnotations();
         Vector v = (Vector)cNucleiMgr.getNucleiRecord().elementAt(iImageTime  + iTimeInc - 1);
         int size = v.size();
@@ -1618,7 +1631,8 @@ public class ImageWindow extends JFrame implements  KeyListener, Runnable {
     	iImageZoomerFrame = izf;
 	}
 
-    public void saveImage() {
+    @SuppressWarnings("unused")
+	public void saveImage() {
         String title = makeTitle();
         if (title == null) {
             cancelSaveOperations();
@@ -1820,7 +1834,8 @@ public class ImageWindow extends JFrame implements  KeyListener, Runnable {
 
     }
 
-    private String getClickedCellName(int x, int y) {
+    @SuppressWarnings("unused")
+	private String getClickedCellName(int x, int y) {
         int timeInc = 0;
         int planeInc = 0;
         if (iIsMainImgWindow) {

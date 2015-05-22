@@ -142,7 +142,8 @@ public class Log extends JPanel implements ActionListener {
         return iMenuBar;
     }
     
-    public void actionPerformed(ActionEvent e) {
+    @SuppressWarnings("unused")
+	public void actionPerformed(ActionEvent e) {
         String s = e.getActionCommand();
         //System.out.println("Log.actionPerformed: " + s);
         if (s.equals(SAVEAS)) {

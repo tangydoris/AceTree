@@ -174,7 +174,7 @@ public class HeatMap extends Canvas {
         f.getContentPane().add("Center", heatmap);
         f.pack();
         f.setSize(new Dimension(550,200));
-        f.show();
+        f.setVisible(true);
     }
 
 }

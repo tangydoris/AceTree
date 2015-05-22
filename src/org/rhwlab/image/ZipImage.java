@@ -81,7 +81,8 @@ public class ZipImage {
         return null;
     }
 
-    public ImagePlus readData(ZipEntry ze) {
+    @SuppressWarnings("unused")
+	public ImagePlus readData(ZipEntry ze) {
         if (ze == null) return null;
         int byteCount;
         ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -101,7 +102,8 @@ public class ZipImage {
 
     }
     
-    public ImagePlus readData(ZipEntry ze, boolean asEightBit) {
+    @SuppressWarnings("unused")
+	public ImagePlus readData(ZipEntry ze, boolean asEightBit) {
         if (ze == null) return null;
         int byteCount;
         ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -196,7 +198,8 @@ public class ZipImage {
     }
     
 
-    private byte[] getRedChannel(byte [] R) {
+    @SuppressWarnings("unused")
+	private byte[] getRedChannel(byte [] R) {
         String fileName = makeRedChannelName();
         //println("getRedChannel: " + fileName);
         File f = new File(fileName);
@@ -235,7 +238,8 @@ public class ZipImage {
         
     }
     
-    public ImagePlus readRedData(ZipFile zipFile, ZipEntry ze) {
+    @SuppressWarnings("unused")
+	public ImagePlus readRedData(ZipFile zipFile, ZipEntry ze) {
         if (ze == null) return null;
         int byteCount;
         ByteArrayOutputStream out = new ByteArrayOutputStream();

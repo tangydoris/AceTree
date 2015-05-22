@@ -137,11 +137,9 @@ public class AncesTree implements Comparator {
         extractRootCells();
         //System.out.println("AncesTree3 iCells.size: " + iCells.size());
 
-        Cell PP = (Cell)iCellsByName.get("P");
-        int kk = PP.getChildCount();
+        //Cell PP = (Cell)iCellsByName.get("P");
+        //int kk = PP.getChildCount();
         //println("AncesTree.constructor, " + kk + CS + PP.getName());
-
-
     }
 
     public AncesTree(Cell root, NucleiMgr nucleiMgr, int startingIndex, int endingIndex, boolean test) {
@@ -168,8 +166,8 @@ public class AncesTree implements Comparator {
         extractRootCells();
         //System.out.println("AncesTree3 iCells.size: " + iCells.size());
 
-        Cell PP = (Cell)iCellsByName.get("P");
-        int kk = PP.getChildCount();
+        //Cell PP = (Cell)iCellsByName.get("P");
+        //int kk = PP.getChildCount();
         //println("AncesTree.constructor, " + kk + CS + PP.getName());
     }
 
@@ -281,11 +279,15 @@ public class AncesTree implements Comparator {
     private void extractRootCells() {
     	long timeStart = System.nanoTime();
         iRootCells = new Vector();
+        
+        /*
         int k = iRoot.getChildCount();
         for (int i = 0; i < k; i++) {
             Cell x = (Cell)iRoot.getChildAt(i);
             //System.out.println("extractRootCells, 1,  " + i + CS + x.getName());
         }
+        */
+        
         Enumeration e = iRoot.children();
         while (e.hasMoreElements()) {
             Cell c = (Cell)e.nextElement();
@@ -360,7 +362,8 @@ public class AncesTree implements Comparator {
      * processed into the NucleiMgr object
      */
     // Called by AncesTree constructor
-    private void processEntries() {
+    @SuppressWarnings("unused")
+	private void processEntries() {
         //System.out.println("starting and ending indices: " + iStartingIndex + ", " + iEndingIndex);
         int count = 0;
         for (int i=iStartingIndex; i <= iEndingIndex; i++) {
@@ -405,7 +408,8 @@ public class AncesTree implements Comparator {
      *
      * @param i int essentially the file number being processed here
      */
-    private int processEntry(int i) {
+    @SuppressWarnings("unused")
+	private int processEntry(int i) {
         //System.out.println("processEntry: " + i);
         int index = i;
         //if (i == 180) {
@@ -670,8 +674,9 @@ public class AncesTree implements Comparator {
             System.out.println("makeCellsByName: " + key + CS + c.showStuff());
         }
         */
-        Cell PP = (Cell)iCellsByName.get("P");
-        int kk = PP.getChildCount();
+        
+        //Cell PP = (Cell)iCellsByName.get("P");
+        //int kk = PP.getChildCount();
         //println("AncesTree.makeCellsByName, " + kk + CS + PP.getName());
         
         // Keep lower case version of cell hash

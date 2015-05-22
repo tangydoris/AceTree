@@ -233,7 +233,8 @@ public class VTreeImpl {
 
     };
 
-    private Vector segregate(Vector vIn, Vector vSep) {
+    @SuppressWarnings("unused")
+	private Vector segregate(Vector vIn, Vector vSep) {
         Vector va = new Vector();
         Vector v = null;
         String pattern = null;
@@ -310,7 +311,8 @@ public class VTreeImpl {
         return v;
     }
 
-    public double [] findYLimits() {
+    @SuppressWarnings("unused")
+	public double [] findYLimits() {
         int ymax = 0;
         int ymin = Integer.MAX_VALUE;
         int offset = 100;
@@ -533,7 +535,8 @@ public class VTreeImpl {
         return ances.getRoot();
     }
 
-    public void prepare(String rootName) {
+    @SuppressWarnings("unused")
+	public void prepare(String rootName) {
         println("Analysis5.prepare: " + rootName);
         Hashtable doneHash = new Hashtable();
         iDaughters = new Hashtable();
@@ -763,7 +766,8 @@ public class VTreeImpl {
     }
 
 
-    private Vector getLeaves(String rootName) {
+    @SuppressWarnings("unused")
+	private Vector getLeaves(String rootName) {
         //if (1 == 1) return fakeLeaves(rootName);
         Vector v = new Vector();
         Cell d = (Cell)iCellsByName.get(rootName);
@@ -837,7 +841,8 @@ public class VTreeImpl {
             //if (!iWasDrawn) System.out.println(s);
         }
 
-        public void paint(Graphics g) {
+        @SuppressWarnings("unused")
+		public void paint(Graphics g) {
             g.setColor(Color.white);
             g.fillRect(0, 0, getWidth(), getHeight());
             int offset = OFFSET;

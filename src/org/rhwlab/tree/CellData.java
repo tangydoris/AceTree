@@ -18,7 +18,8 @@ public class CellData {
     //public int iRweight;
     public Nucleus iNucleus;
     
-    public CellData(Nucleus n) {
+    @SuppressWarnings("unused")
+	public CellData(Nucleus n) {
         double size = n.size;
         double ratio = NOMINALSIZE/size;
         double ratiocubed = ratio*ratio*ratio;

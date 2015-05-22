@@ -132,7 +132,8 @@ class TreeCanvas extends Canvas {
         ,MINWIDTH = 400
     ;
 
-    private Cell findIt(int x, int y) {
+    @SuppressWarnings("unused")
+	private Cell findIt(int x, int y) {
         Enumeration ev = iCellXHash.elements();
         int xs = 10000;
         Cell cs = null;

@@ -59,7 +59,8 @@ public class CanonicalTree {
     /**
      * @param createNodes
      */
-    private Cell createNodes() {
+    @SuppressWarnings("unused")
+	private Cell createNodes() {
         String evtFile = "lineage2.gtr";
         Cell top;
         EventFile ef = new EventFile(evtFile);
@@ -138,10 +139,10 @@ public class CanonicalTree {
     }
 
 
-    private void makeSortedCellNames() {
+	private void makeSortedCellNames() {
         iSortedCellNames = new Vector();
         Enumeration e = iCells.keys();
-        int i = 0;
+        //int i = 0;
         while (e.hasMoreElements()) {
             iSortedCellNames.add ((String)e.nextElement());
         }
