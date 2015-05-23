@@ -2,9 +2,10 @@
 *.class
 .metadata
 .project
+.classpath
+.DS_Store
+.settings/
 build/
 build.xml
 bin/
 tests/
-.classpath
-.DS_Store
