@@ -2568,7 +2568,6 @@ public class AceTree extends JPanel
 
 
     public void imageUp() {
-    	println("AceTree.imageUp, ");
         incPlane(-1);
         iTrackPosition = ImageWindow.NONE;
         iCallSaveImage = true;
@@ -2606,12 +2605,12 @@ public class AceTree extends JPanel
         String cmd = e.getActionCommand();
         int inc = 0;
         if (e.getActionCommand().equals(NEXTT)) {
-            doUpdate = nextTime(); //incTime(1);
+            doUpdate = nextTime();
         }
         else if (cmd.equals("F2"))
         	println("AceTree.actionPerformed, F2");
         else if (e.getActionCommand().equals(PREV))
-        		prevImage(); //incTime(-1);
+        		prevImage();
         else if (e.getActionCommand().equals(UP)) {
             imageUp();
             return;
