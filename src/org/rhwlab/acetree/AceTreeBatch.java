@@ -1,12 +1,8 @@
 package org.rhwlab.acetree;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.text.DecimalFormat;
 
-import org.rhwlab.help.AceTreeHelp;
-import org.rhwlab.image.ImageWindow;
-import org.rhwlab.snight.Config;
 import org.rhwlab.snight.NucZipper;
 import org.rhwlab.snight.NucleiMgr;
 

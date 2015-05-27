@@ -7,19 +7,13 @@ import ij.gui.PolygonRoi;
 import ij.gui.Roi;
 import ij.process.ImageProcessor;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.text.DecimalFormat;
 
-import javax.swing.BoxLayout;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-
-import org.rhwlab.image.ImageWindow;
 import org.rhwlab.snight.Config;
 import org.rhwlab.snight.MeasureCSV;
 import org.rhwlab.snight.NucleiMgr;

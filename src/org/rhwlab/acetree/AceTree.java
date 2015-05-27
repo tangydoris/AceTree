@@ -9,15 +9,12 @@ import org.rhwlab.volumeview.Display3D;
 
 import javax.swing.UIManager.*;
 import javax.swing.UIManager;
-import javax.swing.JSeparator;
 import javax.swing.BoxLayout;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.ImageIcon;
-import javax.media.j3d.*;
-
 import java.awt.Color;
 
-import org.rhwlab.analyze.DeathAndDivisionLog;
+import org.rhwlab.acetree.ControlCallback;
 import org.rhwlab.help.AceTreeHelp;
 import org.rhwlab.help.Java3DError;
 import org.rhwlab.help.GeneralStartupError;
@@ -27,11 +24,8 @@ import org.rhwlab.image.CellMovementImage;
 //import org.rhwlab.image.EditImage3;
 import org.rhwlab.image.Image3D;
 import org.rhwlab.image.ImageAllCentroids;
-import org.rhwlab.image.ZipImage;
 import org.rhwlab.image.ImageWindow;
 import org.rhwlab.image.DepthViews;
-//import org.rhwlab.nucedit.AddNucToRoot;
-import org.rhwlab.manifest.ManifestX;
 import org.rhwlab.nucedit.EditLog;
 import org.rhwlab.nucedit.KillCellsDialog;
 //import org.rhwlab.nucedit.NucAddDialog;
@@ -50,11 +44,9 @@ import org.rhwlab.nucedit.SetEndTimeDialog;
 import org.rhwlab.nucedit.Siamese;
 import org.rhwlab.nucedit.Zafer1;
 import org.rhwlab.snight.Config;
-import org.rhwlab.snight.Identity3;
 import org.rhwlab.snight.NucZipper;
 import org.rhwlab.snight.NucleiMgr;
 import org.rhwlab.snight.Nucleus;
-import org.rhwlab.snight.Parameters;
 import org.rhwlab.tree.AncesTree;
 import org.rhwlab.tree.CanonicalTree;
 import org.rhwlab.tree.Cell;
@@ -69,21 +61,18 @@ import org.rhwlab.utils.Log;
 
 import java.awt.event.MouseAdapter;
 
-import javax.swing.event.ListSelectionListener;
+
 
 //import org.rhwlab.utils.*;
 //import org.rhwlab.snight.*;
 
-import ij.IJ;
 import ij.ImagePlus;
 
 import java.awt.AWTEvent;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Event;
 import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.KeyboardFocusManager;
 import java.awt.Toolkit;
 import java.awt.Window;
@@ -97,15 +86,10 @@ import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.PrintStream;
 import java.net.URL;
 import java.text.DecimalFormat;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.GregorianCalendar;
@@ -116,28 +100,19 @@ import java.util.Vector;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.ActionMap;
-import javax.swing.BoxLayout;
 import javax.swing.Icon;
 import javax.swing.InputMap;
 import javax.swing.JButton;
 import javax.swing.JComponent;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.JTree;
 import javax.swing.JList;
-import javax.swing.DefaultListModel;
-import javax.swing.ListModel;
 import javax.swing.KeyStroke;
-import javax.swing.SwingConstants;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.event.MouseInputAdapter;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.tree.DefaultTreeCellRenderer;
@@ -1784,25 +1759,15 @@ public class AceTree extends JPanel
         		updateDisplay();
         	}
         };
-        KeyStroke ks = KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, InputEvent.SHIFT_DOWN_MASK);
-        if (ks == null)
-        	System.out.println("Cannot get keystroke for shift-DOWN");
-        else {
-        	getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(ks, s);
-        	getActionMap().put(s, shift_down);
-        }
+    	getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(s), s);
+    	getActionMap().put(s, shift_down);
 
 
         s = "LEFT";
         Action left = new AbstractAction("LEFT") {
-            @SuppressWarnings("unused")
 			public void actionPerformed(ActionEvent e) {
             	System.out.println("LEFT pressed.");
-            	AWTEvent awt = (AWTEvent)e;
-                //System.out.println("AceTree--left key pressed, " + e);
-                //System.out.println("AceTree--left key pressed, awt, " + awt);
-                prevTime();
-                updateDisplay();
+                prevImage();
             }
         };
         getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(s), s);
@@ -1820,8 +1785,7 @@ public class AceTree extends JPanel
         Action shift_left = new AbstractAction() {
         	public void actionPerformed(ActionEvent e) {
         		System.out.println("shift-left key pressed--skipping times");
-        		
-        		updateDisplay();
+        		prevImageFast();
         	}
         };
         getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(s), s);
@@ -1847,13 +1811,12 @@ public class AceTree extends JPanel
         actionMap = this.getActionMap();
         actionMap.put(actionKey, right);
         
-        // Fast (skipping a few planes) RIGHT using SHIFT
-        s = "VK_SHIFT RIGHT";
+        // Fast (skipping a few planes) UP using CTRL
+        s = "shift RIGHT";
         Action shift_right = new AbstractAction() {
         	public void actionPerformed(ActionEvent e) {
         		System.out.println("shift-right key pressed--skipping times");
-        		
-        		updateDisplay();
+        		nextImageFast();
         	}
         };
         getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(s), s);
@@ -1946,8 +1909,9 @@ public class AceTree extends JPanel
         	println("updateDisplay:1 " + System.currentTimeMillis());
         if ((iImageTime + iTimeInc) < iStartingIndex) 
         	return;
-        if ((iImagePlane + iPlaneInc) <= 0) 
-        	return;
+        
+        if ((iImagePlane + iPlaneInc) <= 0)
+        	iPlaneInc = (-1*iImagePlane + 1);
         
         getCurrentCellParameters();
         //System.out.println("AceTree using stack: "+iUseStack);
@@ -2917,8 +2881,7 @@ public class AceTree extends JPanel
     public boolean nextTime() {
 	   //System.out.println("AceTree.nextTime: " + iImageTime + CS + iTimeInc + CS + iEndingIndex);
        //new Throwable().printStackTrace();
-        
-	   System.out.println("iImageTime: "+iImageTime+CS+"iEndingIndex: "+iEndingIndex);
+	   //System.out.println("iImageTime: "+iImageTime+CS+"iEndingIndex: "+iEndingIndex);
 	   if (iImageTime + iTimeInc == iEndingIndex)
         	return false;
         
@@ -3274,13 +3237,15 @@ public class AceTree extends JPanel
     */
 
     private void incPlane(int inc) {
-    	println("AceTree.incPlane, " + inc);
         if (inc > 0) {
-            if (iImagePlane + iPlaneInc < iPlaneEnd)
-            	iPlaneInc++;
+        	if (iImagePlane + iPlaneInc < iPlaneEnd)
+        		iPlaneInc += inc;
         }
-        else if (iImagePlane + iPlaneInc > 1)
-        	iPlaneInc--;
+        else if (inc < 0) {
+        	if (iImagePlane + iPlaneInc > 1)
+        		iPlaneInc += inc;
+        }
+        	
     }
 
     private void handleSisterRequest() {
@@ -3650,7 +3615,7 @@ public class AceTree extends JPanel
     	if(iImgWin!=null)
 		    iImgWin.setSpecialEffect(null);
         boolean b = nextTime();
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 4 & b; i++)
         	b = nextTime();
         updateDisplay();
         return b;
@@ -3665,8 +3630,8 @@ public class AceTree extends JPanel
     public boolean prevImageFast() {
     	if(iImgWin!=null)
 		    iImgWin.setSpecialEffect(null);
-        boolean b = nextTime();
-        for (int i = 0; i < 4; i++)
+        boolean b = prevTime();
+        for (int i = 0; i < 4 & b; i++)
         	b = prevTime();
         updateDisplay();
         return b;
@@ -4024,7 +3989,6 @@ public class AceTree extends JPanel
 ///////////////////////////////////////////////////////////////////////////////
 ///// end of stuff that gets modified for the AceTree object in EmbryoDB ///////////////////////
 /////////////////////////////////////////////////////////////////////////////
-    @SuppressWarnings("unused")
 	public static void main(String[] args) throws IOException {
         System.out.println("AceTree launched: " + new GregorianCalendar().getTime());
         boolean setui=false;

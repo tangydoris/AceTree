@@ -7,19 +7,7 @@
 package org.rhwlab.acetree;
 
 
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.net.URL;
-
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JPanel;
 import javax.swing.JToolBar;
-import javax.swing.JComponent;
 /**
  * @author biowolp
  *

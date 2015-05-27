@@ -31,7 +31,6 @@ import org.rhwlab.image.ImageWindow;
 import org.rhwlab.snight.Config;
 import org.rhwlab.snight.Identity3;
 import org.rhwlab.snight.NucleiMgr;
-import org.rhwlab.utils.C;
 
 /**
  * @author biowolp

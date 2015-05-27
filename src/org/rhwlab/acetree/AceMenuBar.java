@@ -8,9 +8,6 @@ package org.rhwlab.acetree;
 
 import ij.ImagePlus;
 import ij.ImageJ;
-import ij.io.FileOpener;
-import ij.io.FileInfo;
- 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -21,20 +18,14 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.Vector;
-import java.lang.Throwable;
-
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileFilter;
-
 import org.rhwlab.analyze.Analysis;
-import org.rhwlab.analyze.Analysis10;
 import org.rhwlab.analyze.Analysis11;
 import org.rhwlab.analyze.Analysis2;
 import org.rhwlab.analyze.Analysis3;
@@ -46,21 +37,13 @@ import org.rhwlab.analyze.Analysis9;
 import org.rhwlab.analyze.DeathAndDivisionLog;
 import org.rhwlab.analyze.ExtractRed;
 import org.rhwlab.analyze.RedBkgComp;
-import org.rhwlab.analyze.RedBkgComp2;
 import org.rhwlab.analyze.RedCompSeries;
 import org.rhwlab.analyze.RedCorrector2;
 import org.rhwlab.analyze.UsePlugin;
 
-import org.rhwlab.image.CellMovementImage;
 import org.rhwlab.image.DepthViews;
-import org.rhwlab.nucedit.DeathsAdjacencies;
-import org.rhwlab.nucedit.Juvenesence;
-import org.rhwlab.nucedit.Lazarus;
-import org.rhwlab.nucedit.Orientation;
 import org.rhwlab.nucedit.Overlaps;
-import org.rhwlab.nucedit.Siamese;
 import org.rhwlab.nucedit.SkipFalseNegatives;
-import org.rhwlab.nucedit.Zafer1;
 import org.rhwlab.snight.Config;
 import org.rhwlab.tree.SubTrees;
 import org.rhwlab.utils.C;

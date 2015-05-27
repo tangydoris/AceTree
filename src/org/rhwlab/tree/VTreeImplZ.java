@@ -510,7 +510,7 @@ public class VTreeImplZ {
         ,SEPARATORS = 6
         ;
 
-    @SuppressWarnings("unused")
+    @SuppressWarnings({ "unused", "null" })
 	public void prepare(String rootName) {
         Hashtable doneHash = new Hashtable();
         iDaughters = new Hashtable();

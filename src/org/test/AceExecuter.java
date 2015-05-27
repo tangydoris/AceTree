@@ -325,7 +325,6 @@ public class AceExecuter extends Executer {
 		gd.addSlider("Threshold", 0, 255, oldTr);
 		((Scrollbar)gd.getSliders().get(0)).
 			addAdjustmentListener(new AdjustmentListener() {
-			@Override
 			public void adjustmentValueChanged(final AdjustmentEvent e) {
 				// start adjuster and request an action
 				if(!thresh_adjuster.go)
@@ -400,7 +399,6 @@ public class AceExecuter extends Executer {
 		LUTDialog ld = new LUTDialog(r, g, b, a);
 		ld.addCtrlHint();
 		ld.addListener(new LUTDialog.Listener() {
-			@Override
 			public void applied() {
 				c.setLUT(r, g, b, a);
 				AceUniverse.getSettings().put("RedLUT", r);
@@ -444,7 +442,6 @@ public class AceExecuter extends Executer {
 
 		((Scrollbar)gd.getSliders().get(0)).
 			addAdjustmentListener(new AdjustmentListener() {
-			@Override
 			public void adjustmentValueChanged(AdjustmentEvent e) {
 				if(!transp_adjuster.go)
 					transp_adjuster.start();
@@ -453,7 +450,6 @@ public class AceExecuter extends Executer {
 		});
 		((TextField)gd.getNumericFields().get(0)).
 			addTextListener(new TextListener() {
-			@Override
 			public void textValueChanged(TextEvent e) {
 				if(!transp_adjuster.go)
 					transp_adjuster.start();

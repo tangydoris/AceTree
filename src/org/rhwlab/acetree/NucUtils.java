@@ -1,19 +1,9 @@
 package org.rhwlab.acetree;
-import ij.ImagePlus;
-import ij.gui.ImageCanvas;
-import ij.process.ImageProcessor;
-
-import java.awt.Color;
-import java.awt.Font;
-import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Vector;
 
-import org.rhwlab.image.ImageWindow;
-import org.rhwlab.snight.NucleiMgr;
 import org.rhwlab.snight.Nucleus;
 import org.rhwlab.tree.Cell;
-import org.rhwlab.utils.Log;
 
 
 

@@ -1312,7 +1312,7 @@ public class NucleiMgr {
         ,CS = ", "
         ;
 
-    @SuppressWarnings("unused")
+    @SuppressWarnings({ "unused", "null" })
 	public static void main(String[] args) {
         System.out.println("NucleiMgr test main entered");
         NucleiMgr test = null; //new NucleiMgr(0, 100);

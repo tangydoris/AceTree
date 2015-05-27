@@ -3,9 +3,6 @@ package org.rhwlab.acetree;
 import ij.IJ;
 import ij.ImagePlus;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
@@ -21,13 +18,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
-import javax.swing.tree.DefaultTreeCellRenderer;
-import javax.swing.tree.TreeSelectionModel;
-
 import org.rhwlab.help.AceTreeHelp;
 import org.rhwlab.image.ImageWindow;
 import org.rhwlab.image.ImageWindowNoUI;
-import org.rhwlab.nucedit.Orientation;
 import org.rhwlab.snight.Config;
 import org.rhwlab.snight.NucleiMgr;
 import org.rhwlab.snight.NucleiMgrHeadless;

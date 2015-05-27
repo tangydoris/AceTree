@@ -535,7 +535,7 @@ public class VTreeImpl {
         return ances.getRoot();
     }
 
-    @SuppressWarnings("unused")
+    @SuppressWarnings({ "unused", "null" })
 	public void prepare(String rootName) {
         println("Analysis5.prepare: " + rootName);
         Hashtable doneHash = new Hashtable();
