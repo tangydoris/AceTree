@@ -222,6 +222,17 @@ public class Config {
         String s = (String)iConfigHash.get(configParams[TYPICALIMAGE]);
         
         File imagefile = new File(s);
+        if (!imagefile.isAbsolute() & iParent != null) {
+        	s = iParent + System.getProperty("file.separator") + s;
+        	System.out.println("Image file path not absolute");
+        }
+        else if (!imagefile.isAbsolute()) {
+        	File fxml = new File(iConfigFileName);
+        	String xmllocation = fxml.getParent();
+        	xmllocation = xmllocation + System.getProperty("file.separator");
+        	s = xmllocation + s;
+        }
+        imagefile = new File(s);
         if (!imagefile.exists()) {
         	if (iImageFileError == null)
         		iImageFileError = new FileError(s, IMAGE_TYPE);

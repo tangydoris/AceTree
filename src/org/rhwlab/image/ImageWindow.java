@@ -598,6 +598,7 @@ public class ImageWindow extends JFrame implements  KeyListener, Runnable {
      */
     @SuppressWarnings("unused")
 	private static ImagePlus convertToRGB(ImagePlus ip) {
+    	System.out.println("Image width, height: "+ip.getWidth()+CS+ip.getHeight());
         //System.out.println("convertToRGB entered");
     	// this is where ted put code for splitting which need to test
 
