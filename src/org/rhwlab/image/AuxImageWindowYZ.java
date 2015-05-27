@@ -49,8 +49,6 @@ public class AuxImageWindowYZ extends JFrame {
     ImageCanvas             iImgCanvas;
     ImagePlus               iImgPlus;
     String                  iTitle;
-    private JTabbedPane     iTabbedPane;
-    private JPanel          iControlPanel;
     MouseHandler            iMouseHandler;
     Hashtable               iAnnotsShown;
     JToolBar                iToolBar;
@@ -139,10 +137,8 @@ public class AuxImageWindowYZ extends JFrame {
         //iproc.setColor(Color.red);
         iproc.setColor(NUCCOLOR);
         iproc.setLineWidth(WIDTHS[1]);
-        //iproc.setLineWidth(cLineWidth);
-        Polygon p = null;
         Enumeration e = v.elements();
-        String currentCellName = iAceTree.getCurrentCell().getName();
+        iAceTree.getCurrentCell().getName();
         while(e.hasMoreElements()) {
             Nucleus n = (Nucleus)e.nextElement();
             if (n.status < 0) continue;
@@ -171,7 +167,6 @@ public class AuxImageWindowYZ extends JFrame {
     
     public double nucDiameter(Nucleus n, double x) {
         if (n == null) return -1; //covers some issues re currentCell and not tracking
-        double zPixRes = 11.;
         double r = -0.5;
         double cellPlane = (double)n.x;
         double R = n.size/2.; //pixels

@@ -140,7 +140,8 @@ public class RedBkgComp2 extends Log {
 
     }
 
-    public void processHashPlanes(int time, Vector hashPlanes) {
+    @SuppressWarnings("unused")
+	public void processHashPlanes(int time, Vector hashPlanes) {
         Vector nuclei = (Vector)nuclei_record.elementAt(time - 1);
         Vector circles = new Vector();
         iKeys = new Vector();
@@ -187,7 +188,8 @@ public class RedBkgComp2 extends Log {
         */
     }
 
-    public Hashtable createHashForPlane(int time, int plane) {
+    @SuppressWarnings("unused")
+	public Hashtable createHashForPlane(int time, int plane) {
         Vector nuclei = (Vector)nuclei_record.elementAt(time - 1);
         Vector circles = new Vector();
         iKeys = new Vector();
@@ -246,7 +248,8 @@ public class RedBkgComp2 extends Log {
      * and "area" of the two regions:
      * nucleus and annulus
      */
-    public void process(Hashtable h, int time, int plane) {
+    @SuppressWarnings("unused")
+	public void process(Hashtable h, int time, int plane) {
         //int time = 200;
         //int plane = 10;
         String imageFile = ImageWindow.cZipTifFilePath;
@@ -303,7 +306,8 @@ public class RedBkgComp2 extends Log {
      * circle and within it we locate background and
      * nuclear information
      */
-    private void getInfo(ImageProcessor ipData, ImageProcessor ipCopy, ImageProcessor ipTemplate, Centroid c) {
+    @SuppressWarnings("unused")
+	private void getInfo(ImageProcessor ipData, ImageProcessor ipCopy, ImageProcessor ipTemplate, Centroid c) {
         int rad = (int)Math.round(c.d / 2);
         Polygon inner = EUtils.pCircle(c.x, c.y, rad);
         rad = (int)Math.round(c.dl / 2);
@@ -340,7 +344,8 @@ public class RedBkgComp2 extends Log {
         c.inner = inner;
     }
 
-    private void showInfo(ImageProcessor ipCopy, ImageProcessor ipTemplate, Centroid c) {
+    @SuppressWarnings("unused")
+	private void showInfo(ImageProcessor ipCopy, ImageProcessor ipTemplate, Centroid c) {
         ipTemplate.setValue(0);
         ipTemplate.drawPolygon(c.outer);
         ipCopy.setValue(255);
@@ -350,7 +355,8 @@ public class RedBkgComp2 extends Log {
     }
 
 
-    private double [] processStuff(ImageProcessor ipData, ImageProcessor ipCopy, ImageProcessor ipTemplate, Centroid c) {
+    @SuppressWarnings("unused")
+	private double [] processStuff(ImageProcessor ipData, ImageProcessor ipCopy, ImageProcessor ipTemplate, Centroid c) {
         double [] rtn = new double[3];
         double kSmall = 1.5;
         double kLarge = 2.;
@@ -389,7 +395,8 @@ public class RedBkgComp2 extends Log {
     }
 
 
-    private void zeroCircle(ImageProcessor ip, int cx, int cy, int d) {
+    @SuppressWarnings("unused")
+	private void zeroCircle(ImageProcessor ip, int cx, int cy, int d) {
         OvalRoi oRoi = new OvalRoi(cx - d/2, cy - d/2, d, d);
 
         Rectangle r = oRoi.getBounds();

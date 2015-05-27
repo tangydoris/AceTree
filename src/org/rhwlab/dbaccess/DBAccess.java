@@ -102,7 +102,8 @@ public class DBAccess {
     private static long now;
     private static long end;
 
-    public static void main(String [] args) {
+    @SuppressWarnings("unused")
+	public static void main(String [] args) {
         println("DBAccess.main, ");
         start = System.currentTimeMillis();
         inter = start;

@@ -108,7 +108,7 @@ public class Indicator3D extends JPanel {
         Indicator3D indicator = new Indicator3D();
         frame.getContentPane().add(indicator);
         frame.pack();
-        frame.show();
+        frame.setVisible(true);
 
     }
 

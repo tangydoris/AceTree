@@ -212,8 +212,6 @@ public class Image3DGeometryManager {
     }
 
     private boolean areSisters(String first, String second) {
-        //println("areSisters, " + first + CS + second);
-        boolean rtn = false;
         boolean [] ans = new boolean[2]; // first true if it is a special case; second if are sisters
         ans[0] = ans[1] = false;
         specialCaseSisters(first, second, ans);
@@ -244,14 +242,6 @@ public class Image3DGeometryManager {
         Vector nuclei = (Vector)nucleiMgr.getNucleiRecord().elementAt(time - 1);
         nuclei = copyNuclei(nuclei);
         getCenter(nuclei);
-        int width = ImageWindow.cImageWidth;
-        int height = ImageWindow.cImageHeight;
-
-        float scale = width/2;
-        float xoff = iXA;
-        float yoff = iYA;
-        float zoff = iZA;
-        float nx, ny, nz, nr;
         while (iSisterList.size() > 0) {
             String name = (String)iSisterList.remove(0);
             if (iSisterList.size() == 0) {
@@ -286,20 +276,17 @@ public class Image3DGeometryManager {
     private void addConnector(Nucleus n1, Nucleus n2, Color color) {
         if (!iShowIt) return;
         LineArray connector = new LineArray(2, LineArray.COORDINATES | LineArray.COLOR_3   );
-        float xf, yf, z, rf;
+        float xf, yf, z;
         int width = ImageWindow.cImageWidth;
-        int height = ImageWindow.cImageHeight;
-
         float scale = width/2;
         float xoff = iXA;
         float yoff = iYA;
         float zoff = iZA;
-        float nx, ny, nz, nr;
         Nucleus n = n1;
         xf = (float)((n.x - xoff)/scale);
         yf = (float)((n.y - yoff)/scale);
         yf = -yf; // for 3D compatibility
-        double zpixres = iNucleiMgr.getZPixRes();
+        iNucleiMgr.getZPixRes();
         z = (float)iNucleiMgr.getZPixRes() * (n.z - zoff) / scale;
         z = -z; // for 3D compatibility
         connector.setCoordinate(0, new Point3f(xf, yf, z));
@@ -346,13 +333,10 @@ public class Image3DGeometryManager {
         }
         float xf, yf, z, rf;
         int width = ImageWindow.cImageWidth;
-        int height = ImageWindow.cImageHeight;
-
         float scale = width/2;
         float xoff = iXA;
         float yoff = iYA;
         float zoff = iZA;
-        float nx, ny, nz, nr;
         xf = (float)((n.x - xoff)/scale);
         yf = (float)((n.y - yoff)/scale);
         yf = -yf; // for 3D compatibility
@@ -361,8 +345,8 @@ public class Image3DGeometryManager {
         rf = (float)((n.size/2) / scale);
         //System.out.println("Radius: "+rf);
         Appearance app = new Appearance();
-        TransparencyAttributes tran = new TransparencyAttributes(TransparencyAttributes.BLENDED, 1.0f);
-        TransparencyAttributes tran2 = new TransparencyAttributes(TransparencyAttributes.BLENDED, 0.5f);
+        new TransparencyAttributes(TransparencyAttributes.BLENDED, 1.0f);
+        new TransparencyAttributes(TransparencyAttributes.BLENDED, 0.5f);
         
         
         int k = getLineageNumber(n.identity);
@@ -540,8 +524,6 @@ public class Image3DGeometryManager {
         newNuclei = (Vector)nucleiMgr.getNucleiRecord().elementAt(time - goBack);
         getCenter(newNuclei);
 
-        int lineageNum;
-
         while(goBack < viewConfig.getTailTimePoints()) {
             goBack++;
 
@@ -581,9 +563,6 @@ public class Image3DGeometryManager {
     }
 
     private void addNuclei() {
-        int count = 0;
-        int falsePos = 0;
-        int falseNeg = 0;
         NucleiMgr nucleiMgr = iAceTree.getNucleiMgr();
         int time = iAceTree.getImageTime() + iAceTree.getTimeInc();
         //Vector nuclei = (Vector)nucleiMgr.getNucleiRecord().elementAt(time - 1);
@@ -606,7 +585,6 @@ public class Image3DGeometryManager {
         float xoff = iXA;
         float yoff = iYA;
         float zoff = iZA;
-        float nx, ny, nz, nr;
         for (int j=0; j < nuclei.size(); j++) {
             n = (Nucleus)nuclei.elementAt(j);
             if (n.status < 0) continue;
@@ -667,8 +645,8 @@ public class Image3DGeometryManager {
                 	rf = SETSPHERESIZE*(float)iSphereScale;
                 nucBG.addChild(makeNamedSphere(n.identity, xf,yf,z,rf,app));
                 if (app.getTransparencyAttributes() != tran)
-                	count++;
-                //System.out.println("addNuclei: " + iXA + CS + iYA + CS + iZA); 
+				 {
+				}
             }
         }
     }
@@ -693,7 +671,7 @@ public class Image3DGeometryManager {
 
     private Appearance special(Nucleus n) {
         TransparencyAttributes faint = new TransparencyAttributes(TransparencyAttributes.BLENDED, 0.8f);
-        TransparencyAttributes invisible = new TransparencyAttributes(TransparencyAttributes.BLENDED, 1.f);
+        new TransparencyAttributes(TransparencyAttributes.BLENDED, 1.f);
         TransparencyAttributes solid = new TransparencyAttributes(TransparencyAttributes.BLENDED, 0.f);
         Appearance app = null;
         String name = n.identity;
@@ -762,7 +740,7 @@ public class Image3DGeometryManager {
 
     private Appearance special(Nucleus n, boolean bogus) {
         TransparencyAttributes faint = new TransparencyAttributes(TransparencyAttributes.BLENDED, 0.8f);
-        TransparencyAttributes invisible = new TransparencyAttributes(TransparencyAttributes.BLENDED, 1.f);
+        new TransparencyAttributes(TransparencyAttributes.BLENDED, 1.f);
         TransparencyAttributes solid = new TransparencyAttributes(TransparencyAttributes.BLENDED, 0.f);
         Appearance app = null;
         String name = n.identity;

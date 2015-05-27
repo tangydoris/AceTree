@@ -176,7 +176,8 @@ public class KillCellsDialog extends GenericDialog {
 
     }
 
-    public void actionPerformed(ActionEvent e) {
+    @SuppressWarnings("unused")
+	public void actionPerformed(ActionEvent e) {
     	
     	//reparse candidates at beginning to double check if user has modified text fields
     	// for cell name or start time

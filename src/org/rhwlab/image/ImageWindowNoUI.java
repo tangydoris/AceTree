@@ -143,7 +143,8 @@ public class ImageWindowNoUI {
         else return ip;
     }
 
-    public static ImagePlus doMakeImageFromTif(String s) {
+    @SuppressWarnings("unused")
+	public static ImagePlus doMakeImageFromTif(String s) {
         cCurrentImagePart = s;
         FileInputStream fis;
         ImagePlus ip = null;
@@ -195,7 +196,8 @@ public class ImageWindowNoUI {
         return ip;
     }
 
-    private static byte[] getRedChannel(byte [] R) {
+    @SuppressWarnings("unused")
+	private static byte[] getRedChannel(byte [] R) {
         String fileName = makeRedChannelName();
         File f = new File(fileName);
         if (f.exists()) {
@@ -268,7 +270,8 @@ public class ImageWindowNoUI {
 
 
 
-    public void showCentroids() {
+    @SuppressWarnings("unused")
+	public void showCentroids() {
     	Color nucColor = new Color(140,70,255);
     	//*
     	int time = iImageTime + iTimeInc;
@@ -326,7 +329,8 @@ public class ImageWindowNoUI {
 
     }
 
-    public void showAnnotations(Graphics g) {
+    @SuppressWarnings("unused")
+	public void showAnnotations(Graphics g) {
         //*
     	//showWhichAnnotations();
         Vector v = (Vector)cNucleiMgr.getNucleiRecord().elementAt(iImageTime  + iTimeInc - 1);
@@ -363,7 +367,8 @@ public class ImageWindowNoUI {
 
 
 
-    public void showAnnotations() {
+    @SuppressWarnings("unused")
+	public void showAnnotations() {
         //*
     	//showWhichAnnotations();
         Vector v = (Vector)cNucleiMgr.getNucleiRecord().elementAt(iImageTime  + iTimeInc - 1);

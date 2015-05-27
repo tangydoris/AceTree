@@ -128,7 +128,8 @@ public class Orientation extends JDialog implements ActionListener, ListSelectio
 		fillList();
 	}
 
-    void fillList() {
+    @SuppressWarnings("unused")
+	void fillList() {
         initialize();
         iNamesAvailable = false;
         iTest = 1;
@@ -308,7 +309,8 @@ public class Orientation extends JDialog implements ActionListener, ListSelectio
 
 
 
-    private void makeSortedCellNames() {
+    @SuppressWarnings("unused")
+	private void makeSortedCellNames() {
         iSortedCellNames = new Vector();
         Enumeration e = iCellsByName.keys();
         int i = 0;
@@ -319,7 +321,8 @@ public class Orientation extends JDialog implements ActionListener, ListSelectio
     }
 
 
-    private int estimate350CellStage() {
+    @SuppressWarnings("unused")
+	private int estimate350CellStage() {
         int stage = 355;
         int r = 0;
         int size = 0;

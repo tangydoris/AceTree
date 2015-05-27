@@ -198,7 +198,8 @@ public class EIDialog1 extends JDialog implements ActionListener, WindowFocusLis
     }
 
 
-    protected void addCell(int x, int y, boolean continuation) {
+    @SuppressWarnings("unused")
+	protected void addCell(int x, int y, boolean continuation) {
     	println("EIDialog.addCell, " + x + CS + y + CS + continuation);
         if (!continuation) {
 

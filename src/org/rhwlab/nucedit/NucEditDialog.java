@@ -58,7 +58,8 @@ public final class NucEditDialog extends JDialog implements ActionListener {
      * @param owner Frame the main frame of the application 
      * @param modal boolean (set false in this usage)
      */
-    public NucEditDialog(AceTree acetree, Frame owner, boolean modal)  {
+    @SuppressWarnings("unused")
+	public NucEditDialog(AceTree acetree, Frame owner, boolean modal)  {
         super(owner, modal);
         setTitle(TITLE);
         iNucEditModel = new NucEditModel(acetree);

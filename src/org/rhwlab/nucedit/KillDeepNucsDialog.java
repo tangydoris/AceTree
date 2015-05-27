@@ -39,7 +39,8 @@ public class KillDeepNucsDialog  extends JDialog implements ActionListener {
 	JLabel			iZLimLabel;
 	JRadioButton		iFlippedImages;
 
-        public KillDeepNucsDialog(AceTree aceTree, Frame owner, boolean modal) {
+        @SuppressWarnings("unused")
+		public KillDeepNucsDialog(AceTree aceTree, Frame owner, boolean modal) {
 
         super(owner, modal);
         iAceTree = aceTree;

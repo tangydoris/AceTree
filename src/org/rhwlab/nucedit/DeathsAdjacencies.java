@@ -141,7 +141,8 @@ public class DeathsAdjacencies extends JDialog implements ActionListener, ListSe
     }
 
     // makes a queryable list of cell deaths
-    private void test1() {
+    @SuppressWarnings("unused")
+	private void test1() {
         //println("test1 entered");
         iNamesAvailable = false;
         iTest = 1;
@@ -320,7 +321,8 @@ public class DeathsAdjacencies extends JDialog implements ActionListener, ListSe
     }
 
     // creates the Jumps display
-    private void test4() {
+    @SuppressWarnings("unused")
+	private void test4() {
         iNamesAvailable = false;
         iTest = 1;
         iListModel.clear();

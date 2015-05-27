@@ -46,7 +46,8 @@ public class UnifiedNucRelinkDialog extends NucRelinkDialog{
     private JLabel iStatus;
 
 
-    public UnifiedNucRelinkDialog(AceTree aceTree, Frame owner, boolean modal, Cell cell, int time) {
+    @SuppressWarnings("unused")
+	public UnifiedNucRelinkDialog(AceTree aceTree, Frame owner, boolean modal, Cell cell, int time) {
     	super(owner, modal);
     	Border blackline = BorderFactory.createLineBorder(Color.black);
     	
@@ -117,7 +118,8 @@ public class UnifiedNucRelinkDialog extends NucRelinkDialog{
     	this.setSize(new Dimension(WIDTH, HEIGHT+60));
     }
 
-    public void actionPerformed(ActionEvent e) {
+    @SuppressWarnings("unused")
+	public void actionPerformed(ActionEvent e) {
     	Object o = e.getSource();
     	String cmd = e.getActionCommand();
     	if (o==iAddKeyframe) {
@@ -158,7 +160,8 @@ public class UnifiedNucRelinkDialog extends NucRelinkDialog{
     }
     // here is the main new logic extending this class to
     // have functionality similar to addseries 
-    public void processMouseEvent(MouseEvent e){
+    @SuppressWarnings("unused")
+	public void processMouseEvent(MouseEvent e){
     	// filter out right clicks so can tracked active in main window
     	if(e.getButton() != e.BUTTON1)
     		return;

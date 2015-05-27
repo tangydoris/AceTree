@@ -104,7 +104,8 @@ public class Lazarus extends JDialog  implements ActionListener, ListSelectionLi
 
     }
 
-    private void makeInitialList() {
+    @SuppressWarnings("unused")
+	private void makeInitialList() {
         //println("test1 entered");
         println("makeInitialList, " + iDelT + CS + iDelD + CS + iDelJ + CS + iDelJD);
         iLazers = new Hashtable();
@@ -238,7 +239,8 @@ public class Lazarus extends JDialog  implements ActionListener, ListSelectionLi
 
     }
 
-    private void setParms() {
+    @SuppressWarnings("unused")
+	private void setParms() {
             Parms myDialog = new Parms(iFrame, true);
     }
 

@@ -40,7 +40,8 @@ public class UsePlugin {
         iAceTree = AceTree.getAceTree(null);
     }
     
-    private void getFile() {
+    @SuppressWarnings("unused")
+	private void getFile() {
         JFileChooser fileChooser = new JFileChooser(new File("."));
         int returnVal = fileChooser.showOpenDialog(iAceTree);
 
@@ -63,7 +64,8 @@ public class UsePlugin {
 
     }
     
-    int compile(String path) {
+    @SuppressWarnings("unused")
+	int compile(String path) {
         //javac = new com.sun.tools.javac.Main();    
         System.out.println("path: " + path);
         String classpath = System.getProperty("java.class.path");

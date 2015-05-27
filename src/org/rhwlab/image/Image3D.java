@@ -89,7 +89,6 @@ public class Image3D extends MouseAdapter
     
     private     JPanel              trackingPanel;
     private     JButton             customTailColor;
-    private     JSlider             opacitySlider;
     private     JSlider             timePts;
     
     private     JSlider             overlayMinXSlider;
@@ -315,8 +314,7 @@ public class Image3D extends MouseAdapter
         String s = "LEFT";
         Action left = new AbstractAction("LEFT") {
             public void actionPerformed(ActionEvent e) {
-            	AWTEvent awt = (AWTEvent)e;
-                //System.out.println("AceTree--left key pressed, " + e);
+            	//System.out.println("AceTree--left key pressed, " + e);
                 //System.out.println("AceTree--left key pressed, awt, " + awt);
                 iAceTree.prevTime();
                 iAceTree.updateDisplay();
@@ -773,15 +771,6 @@ public class Image3D extends MouseAdapter
                 System.out.println("In stopping save.");
                 iSaveImage = false;
                 iSaveMovie.setText("Save Movie");
-                int width = 700;
-                int height = 500;
-                // can't figure out how to get java to recognize installed JMF packages
-                // needed for JpegImagestoMovie eg javax.media.(control|protocol|datasink)
-                /*
-                JpegImagesToMovie movieMaker = 
-                    new JpegImagesToMovie(iAceTree.iImgWin.getSaveImageDirectory(), 
-                    width, height);
-                */
         }
         updateDisplayedTab();
     }
@@ -1043,7 +1032,7 @@ public class Image3D extends MouseAdapter
         int width = 700;
         int height = 500;
 
-        GraphicsConfiguration config = SimpleUniverse.getPreferredConfiguration();
+        SimpleUniverse.getPreferredConfiguration();
 
         Canvas3D c = iOfflineCanvas;
         c.getScreen3D().setSize(width,height);
@@ -1308,8 +1297,6 @@ public class Image3D extends MouseAdapter
         Rectangle screenRect = iFrame.getBounds();
 
         int topAdjust = 23;
-        int y = screenRect.y;
-        int height = screenRect.height;
         screenRect.y += topAdjust;
         screenRect.height -= topAdjust;
 
@@ -1371,7 +1358,7 @@ public class Image3D extends MouseAdapter
         lineagePanel.add( new JLabel(" "));
         lineagePanel.add(labelPanel);
 
-        JPanel dummyPanel = new JPanel();
+        new JPanel();
 
         JPanel topPart = new JPanel();
         topPart.add(lineagePanel);

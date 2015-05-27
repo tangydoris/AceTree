@@ -105,7 +105,8 @@ public class Siamese extends JDialog implements ActionListener, ListSelectionLis
     }
 
     // makes a queryable list of scored divisions
-    private void test1() {
+    @SuppressWarnings("unused")
+	private void test1() {
         //println("test1 entered");
         initialize();
         iNamesAvailable = false;
@@ -249,7 +250,8 @@ public class Siamese extends JDialog implements ActionListener, ListSelectionLis
 
     }
 
-    private void setParms() {
+    @SuppressWarnings("unused")
+	private void setParms() {
         Parms myDialog = new Parms(iFrame, true);
 }
 

@@ -144,7 +144,8 @@ public class Analysis3 extends Log {
     }
     */
 
-    private void test2() {
+    @SuppressWarnings("unused")
+	private void test2() {
         initialize();
         NucleiMgr nucMgr = iNucleiMgr;
         int time = Integer.parseInt(iTextField.getText());
@@ -199,7 +200,8 @@ public class Analysis3 extends Log {
     }
 
 
-    private void test3() {
+    @SuppressWarnings("unused")
+	private void test3() {
         //append("test3 entered: ");
         initialize();
         Hashtable timesHash = makeTimesHash("/home/biowolp/work/workspace/weka/series/test88.txt");
@@ -287,7 +289,8 @@ public class Analysis3 extends Log {
         append(stats);
     }
 
-    private Vector extractNuclei(int time, NucleiMgr nucMgr) {
+    @SuppressWarnings("unused")
+	private Vector extractNuclei(int time, NucleiMgr nucMgr) {
         Vector nucleiRecord = nucMgr.getNucleiRecord();
         Vector nuclei = (Vector)nucleiRecord.elementAt(time);
         int count = 0;
@@ -320,7 +323,8 @@ public class Analysis3 extends Log {
         }
     }
 
-    private void makeADL(NormNuc nn, NucleiMgr nm) {
+    @SuppressWarnings("unused")
+	private void makeADL(NormNuc nn, NucleiMgr nm) {
         Parameters p = nm.getParameters();
         Movie m = nm.getMovie();
         double zfac = nm.getZPixRes();

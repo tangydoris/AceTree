@@ -36,7 +36,8 @@ public class RedCorrector2 {
         }
     }
     
-    public static void correctNuclei(NucleiMgr nucMgr, int time) {
+    @SuppressWarnings("unused")
+	public static void correctNuclei(NucleiMgr nucMgr, int time) {
         Vector nuclei = (Vector)nucMgr.getNuclei(time - 1);
         
         Hashtable workingNuclei = new Hashtable();
@@ -278,7 +279,8 @@ r =
     
     
     // if INFLf then we are using the full set
-    private static double infl(int i, int j) {
+    @SuppressWarnings("unused")
+	private static double infl(int i, int j) {
         double infl = 0;
         if (i >= 0 && j >= 0 && i < 15 && j < 7) return INFLf[i][j];
         else return 0;

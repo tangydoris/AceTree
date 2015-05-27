@@ -200,7 +200,8 @@ public class Analysis10 extends Log {
         new AuxImageWindowYZ(s2, iproc, iAceTree, x);
     }
 
-    protected void showCentroids(int time, int x, ImageProcessor iproc) {
+    @SuppressWarnings("unused")
+	protected void showCentroids(int time, int x, ImageProcessor iproc) {
         double zPixRes = 11.;
         Vector v = (Vector)iNucleiMgr.getNucleiRecord().elementAt(time - 1);
         //ImageProcessor iproc = getImagePlus().getProcessor();
@@ -241,7 +242,8 @@ public class Analysis10 extends Log {
         //iShowC.setText(HIDEC);
     }
 
-    public double nucDiameter(Nucleus n, double x) {
+    @SuppressWarnings("unused")
+	public double nucDiameter(Nucleus n, double x) {
         if (n == null) return -1; //covers some issues re currentCell and not tracking
         double zPixRes = 11.;
         double r = -0.5;
@@ -329,7 +331,8 @@ public class Analysis10 extends Log {
         return ip;
     }
 
-    private int [] processImage(int time, int plane) {
+    @SuppressWarnings("unused")
+	private int [] processImage(int time, int plane) {
         //int time = 10;
         //int plane = 15;
         String imageFile = ImageWindow.cZipTifFilePath;

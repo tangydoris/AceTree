@@ -67,7 +67,8 @@ public class Analysis9 extends Log implements Comparator {
 
 
 
-    private void test1() {
+    @SuppressWarnings("unused")
+	private void test1() {
         initialize();
         int first = Integer.parseInt(iTextField1.getText());
         int last = Integer.parseInt(iTextField2.getText());
@@ -93,7 +94,8 @@ public class Analysis9 extends Log implements Comparator {
 
     }
 
-    private void showAsHeatMap(Vector all, Vector allFounders, String baseFounder) {
+    @SuppressWarnings("unused")
+	private void showAsHeatMap(Vector all, Vector allFounders, String baseFounder) {
         //System.out.println("showAsHeatMap entered");
         int rows = allFounders.size();
         int cols = ((Vector)all.elementAt(0)).size();
@@ -112,8 +114,6 @@ public class Analysis9 extends Log implements Comparator {
         HeatMap hm = new HeatMap(data, labels, 25000, 100000);
         HeatMapPanel hmp = new HeatMapPanel(hm, 400, 200);
         HeatMapFrame hmf = new HeatMapFrame(baseFounder, hm, 400, 200, 1);
-
-
     }
 
     private void evaluateAll(Vector all) {

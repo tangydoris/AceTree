@@ -60,6 +60,7 @@ public class KillSublineage extends JPanel implements ActionListener {
 	 * @param owner
 	 * @param modal
 	 */
+	@SuppressWarnings("unused")
 	public KillSublineage(AceTree aceTree) {
 		iAceTree=aceTree;
 		this.setAlignmentX(CENTER_ALIGNMENT);	
@@ -126,6 +127,7 @@ public class KillSublineage extends JPanel implements ActionListener {
 
 	}
 
+	@SuppressWarnings("unused")
 	private int collectCandidateCells() {
 		int k = iTime; // the first time is already in there
 		int count = 1;
@@ -154,6 +156,7 @@ public class KillSublineage extends JPanel implements ActionListener {
 		return estimate;
 	}
 
+	@SuppressWarnings("unused")
 	public void actionPerformed(ActionEvent e) {
 
 		if(iNucleiMgr.getCurrentCellData(iCellName, iTime)==null){

@@ -36,6 +36,7 @@ public class TestWindow extends JDialog implements ActionListener {
 	JButton			iButton;
 	JButton			iDefault;
 
+	@SuppressWarnings("unused")
 	public TestWindow(AceTree aceTree, Frame owner, boolean modal) {
         super(owner, modal);
         enableEvents(AWTEvent.MOUSE_EVENT_MASK);
@@ -80,7 +81,8 @@ public class TestWindow extends JDialog implements ActionListener {
 
 	}
 
-    private void setKeyboardActions() {
+    @SuppressWarnings("unused")
+	private void setKeyboardActions() {
         String s = "F1";
         Action home = new AbstractAction() {
             public void actionPerformed(ActionEvent e) {

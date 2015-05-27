@@ -250,7 +250,8 @@ public class EditTraverse implements ActionListener, ListSelectionListener {
         }
     }
     
-    public static void main(String[] args) {
+    @SuppressWarnings("unused")
+	public static void main(String[] args) {
         //System.out.println("EditTraverse main");
         EditTraverse et = new EditTraverse(null);
     }
@@ -288,7 +289,8 @@ public class EditTraverse implements ActionListener, ListSelectionListener {
         return name;
     }
     
-    private String getTrulySelectedCellName() {
+    @SuppressWarnings("unused")
+	private String getTrulySelectedCellName() {
         int index = iCellList.getSelectedIndex();
         int k = Math.max(index, 1);
         String name = (String)iListModel.elementAt(index);
@@ -358,7 +360,8 @@ public class EditTraverse implements ActionListener, ListSelectionListener {
         //}
     }
     
-    private void setKeyboardActions() {
+    @SuppressWarnings("unused")
+	private void setKeyboardActions() {
         String s = null;
         String sl = "LEFT";
         Action left = new AbstractAction() {
@@ -415,7 +418,8 @@ public class EditTraverse implements ActionListener, ListSelectionListener {
         
     }
     
-    private void saveAs() {
+    @SuppressWarnings("unused")
+	private void saveAs() {
         JFileChooser iFC = new JFileChooser();
         int returnVal = iFC.showSaveDialog(iFrame);
 

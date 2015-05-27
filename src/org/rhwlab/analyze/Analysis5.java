@@ -154,7 +154,8 @@ public class Analysis5 extends JPanel implements ActionListener, ListSelectionLi
     }
 
     // makes a queryable list of cell deaths
-    private void test1() {
+    @SuppressWarnings("unused")
+	private void test1() {
         //println("test1 entered");
         iNamesAvailable = false;
         iTest = 1;
@@ -184,7 +185,8 @@ public class Analysis5 extends JPanel implements ActionListener, ListSelectionLi
 
     }
 
-    private void test3() {
+    @SuppressWarnings("unused")
+	private void test3() {
         println("test3, the movie");
         //println("test1 entered");
         iNamesAvailable = false;
@@ -788,7 +790,8 @@ public class Analysis5 extends JPanel implements ActionListener, ListSelectionLi
         iAceTree.setFocusHome();
     }
 
-    private String getTrulySelectedCellName() {
+    @SuppressWarnings("unused")
+	private String getTrulySelectedCellName() {
         if (!iNamesAvailable) return null;
         int index = iCellList.getSelectedIndex();
         int k = Math.max(index, 1);

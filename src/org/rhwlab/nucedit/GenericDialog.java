@@ -44,7 +44,8 @@ public class GenericDialog extends JDialog implements ActionListener {
     protected Border iTopBotBorder;
     
 
-    public GenericDialog(AceTree aceTree, Frame owner, boolean modal)  {
+    @SuppressWarnings("unused")
+	public GenericDialog(AceTree aceTree, Frame owner, boolean modal)  {
         super(owner, modal);
         iAceTree = aceTree;
         if (iAceTree != null)iNucleiMgr = iAceTree.getNucleiMgr();

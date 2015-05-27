@@ -100,6 +100,7 @@ public class NucRelinkDialog extends JDialog implements ActionListener {
 		createLatePanel(pWhole,owner);
 	}
 
+	@SuppressWarnings("unused")
 	protected void createLatePanel(JPanel pWhole, Frame owner){
 		// later time
 		Border blackline = BorderFactory.createLineBorder(Color.black);
@@ -218,6 +219,7 @@ public class NucRelinkDialog extends JDialog implements ActionListener {
 		this.setSize(new Dimension(WIDTH, HEIGHT));
 	}
 	
+	@SuppressWarnings("unused")
 	protected void createEarlyPanel(JPanel pWhole){
 
 		
@@ -312,6 +314,7 @@ public class NucRelinkDialog extends JDialog implements ActionListener {
 
 	}
 
+	@SuppressWarnings("unused")
 	void setDefaultButtonBehavior(JButton jb, String key) {
 		String s = key;
 		Action home = new AbstractAction() {
@@ -436,6 +439,7 @@ public class NucRelinkDialog extends JDialog implements ActionListener {
 		// }
 	}
 
+	@SuppressWarnings("unused")
 	private boolean checkCellValidities(String endCellName, int endTime, String strCellName, int strTime) {
 		if (strCellName.equals(AceTree.ROOTNAME)) return true;
 		Nucleus nEnd = iNucleiMgr.getCurrentCellData(endCellName, endTime);
@@ -463,7 +467,7 @@ public class NucRelinkDialog extends JDialog implements ActionListener {
 		JOptionPane pane = new JOptionPane(s);
 		JDialog dialog = pane.createDialog(iAceTree, "About AceTree");
 		dialog.setModal(true);
-		dialog.show();
+		dialog.setVisible(true);
 	}
 
 	public static void createAndAddCells(String endCellName, int endTime, String strCellName, int strTime) {

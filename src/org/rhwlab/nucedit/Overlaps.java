@@ -79,7 +79,8 @@ public class Overlaps extends JPanel implements ActionListener, ListSelectionLis
 
     // Overlaps
     // makes a queryable list of cell deaths
-    private void test1() {
+    @SuppressWarnings("unused")
+	private void test1() {
         println("test1 entered");
         initialize();
         iNamesAvailable = false;
@@ -172,7 +173,8 @@ public class Overlaps extends JPanel implements ActionListener, ListSelectionLis
 
     }
 
-    private void showNucs() {
+    @SuppressWarnings("unused")
+	private void showNucs() {
         initialize();
         iNamesAvailable = false;
         iTest = 1;
@@ -252,7 +254,8 @@ public class Overlaps extends JPanel implements ActionListener, ListSelectionLis
 
     }
 
-    private void setParms() {
+    @SuppressWarnings("unused")
+	private void setParms() {
         Parms myDialog = new Parms(iFrame, true);
 }
 

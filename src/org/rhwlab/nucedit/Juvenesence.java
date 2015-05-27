@@ -99,7 +99,8 @@ public class Juvenesence extends JDialog implements ActionListener, ListSelectio
         iLastTime = estimate350CellStage();
     }
 
-    public void lifetimesTest(double tolL, double tolH) {
+    @SuppressWarnings("unused")
+	public void lifetimesTest(double tolL, double tolH) {
         println("lifetimesTest, " + tolL + CS + tolH);
         iLastTime = Integer.parseInt(iTextField.getText());
         //Embryo a = Embryo.getEmbryoFromSeries(series);
@@ -178,7 +179,8 @@ public class Juvenesence extends JDialog implements ActionListener, ListSelectio
 
 
 
-    private void makeSortedCellNames() {
+    @SuppressWarnings("unused")
+	private void makeSortedCellNames() {
         iSortedCellNames = new Vector();
         Enumeration e = iCellsByName.keys();
         int i = 0;
@@ -188,7 +190,8 @@ public class Juvenesence extends JDialog implements ActionListener, ListSelectio
         Collections.sort(iSortedCellNames);
     }
 
-    private int estimate350CellStage() {
+    @SuppressWarnings("unused")
+	private int estimate350CellStage() {
         int stage = 355;
         int r = 0;
         int size = 0;
@@ -321,7 +324,8 @@ public class Juvenesence extends JDialog implements ActionListener, ListSelectio
         iAceTree.setFocusHome();
     }
 
-    private void setParms() {
+    @SuppressWarnings("unused")
+	private void setParms() {
         Parms myDialog = new Parms(iFrame, true);
     }
 

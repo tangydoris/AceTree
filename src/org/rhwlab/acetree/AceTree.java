@@ -1743,17 +1743,17 @@ public class AceTree extends JPanel
         getActionMap().put(actionKey, up);
         
         // Fast (skipping a few planes) UP using CTRL
-        s = "control UP";
-        Action ctrl_up = new AbstractAction() {
+        s = "shift UP";
+        Action shift_up = new AbstractAction() {
         	public void actionPerformed(ActionEvent e) {
-        		System.out.println("ctrl-up key pressed--skipping planes");
+        		System.out.println("shift-up key pressed--skipping planes");
         		incPlane(-5);
         		iTrackPosition = ImageWindow.NONE;
         		updateDisplay();
         	}
         };
         getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(s), s);
-        getActionMap().put(s, ctrl_up);
+        getActionMap().put(s, shift_up);
 
         s = "DOWN";
         Action down = new AbstractAction() {
@@ -1775,17 +1775,22 @@ public class AceTree extends JPanel
         actionMap.put(actionKey, down);
         
         // Fast (skipping a few planes) DOWN using CTRL
-        s = "control DOWN";
-        Action ctrl_down = new AbstractAction() {
+        s = "shift DOWN";
+        Action shift_down = new AbstractAction() {
         	public void actionPerformed(ActionEvent e) {
-        		System.out.println("ctrl-down key pressed--skipping planes");
+        		System.out.println("shift-down key pressed--skipping planes");
         		incPlane(5);
         		iTrackPosition = ImageWindow.NONE;
         		updateDisplay();
         	}
         };
-        getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(s), s);
-        getActionMap().put(s, ctrl_down);
+        KeyStroke ks = KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, InputEvent.SHIFT_DOWN_MASK);
+        if (ks == null)
+        	System.out.println("Cannot get keystroke for shift-DOWN");
+        else {
+        	getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(ks, s);
+        	getActionMap().put(s, shift_down);
+        }
 
 
         s = "LEFT";
@@ -1809,6 +1814,18 @@ public class AceTree extends JPanel
         inputMap.put(stroke, actionKey);
         actionMap = this.getActionMap();
         actionMap.put(actionKey, left);
+        
+        // Fast (skipping a few planes) LEFT using CTRL
+        s = "shift LEFT";
+        Action shift_left = new AbstractAction() {
+        	public void actionPerformed(ActionEvent e) {
+        		System.out.println("shift-left key pressed--skipping times");
+        		
+        		updateDisplay();
+        	}
+        };
+        getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(s), s);
+        getActionMap().put(s, shift_left);
 
 
         s = "RIGHT";
@@ -1829,6 +1846,18 @@ public class AceTree extends JPanel
         inputMap.put(stroke, actionKey);
         actionMap = this.getActionMap();
         actionMap.put(actionKey, right);
+        
+        // Fast (skipping a few planes) RIGHT using SHIFT
+        s = "VK_SHIFT RIGHT";
+        Action shift_right = new AbstractAction() {
+        	public void actionPerformed(ActionEvent e) {
+        		System.out.println("shift-right key pressed--skipping times");
+        		
+        		updateDisplay();
+        	}
+        };
+        getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(s), s);
+        getActionMap().put(s, shift_right);
 
         s = "ENTER";
         Action get = new AbstractAction(s) {

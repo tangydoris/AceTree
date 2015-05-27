@@ -583,7 +583,8 @@ public class AddOneDialog extends JDialog implements ActionListener, WindowFocus
         iD.setEnabled(b);
     }
 
-    protected void addChoices(JPanel mp) {
+    @SuppressWarnings("unused")
+	protected void addChoices(JPanel mp) {
     	JRadioButton rb = null;
     	ButtonGroup bg = new ButtonGroup();
     	JPanel rp = new JPanel();

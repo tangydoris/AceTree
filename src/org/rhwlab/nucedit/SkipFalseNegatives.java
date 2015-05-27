@@ -60,7 +60,8 @@ public class SkipFalseNegatives extends JDialog implements ActionListener {
     private Log     iDLog;
     private int     iStrTime; // state variable for skip..continue functionality
     
-    public SkipFalseNegatives () {
+    @SuppressWarnings("unused")
+	public SkipFalseNegatives () {
             super(AceTree.getAceTree(null).getMainFrame(), false);
             iAceTree = AceTree.getAceTree(null);
             iNucleiMgr = iAceTree.getNucleiMgr();
@@ -321,7 +322,8 @@ public class SkipFalseNegatives extends JDialog implements ActionListener {
         }
     }
             
-    private boolean checkStartingCellValidity(String strCellName, int strTime) {
+    @SuppressWarnings("unused")
+	private boolean checkStartingCellValidity(String strCellName, int strTime) {
         Nucleus nStr = iNucleiMgr.getCurrentCellData(strCellName, strTime);
         if (nStr == null) {
             String s  = "";
@@ -341,7 +343,8 @@ public class SkipFalseNegatives extends JDialog implements ActionListener {
         return true;
     }
     
-    private boolean checkCellValidities(String endCellName, int endTime, String strCellName, int strTime) {
+    @SuppressWarnings("unused")
+	private boolean checkCellValidities(String endCellName, int endTime, String strCellName, int strTime) {
         Nucleus nEnd = iNucleiMgr.getCurrentCellData(endCellName, endTime);
         Nucleus nStr = iNucleiMgr.getCurrentCellData(strCellName, strTime);
         if (nEnd == null || nStr == null) {
@@ -367,7 +370,7 @@ public class SkipFalseNegatives extends JDialog implements ActionListener {
         JOptionPane pane = new JOptionPane(s);
         JDialog dialog = pane.createDialog(iAceTree, "About AceTree");
         dialog.setModal(true);
-        dialog.show();
+        dialog.setVisible(true);
     }
     
     private void createAndAddCells(String endCellName, int endTime, String strCellName, int strTime) {

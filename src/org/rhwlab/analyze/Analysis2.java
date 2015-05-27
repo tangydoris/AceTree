@@ -105,7 +105,8 @@ public class Analysis2 extends Log {
         iNucleiMgrHash = iAceTree.getNucleiMgrHash();
     }
 
-    private void test3() {
+    @SuppressWarnings("deprecation")
+	private void test3() {
         append("test3 entered");
         float [] xValues = new float[nuclei_record.size()];
         float [] yValues = new float[nuclei_record.size()];
@@ -215,7 +216,8 @@ public class Analysis2 extends Log {
 
     } */
 
-    private PlotData anglecalc(NucleiMgr nucMgr) {
+    @SuppressWarnings("unused")
+	private PlotData anglecalc(NucleiMgr nucMgr) {
         Vector  nucleirecord = nucMgr.getNucleiRecord();
         //initialize();
         double f = 180./Math.PI;
@@ -356,7 +358,8 @@ public class Analysis2 extends Log {
     // using function angrad()
 
 
-    private PlotData angleByIncrements(NucleiMgr nucMgr) {
+    @SuppressWarnings("unused")
+	private PlotData angleByIncrements(NucleiMgr nucMgr) {
         //append("angle");
         initialize();
         double f = 180./Math.PI;

@@ -40,7 +40,8 @@ public class ImageParamsDialog extends JDialog implements ActionListener {
     JCheckBox                       iAcbTree;
     
     
-    public ImageParamsDialog(ImageWindow imgWin) {
+    @SuppressWarnings("unused")
+	public ImageParamsDialog(ImageWindow imgWin) {
         super(imgWin, "Image Parameters", false);
         iImgWin = imgWin;
 

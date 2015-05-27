@@ -33,7 +33,8 @@ public class Series extends JDialog implements ActionListener {
     
     public String iCurrentPattern;
     
-    public Series(JFrame frame, Vector filenames) {
+    @SuppressWarnings("unused")
+	public Series(JFrame frame, Vector filenames) {
         super(frame, true);
         System.out.println("Series constructor called");
         //super(AceTree.getAceTree(null).getMainFrame(), true);

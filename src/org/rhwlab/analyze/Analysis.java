@@ -129,7 +129,8 @@ public class Analysis extends Log {
         return count;
     }
 
-    private void showLeaves() {
+    @SuppressWarnings("unused")
+	private void showLeaves() {
         Cell c = (Cell)iRoot.getFirstLeaf();
         int fate = -1;
         int deaths = 0;
@@ -146,7 +147,8 @@ public class Analysis extends Log {
         append("summary, alive=" + alive + ", died=" + deaths);
     }
 
-    private void breadthFirstEnumeration() {
+    @SuppressWarnings("unused")
+	private void breadthFirstEnumeration() {
         Enumeration e = iRoot.breadthFirstEnumeration();
         //Enumeration e = iRoot.preorderEnumeration();
         //Enumeration e = iRoot.postorderEnumeration();
@@ -217,7 +219,8 @@ public class Analysis extends Log {
     }
 
     // identity check (are names canonical?)
-    private void test4() {
+    @SuppressWarnings("unused")
+	private void test4() {
         // reports names we have that are non canonical
         //System.out.println("test4");
         initialize();
@@ -269,7 +272,8 @@ public class Analysis extends Log {
     }
 
     // 20051116 not called
-    private void test5() {
+    @SuppressWarnings("unused")
+	private void test5() {
         append("\ncollect data for new sister naming approach");
         append("fields: cellname, birth, end, cellCountAtBirth,");
         append("fields: x1, y1, z1, d1, x2, y2, z2, d2, x3, y3, z3, d3");
@@ -356,7 +360,8 @@ public class Analysis extends Log {
     }
     */
 
-    private void examineDivisions() {
+    @SuppressWarnings("unused")
+	private void examineDivisions() {
         int count = 0;
         int diffs = 0;
         int comps = 0;

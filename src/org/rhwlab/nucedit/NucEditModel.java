@@ -47,7 +47,8 @@ public class NucEditModel {
     }
     
     
-    private void commitChanges(int tableModel, int i, boolean doSuccessors) {
+    @SuppressWarnings("unused")
+	private void commitChanges(int tableModel, int i, boolean doSuccessors) {
         if (doSuccessors) {
             if(setSuccessors(i)) return;;
         }

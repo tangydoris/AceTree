@@ -188,7 +188,8 @@ public class Analysis4 extends Log {
     }
 
 
-    private void getNamingHash() {
+    @SuppressWarnings("unused")
+	private void getNamingHash() {
         File f = new File("namesHash.txt");
         iNamingHash = new Hashtable();
         String s = null;
@@ -247,7 +248,8 @@ public class Analysis4 extends Log {
 
 
 
-    public void extendRuleData(NucleiMgr nucMgr) {
+    @SuppressWarnings("unused")
+	public void extendRuleData(NucleiMgr nucMgr) {
         System.out.println("extendRuleData");
         //initialize();
         Vector  nucleirecord = nucMgr.getNucleiRecord();

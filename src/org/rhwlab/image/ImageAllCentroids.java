@@ -113,7 +113,8 @@ public class ImageAllCentroids extends JPanel implements ActionListener {
         }
     }
     
-    public void drawNuclei(Graphics2D g, int time) {
+    @SuppressWarnings("unused")
+	public void drawNuclei(Graphics2D g, int time) {
         if (time == 1) {
             if (iMenuItem.equals(ALL)) drawAllNuclei(g, time);
             return;

@@ -279,7 +279,8 @@ public class Analysis8 extends Log {
 
     }
 
-    private void addCircle(ImageProcessor iproc) {
+    @SuppressWarnings("unused")
+	private void addCircle(ImageProcessor iproc) {
         //ImageProcessor iproc = stack.getProcessor(4);
         OvalRoi oRoi = makeOvalRoi(50, 50, 40);
         ImageProcessor mask = oRoi.getMask();
@@ -412,7 +413,8 @@ public class Analysis8 extends Log {
     }
 
 
-    private void processAllCircles(Vector allCircles) {
+    @SuppressWarnings("unused")
+	private void processAllCircles(Vector allCircles) {
         Collections.sort(allCircles, new Centroid());
         Enumeration e = allCircles.elements();
         int plane = 0;
@@ -445,7 +447,8 @@ public class Analysis8 extends Log {
         }
     }
 
-    private void copyCentroidToNewStack(ImageProcessor dst, ImageProcessor src, Roi roi, Centroid c) {
+    @SuppressWarnings("unused")
+	private void copyCentroidToNewStack(ImageProcessor dst, ImageProcessor src, Roi roi, Centroid c) {
         float fxx = c.x;
         float fyy = c.y;
         fxx -= c.d/2;
@@ -458,7 +461,8 @@ public class Analysis8 extends Log {
 
     }
 
-    private void copyCentroidShadowsToNewStack(ImageProcessor dst, ImageProcessor src, Roi roi, Centroid c) {
+    @SuppressWarnings("unused")
+	private void copyCentroidShadowsToNewStack(ImageProcessor dst, ImageProcessor src, Roi roi, Centroid c) {
         float fxx = c.x;
         float fyy = c.y;
         fxx -= c.d/2;
@@ -513,7 +517,8 @@ public class Analysis8 extends Log {
     }
 
 
-    private Vector makeAllCircles(int time) {
+    @SuppressWarnings("unused")
+	private Vector makeAllCircles(int time) {
         Vector allCircles = new Vector();
         int k = Integer.parseInt(iTextField.getText());
             Vector nuclei = (Vector)nuclei_record.elementAt(k - 1);

@@ -70,7 +70,8 @@ public class RedBkgComp extends JDialog implements ActionListener, Runnable {
 
     RedBkgComp2     iRedBkgComp2;
 
-    public RedBkgComp() {
+    @SuppressWarnings("unused")
+	public RedBkgComp() {
         super(AceTree.getAceTree(null).getMainFrame(), false);
         initialize();
         JFrame owner = iAceTree.getMainFrame();

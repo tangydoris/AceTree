@@ -246,7 +246,6 @@ public class Image3DViewConfig {
     
     // Returns the index of the "other" field
     public int getOtherIndex() {
-    	int index;
     	for (int i = 0; i < getNumDispProps(); i++) {
     		String name = dispProps[i].getName();
     		name = name.toLowerCase();

@@ -48,8 +48,6 @@ public class AuxImageWindowXZ extends JFrame {
     ImageCanvas             iImgCanvas;
     ImagePlus               iImgPlus;
     String                  iTitle;
-    private JTabbedPane     iTabbedPane;
-    private JPanel          iControlPanel;
     MouseHandler            iMouseHandler;
     Hashtable               iAnnotsShown;
     JToolBar                iToolBar;
@@ -136,9 +134,8 @@ public class AuxImageWindowXZ extends JFrame {
         Vector v = (Vector)iNucleiMgr.getNucleiRecord().elementAt(time - 1);
         iproc.setColor(NUCCOLOR);
         iproc.setLineWidth(WIDTHS[1]);
-        Polygon p = null;
         Enumeration e = v.elements();
-        String currentCellName = iAceTree.getCurrentCell().getName();
+        iAceTree.getCurrentCell().getName();
         while(e.hasMoreElements()) {
             Nucleus n = (Nucleus)e.nextElement();
             if (n.status < 0) continue;

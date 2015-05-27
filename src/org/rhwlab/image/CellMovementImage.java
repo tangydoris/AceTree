@@ -46,7 +46,7 @@ public class CellMovementImage extends ImageWindow {
         ImageCanvas ic = new ImageCanvas(imgPlus);
         iImgCanvas = ic;
         Dimension d = ic.getSize();
-        int height = (int)d.getHeight();
+        d.getHeight();
         JPanel p = new JPanel();
         p.setLayout(new BorderLayout());
         p.add(ic, BorderLayout.CENTER);
@@ -125,9 +125,8 @@ public class CellMovementImage extends ImageWindow {
             iproc.setColor(Color.red);
         } else iproc.setColor(Color.yellow);
         iproc.setLineWidth(cLineWidth);
-        Polygon p = null;
         Enumeration e = v.elements();
-        String currentCellName = iAceTree.getCurrentCell().getName();
+        iAceTree.getCurrentCell().getName();
         while(e.hasMoreElements()) {
             Nucleus n = (Nucleus)e.nextElement();
             if (n.status < 0) continue;

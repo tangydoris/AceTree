@@ -131,7 +131,8 @@ public class Zafer1  extends JDialog implements ActionListener, ListSelectionLis
 
 
 
-    void fillList() {
+    @SuppressWarnings("unused")
+	void fillList() {
         initialize();
         iNamesAvailable = false;
         iTest = 1;
@@ -187,7 +188,8 @@ public class Zafer1  extends JDialog implements ActionListener, ListSelectionLis
     }
 
 
-    void fillMovementsList() {
+    @SuppressWarnings("unused")
+	void fillMovementsList() {
         initialize();
         iNamesAvailable = false;
         iTest = 1;
@@ -335,7 +337,8 @@ public class Zafer1  extends JDialog implements ActionListener, ListSelectionLis
         iLastTime = estimate350CellStage();
     }
 
-    private void makeSortedCellNames() {
+    @SuppressWarnings("unused")
+	private void makeSortedCellNames() {
         iSortedCellNames = new Vector();
         Enumeration e = iCellsByName.keys();
         int i = 0;
@@ -345,7 +348,8 @@ public class Zafer1  extends JDialog implements ActionListener, ListSelectionLis
         Collections.sort(iSortedCellNames);
     }
 
-    private int estimate350CellStage() {
+    @SuppressWarnings("unused")
+	private int estimate350CellStage() {
         int stage = 355;
         int r = 0;
         int size = 0;
@@ -493,7 +497,6 @@ public class Zafer1  extends JDialog implements ActionListener, ListSelectionLis
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 
 	}
 

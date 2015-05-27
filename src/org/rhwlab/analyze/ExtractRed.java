@@ -74,7 +74,8 @@ JCheckBox       redChannelButton;
     }
 
     // get color data for one time point
-    public void test1() {
+    @SuppressWarnings("unused")
+	public void test1() {
         long start = System.currentTimeMillis();
         Vector circles = new Vector();
         Vector allCircles = new Vector();
@@ -183,7 +184,8 @@ JCheckBox       redChannelButton;
     }
 
     // get color data for all time points
-    public void test2() {
+    @SuppressWarnings("unused")
+	public void test2() {
         long start = System.currentTimeMillis();
         //int k = Integer.parseInt(iTextField.getText());
         int m = iNucleiMgr.getConfig().iStartingIndex;
@@ -242,7 +244,8 @@ JCheckBox       redChannelButton;
         return ia;
     }
 
-    public  int [] processImage(ImageProcessor ipRed, Centroid c) {
+    @SuppressWarnings("unused")
+	public  int [] processImage(ImageProcessor ipRed, Centroid c) {
         byte [] redPixels = (byte [])ipRed.getPixels();
         //int d = (int)(c.d + 0.5);
         float fxx = c.x;
@@ -331,7 +334,8 @@ JCheckBox       redChannelButton;
     }
 
 
-    private ImageProcessor getRedData(String greenName,int plane) {
+    @SuppressWarnings("unused")
+	private ImageProcessor getRedData(String greenName,int plane) {
         		
 
 
