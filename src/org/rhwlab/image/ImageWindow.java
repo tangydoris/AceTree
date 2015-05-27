@@ -1107,8 +1107,6 @@ public class ImageWindow extends JFrame implements  KeyListener, Runnable {
             iImageTime = iAceTree.getImageTime();
             iImagePlane = iAceTree.getImagePlane();
             imagewindowPlaneNumber = iAceTree.getImagePlane()+iPlaneInc;
-            
-            System.out.println("Plane #, plane increment: "+iImagePlane+CS+iPlaneInc);
         } else {
             iTimeInc = 0;
             iPlaneInc = 0;

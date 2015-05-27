@@ -1117,15 +1117,13 @@ public class AceTree extends JPanel
         } catch(Exception e) {
 
         }
-        nextTime();
-        updateDisplay();
+        nextImage();
         try {
             Thread.sleep(5);
         } catch(Exception e) {
 
         }
         prevTime();
-        updateDisplay();
     }
 
     public void expandTree() {
@@ -2613,7 +2611,7 @@ public class AceTree extends JPanel
         else if (cmd.equals("F2"))
         	println("AceTree.actionPerformed, F2");
         else if (e.getActionCommand().equals(PREV))
-        		prevTime(); //incTime(-1);
+        		prevImage(); //incTime(-1);
         else if (e.getActionCommand().equals(UP)) {
             imageUp();
             return;
@@ -2730,11 +2728,11 @@ public class AceTree extends JPanel
                 //return;
             }
             String cell = ((String)v.elementAt(2)).trim();
-            String target = cell;
+            String target = cell.toLowerCase();
 		    String cellproper = PartsList.lookupProper(cell);
-		    System.out.println(cell+" "+cellproper);
+		    System.out.println("ControlCallback looked up cell, proper: "+cell+CS+cellproper);
 		    if (cellproper != null) {
-		    	cell = cellproper;
+		    	target = cellproper.toLowerCase();
 	    	}
 	
 		    //System.out.println("controlCallback: " + cell + CS + time);
@@ -2777,9 +2775,13 @@ public class AceTree extends JPanel
             	//iAncesTree.printCellHash();
                 //c = (Cell)iAncesTree.getCellsByName().get(cell);
             	c = (Cell)iAncesTree.getCellsByNameLowerCase().get(target);
-                //System.out.println("Got cell "+c.getName()+" from AncesTree");
+            	if (c != null)
+            		System.out.println("Got cell "+c.getName()+" from AncesTree");
+            	else
+            		System.out.println("Couldn't get cell from hash");
             }
-            else c = null;
+            else
+            	c = null;
 
             Cell csave = null;
             if (c != null) {
@@ -2886,11 +2888,6 @@ public class AceTree extends JPanel
         	return false;
         
         iTimeInc++;
-        if (iImage3D != null && iImage3D.getImage3DFrame().isVisible()) {
-        	iImage3D.insertContent(getImageTitle());
-        	// New 3D Viewer Code, to update upon clicking next
-            addNext3D();
-        }
 
         iCallSaveImage = true;
         int now = iImageTime + iTimeInc;
@@ -2920,18 +2917,13 @@ public class AceTree extends JPanel
         if (iImageTime + iTimeInc <= iStartingIndex)
         	return false;
         iTimeInc--;
-        if (iImage3D != null) {
-        	iImage3D.insertContent(getImageTitle());
-        }
-
-        // New 3D Viewer Code, to update upon clicking previous
-        addNext3D();
         
         iCallSaveImage = true;
         int now = iImageTime + iTimeInc;
         int start = 0;
         if (iCurrentCell != null) start = iCurrentCell.getTime();
-        if (now >= start) return true;
+        if (now >= start)
+        	return true;
         // a cell change occurs as we move to parent here
         //println("prevTime: " + iCurrentCell.getName() + CS + now);
         setCurrentCell(iCurrentCell, now, PREVTIME);
@@ -3329,8 +3321,7 @@ public class AceTree extends JPanel
             n.status = Nucleus.NILLI;
             break;
         }
-        prevTime();
-        updateDisplay();
+        prevImage();
 
         // added rebuild code
         clearTree();
@@ -3525,7 +3516,8 @@ public class AceTree extends JPanel
 			    if(iUseStack == 0)
 				{
 				    int k = s.lastIndexOf("-");
-				    s = s.substring(0, k);
+				    if (k != -1)
+				    	s = s.substring(0, k);
 				}
 			}
 			//System.out.println("AceTree.java 2692: " + s);
@@ -3607,6 +3599,13 @@ public class AceTree extends JPanel
 		if(iImgWin!=null)
 		    iImgWin.setSpecialEffect(null);
         boolean b = nextTime();
+        
+        if (iImage3D != null && iImage3D.getImage3DFrame().isVisible()) {
+        	iImage3D.insertContent(getImageTitle());
+        	// New 3D Viewer Code, to update upon clicking next
+            addNext3D();
+        }
+        
         updateDisplay();
         return b;
     }
@@ -3617,12 +3616,27 @@ public class AceTree extends JPanel
         boolean b = nextTime();
         for (int i = 0; i < 4 & b; i++)
         	b = nextTime();
+        
+        if (iImage3D != null && iImage3D.getImage3DFrame().isVisible()) {
+        	iImage3D.insertContent(getImageTitle());
+        	// New 3D Viewer Code, to update upon clicking next
+            addNext3D();
+        }
+        
         updateDisplay();
         return b;
     }
 
     public boolean prevImage() {
         boolean b = prevTime();
+        
+        if (iImage3D != null) {
+        	iImage3D.insertContent(getImageTitle());
+        }
+
+        // New 3D Viewer Code, to update upon clicking previous
+        addNext3D();
+        
         updateDisplay();
         return b;
     }
@@ -3633,6 +3647,14 @@ public class AceTree extends JPanel
         boolean b = prevTime();
         for (int i = 0; i < 4 & b; i++)
         	b = prevTime();
+        
+        if (iImage3D != null) {
+        	iImage3D.insertContent(getImageTitle());
+        }
+
+        // New 3D Viewer Code, to update upon clicking previous
+        addNext3D();
+        
         updateDisplay();
         return b;
     }

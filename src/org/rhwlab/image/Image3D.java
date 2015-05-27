@@ -314,10 +314,7 @@ public class Image3D extends MouseAdapter
         String s = "LEFT";
         Action left = new AbstractAction("LEFT") {
             public void actionPerformed(ActionEvent e) {
-            	//System.out.println("AceTree--left key pressed, " + e);
-                //System.out.println("AceTree--left key pressed, awt, " + awt);
-                iAceTree.prevTime();
-                iAceTree.updateDisplay();
+                iAceTree.prevImage();
             }
         };
         iTabbedPane.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(s), s);
@@ -329,18 +326,37 @@ public class Image3D extends MouseAdapter
         inputMap.put(stroke, actionKey);
         actionMap = iTabbedPane.getActionMap();
         actionMap.put(actionKey, left);
+        
+        // Fast (skipping a few planes) LEFT using CTRL
+        s = "shift LEFT";
+        Action shift_left = new AbstractAction() {
+        	public void actionPerformed(ActionEvent e) {
+        		iAceTree.prevImageFast();
+        	}
+        };
+        iTabbedPane.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(s), s);
+        iTabbedPane.getActionMap().put(s, shift_left);
 
         s = "RIGHT";
         Action right = new AbstractAction(s) {
             public void actionPerformed(ActionEvent e) {
                 //System.out.println("right key pressed");
-                if (iAceTree.nextTime()) iAceTree.updateDisplay();
+                iAceTree.nextImage();
             }
         };
-
         //AceTreeActions right = new AceTreeActions("RIGHT", 12345);
         iTabbedPane.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(s), s);
         iTabbedPane.getActionMap().put(s, right );
+        
+        // Fast (skipping a few planes) UP using CTRL
+        s = "shift RIGHT";
+        Action shift_right = new AbstractAction() {
+        	public void actionPerformed(ActionEvent e) {
+        		iAceTree.nextImageFast();
+        	}
+        };
+        iTabbedPane.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(s), s);
+        iTabbedPane.getActionMap().put(s, shift_right);
 
         actionKey = "d_right";
         stroke = KeyStroke.getKeyStroke("typed d");
