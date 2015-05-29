@@ -54,6 +54,7 @@ public class Config {
     public int			iStartTime;
     public FileError 	iImageFileError;
     public FileError	iZipFileError;
+    public int			iSplitChannelImage; // whether to split image into two channels for 16-bit mode
 
     //  private AceTree iAceTree;
     public String toString() {
@@ -73,6 +74,7 @@ public class Config {
         sb.append(NL + "iUseZip" + CS + iUseZip);
 		sb.append(NL + "iUseStack" + CS + iUseStack);
         sb.append(NL + "iAxisGiven" + CS + iAxisGiven);
+        sb.append(NL + "iSplitChannelImage" + CS + iSplitChannelImage);
 
         return sb.toString();
     }
@@ -95,11 +97,12 @@ public class Config {
     	
     	iImageFileError = null;
     	iZipFileError = null;
+    	
+    	iSplitChannelImage = 1; //default
     }
 
-    public Config(String configFile){//,AceTree at) {
+    public Config(String configFile){
     	this();
-	//	iAceTree=at;
     	iConfigFileName = configFile;
         int k = iConfigFileName.lastIndexOf(".");
         String s = iConfigFileName.substring(k + 1);
@@ -157,7 +160,8 @@ public class Config {
 	
         System.out.println("getStartingparams file is "+iConfigFileName+" parent "+iParent);
 
-        if (iParent == null) iParent = "./";
+        if (iParent == null)
+        	iParent = "./";
         boolean isabsolute = f.isAbsolute();
         String s = null;
         String s1 = null;
@@ -167,14 +171,17 @@ public class Config {
             BufferedReader  br = new BufferedReader(new InputStreamReader(fis));
             while (br.ready()) {
                 s = br.readLine();
-                //println("getStartingParms: " + s);
+                println("getStartingParms: " + s);
                 s = s.trim();
-                if (s.length() == 0) continue;
-                if(s.charAt(0) == '#') continue;
+                if (s.length() == 0)
+                	continue;
+                if(s.charAt(0) == '#')
+                	continue;
                 s1 = s.substring(0, s.indexOf(SEP));
                 s2 = s.substring(s.indexOf(SEP) + 2);
-                if (iConfigHash.containsKey(s1)) iConfigHash.put(s1, s2);
-
+                System.out.println("getStartingParms: "+s1+"..."+s2);
+                if (iConfigHash.containsKey(s1))
+                	iConfigHash.put(s1, s2);
             }
         } catch(IOException ioe) {
             System.out.println(HELPMSG + iConfigFileName);
@@ -184,7 +191,7 @@ public class Config {
         while (e.hasMoreElements()) {
             String key = (String)e.nextElement();
             String value = (String)iConfigHash.get(key);
-            //System.out.println(key + "\t" + value);
+            System.out.println(key + "\t" + value);
         }
         return true;
     }
@@ -250,7 +257,8 @@ public class Config {
 	    }
     
         setOptionalParms();
-        if (iTifPrefix == null) setOldStyleParms();
+        if (iTifPrefix == null)
+        	setOldStyleParms();
     }
 
     @SuppressWarnings("unused")
@@ -289,13 +297,14 @@ public class Config {
 		if (s!=null){
 		    sb = new StringBuffer();
 		    for (int i=0; i < s.length(); i++) {
-			char x = s.charAt(i);
-			if (x != '\\') sb.append(x);
-			else {
-			    sb.append('/');
-			    //i++;
-			}
-		    }
+				char x = s.charAt(i);
+				if (x != '\\')
+					sb.append(x);
+				else {
+				    sb.append('/');
+				    //i++;
+				}
+		    }	
 		    s = sb.toString();
 		    parent = s;
 		}
@@ -305,35 +314,26 @@ public class Config {
         
         
         s = (String)iConfigHash.get(configParams[USESTACK]);
-        if (s.length() > 0)
-        {
+        if (s.length() > 0) {
         	iUseStack = Integer.parseInt(s);
         }
-        else
-        {
+        else {
         	iUseStack = 0;
         }
         
-        
-        if (name.lastIndexOf('-') > name.lastIndexOf('_'))
-        {
-        	if (iUseStack == 0)
-	        {
+        if (name.lastIndexOf('-') > name.lastIndexOf('_')) {
+        	if (iUseStack == 0) {
 	        	k2 = k1 - 8;
 	        }
-	        else
-	        {
+	        else {
 	        	k2 = k1 - 4;
 	        }
         }
-        else
-        {
-        	if (iUseStack == 0)
-	        {
+        else {
+        	if (iUseStack == 0) {
 	        	//Is this format ever used?
 	        }
-	        else
-	        {
+	        else {
 	        	k2 = name.lastIndexOf('_') + 1;
 	        }
         }
@@ -395,26 +395,32 @@ public class Config {
         iStartingIndex = 1;
         iEndingIndex = 1;
         String s = (String)iConfigHash.get(configParams[ENDINGINDEX]);
-        if (s.length() > 0) iEndingIndex = Integer.parseInt(s);
+        if (s.length() > 0)
+        	iEndingIndex = Integer.parseInt(s);
 
         s = (String)iConfigHash.get(configParams[STARTINGINDEX]);
-        if (s.length() > 0) iStartingIndex = Integer.parseInt(s);
+        if (s.length() > 0)
+        	iStartingIndex = Integer.parseInt(s);
 
         iAxisGiven = (String)iConfigHash.get(configParams[AXISGIVEN]);
 
         // handle defaulted parameters
         s = (String)iConfigHash.get(configParams[USEZIP]);
-        if (s.length() > 0) iUseZip = Integer.parseInt(s);
+        if (s.length() > 0)
+        	iUseZip = Integer.parseInt(s);
 
         s = (String)iConfigHash.get(configParams[USESTACK]);
-        if (s.length() > 0)
-        {
+        if (s.length() > 0) {
         	iUseStack = Integer.parseInt(s);
         }
-        else
-        {
+        else {
         	iUseStack = 0;
         }
+        
+        s = (String)iConfigHash.get(configParams[SPLITCHANNELIMAGE]);
+        System.out.println("Got from iConfigHash: "+s);
+        if (s.length() > 0)
+        	iSplitChannelImage = Integer.parseInt(s);
 
         iNamingMethod = cDefaultNaming; //Identity3.NEWCANONICAL;
         s = (String)iConfigHash.get(configParams[NAMINGMETHOD]);
@@ -489,51 +495,6 @@ public class Config {
         }
         File file = fileChooser.getSelectedFile();
         writeXMLConfig(file);
-        /*
-        try {
-            FileOutputStream fos = new FileOutputStream(file);
-            PrintWriter pw = new PrintWriter(fos);
-            pw.println(BEGIN);
-
-            pw.println("");
-            pw.println(EMBRYO);
-            pw.println(TYPICALIMAGENAME + iTypicalImage + END);
-            pw.println(NUCLEI + iZipFileName + END);
-            if (iNamingMethod != Identity3.NEWCANONICAL) {
-                String namex = "";
-                if (iNamingMethod == Identity3.MANUAL) namex = "MANUAL";
-                else if (iNamingMethod == Identity3.STANDARD) namex = "STANDARD";
-                pw.println(NAMING + namex + END);
-            }
-            if (iEndingIndex != 9999) {
-                pw.println(ENDING + iEndingIndex + END);
-            }
-            if (iAxisGiven.length() > 0 && iNamingMethod == Identity3.NEWCANONICAL) {
-                pw.println(AXIS + iAxisGiven + END);
-            }
-            if (Math.abs(iPolar_size - POLARSIZENOMINAL) > 0) {
-                pw.println(POLAR + iPolar_size + END);
-            }
-            boolean needXyres = Math.abs(iXy_res - XYRESNOMINAL) > MARGIN;
-            boolean needZres = Math.abs(iZ_res - ZRESNOMINAL) > MARGIN;
-            boolean needPlaneEnd = (iPlaneEnd - PLANEENDNOMINAL) != 0;
-            if (needXyres || needZres || needPlaneEnd) {
-                pw.println(RESOLUTION + iXy_res + ZRESXML + iZ_res + PLANEENDXML + iPlaneEnd + END);
-            }
-
-            if (!iExprCorr.equals("none")) {
-                pw.println(EXPR_CORR + iExprCorr + END);;
-            }
-
-
-            pw.println(ENDEMBRYO);
-            pw.close();
-
-        } catch(FileNotFoundException fnfe) {
-            fnfe.printStackTrace();
-        }
-        */
-
     }
 
     public void writeXMLConfig(File file) {
@@ -569,15 +530,17 @@ public class Config {
             }
 
             if (!iExprCorr.equals("none")) {
-                pw.println(EXPR_CORR + iExprCorr + END);;
+                pw.println(EXPR_CORR + iExprCorr + END);
             }
-
+            
+            if (iSplitChannelImage != 1)
+            	pw.println("SPLIT_CHANNEL_IMAGE + 0 + END");
 
             pw.println(ENDEMBRYO);
             pw.close();
 
         } catch(FileNotFoundException fnfe) {
-            fnfe.printStackTrace();
+            System.out.println("File not found for Config.writeXMLConfig(File)");
         }
 
 
@@ -603,6 +566,7 @@ public class Config {
     ,EXPR_CORR = "<exprCorr type=\""
     ,USE_ZIP = "<useZip type=\""
 	,USE_STACK = "<useStack type=\""
+	,SPLIT_CHANNEL_IMAGE = "<splitChannelImage type=\""
     ;
 
     private void showStartingParms() {
@@ -617,6 +581,7 @@ public class Config {
         System.out.println("iUseZip: " + iUseZip);
         System.out.println("iUseStack: " + iUseStack);
         System.out.println("iStartTime: " + iStartTime);
+        System.out.println("iSplitChannelImage: " + iSplitChannelImage);
 
         System.out.println("showStartingParms end");
     }
@@ -657,11 +622,12 @@ public class Config {
            ,"zRes"
            ,"planeEnd"
            ,"exprCorr"
-		,"use stack"
+           ,"use stack"
            ,"angle"
            ,"center"
            ,"x"
            ,"y"
+           ,"splitChannelImage"
     };
 
     private static final int
@@ -682,6 +648,7 @@ public class Config {
         ,PLANEEND = 14
         ,EXPRCORR = 15
 		,USESTACK = 16
+		,SPLITCHANNELIMAGE = 21
         ;
 
     public static final float

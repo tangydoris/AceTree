@@ -308,33 +308,11 @@ public class AncesTree implements Comparator {
      * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
      */
     public int compare(Object o1, Object o2) {
-    	//System.out.println("AncesTree compare()...");
-        //Cell c1 = (Cell)o1;
-        //Cell c2 = (Cell)o2;
         String s1 = ((Cell)o1).getName();
         String s2 = ((Cell)o2).getName();
         if (s1.indexOf("Nuc") == 0 && s2.indexOf("Nuc") == 0) {
-        	/*
-            String ss1 = s1.substring(3);
-            String ss2 = s2.substring(3);
-            int k1 = numberEnd(ss1);
-            int k2 = numberEnd(ss2);
-            //System.out.println("compare: " + ss1 + CS + k1);
-            //System.out.println("compare: " + ss2 + CS + k2);
-            int n1 = Integer.parseInt(ss1.substring(0, k1));
-            int n2 = Integer.parseInt(ss2.substring(0, k2));
-            if (n1 < n2) 
-            	return -1;
-            if (n1 > n2) 
-            	return 1;
-        	*/
-        	
-        	// Try to use string's compareTo method instead
-        	// Integer.parseInt takes too long
-        	if (s1.compareTo(s2) < 0)
-        		return -1;
-        	if (s1.compareTo(s2) > 0)
-        		return 1;
+        	// Integer.parseInt takes too long, use String compareTo instead
+        	return s1.compareTo(s2);
         }
     	return 0;
     }

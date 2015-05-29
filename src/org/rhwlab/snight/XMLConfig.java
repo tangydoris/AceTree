@@ -49,6 +49,7 @@ public class XMLConfig implements DocHandler {
     public XMLConfig(String fileName, Config config) {
     	iConfig = config;
         try {
+        	System.out.println("HEREERERE");
             FileReader fr = new FileReader(fileName);
             QDParser.parse(this, fr);
         } catch(FileNotFoundException fnfe) {
@@ -114,7 +115,10 @@ public class XMLConfig implements DocHandler {
             iConfig.iConfigHash.put("use zip", useZip);
         } else if (tag.equals("useStack")) {
             String useStack = (String)h.get("type");
-            iConfig.iConfigHash.put("use stack", useStack);          
+            iConfig.iConfigHash.put("use stack", useStack);   
+        } else if (tag.equals("splitChannelImage")) {
+        	String splitChannelImage = (String)h.get("type");
+        	iConfig.iConfigHash.put("splitChannelImage", splitChannelImage);
         } else if (tag.equals("angle")) {
         	String degrees = (String)h.get("degrees");
         	iConfig.iConfigHash.put("angle", degrees);

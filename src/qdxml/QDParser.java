@@ -29,7 +29,8 @@ public class QDParser {
     DOCTYPE = 14,
     PRE = 15,
     CDATA = 16;
-  public static void parse(DocHandler doc,Reader r) throws Exception {
+  
+  public static void parse(DocHandler doc, Reader r) throws Exception {
     Stack<Integer> st = new Stack<Integer>();
     int depth = 0;
     int mode = PRE;
@@ -188,20 +189,21 @@ public class QDParser {
       // <foo a="b"/
       // and are looking for the final >.
       } else if(mode == SINGLE_TAG) {
-	if(tagName == null)
-	  tagName = sb.toString();
-        if(c != '>')
-	  exc("Expected > for tag: <"+tagName+"/>",line,col);
-	doc.startElement(tagName,attrs);
-	doc.endElement(tagName);
-	if(depth==0) {
-	  doc.endDocument();
-	  return;
-	}
-	sb.setLength(0);
-	attrs = new Hashtable<String, String>();
-	tagName = null;
-	mode = popMode(st);
+		if(tagName == null)
+		  tagName = sb.toString();
+	    if(c != '>')
+		  exc("Expected > for tag: <"+tagName+"/>",line,col);
+	    System.out.println("tagname: "+tagName);
+		doc.startElement(tagName, attrs);
+		doc.endElement(tagName);
+		if(depth==0) {
+		  doc.endDocument();
+		  return;
+		}
+		sb.setLength(0);
+		attrs = new Hashtable<String, String>();
+		tagName = null;
+		mode = popMode(st);
 
       // we are processing something
       // like this <foo ... >.  It could
@@ -240,6 +242,7 @@ public class QDParser {
         if(c == quotec) {
 	  rvalue = sb.toString();
 	  sb.setLength(0);
+	  System.out.println("lvalue, rvalue: "+lvalue+", "+rvalue);
 	  attrs.put(lvalue,rvalue);
 	  mode = IN_TAG;
 	// See section the XML spec, section 3.3.3

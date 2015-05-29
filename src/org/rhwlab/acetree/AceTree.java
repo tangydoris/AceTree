@@ -624,7 +624,6 @@ public class AceTree extends JPanel
 	    	}
     	} catch (Throwable t) {
 			new GeneralStartupError(getMainFrame(), t);
-
     	}
         
     }
@@ -996,7 +995,8 @@ public class AceTree extends JPanel
         //NucUtils.setNucleiMgr(iNucleiMgr);
         ImageWindow.setNucleiMgr(iNucleiMgr);
         ImageWindow.setStaticParameters(iNucleiMgr.getConfig().iZipTifFilePath,
-                iNucleiMgr.getConfig().iTifPrefix, iNucleiMgr.getConfig().iUseZip);
+                iNucleiMgr.getConfig().iTifPrefix, iNucleiMgr.getConfig().iUseZip,
+                iNucleiMgr.getConfig().iSplitChannelImage);
 
         System.out.println("StartingIndex: " + iStartingIndex);
         System.out.println("EndingIndex: " + iEndingIndex);

@@ -507,7 +507,8 @@ public class NucleiMgrHeadless extends NucleiMgr {
         ImageWindow.setStaticParameters(
                 iConfig.iZipTifFilePath
                 ,iConfig.iTifPrefix
-                ,iConfig.iUseZip);
+                ,iConfig.iUseZip
+                ,iConfig.iSplitChannelImage);
     }
 
     //public Identity getIdentity() {
