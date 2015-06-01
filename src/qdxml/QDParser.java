@@ -193,7 +193,7 @@ public class QDParser {
 		  tagName = sb.toString();
 	    if(c != '>')
 		  exc("Expected > for tag: <"+tagName+"/>",line,col);
-	    System.out.println("tagname: "+tagName);
+	    //System.out.println("tagname: "+tagName);
 		doc.startElement(tagName, attrs);
 		doc.endElement(tagName);
 		if(depth==0) {
@@ -242,7 +242,7 @@ public class QDParser {
         if(c == quotec) {
 	  rvalue = sb.toString();
 	  sb.setLength(0);
-	  System.out.println("lvalue, rvalue: "+lvalue+", "+rvalue);
+	  //System.out.println("lvalue, rvalue: "+lvalue+", "+rvalue);
 	  attrs.put(lvalue,rvalue);
 	  mode = IN_TAG;
 	// See section the XML spec, section 3.3.3

@@ -768,7 +768,7 @@ public class ImageWindow extends JFrame implements  KeyListener, Runnable {
 			      bpixels[y]=(byte)val;
 		    }  
 		    
-	        System.out.println("min "+minval+" max "+maxval+"\n"); 
+	        //System.out.println("min "+minval+" max "+maxval+"\n"); 
 		    ip=new ByteProcessor(ip.getWidth(),ip.getHeight());
 		    ip.setPixels(bpixels);
 		    
@@ -854,7 +854,6 @@ public class ImageWindow extends JFrame implements  KeyListener, Runnable {
             }
         } else {
             //System.out.println("getRedChannel, file does not exist");
-
         }
         return R;
     }
@@ -1231,7 +1230,7 @@ public class ImageWindow extends JFrame implements  KeyListener, Runnable {
         int mods = e.getModifiers();
         boolean shift = (mods & InputEvent.SHIFT_MASK) == InputEvent.SHIFT_MASK;
         boolean ctrl = (mods & InputEvent.CTRL_MASK) == InputEvent.CTRL_MASK;
-        println("ImageWindow.keyPressed, " + code + CS + shift + CS + ctrl + CS + e);
+        //println("ImageWindow.keyPressed, " + code + CS + shift + CS + ctrl + CS + e);
         if (shift || ctrl) sendToEIDialog2(code, shift, ctrl);
         else {
         switch(code) {
@@ -1559,7 +1558,6 @@ public class ImageWindow extends JFrame implements  KeyListener, Runnable {
     private void showWhichAnnotations() {
         for (int i=0; i < iAnnotsShown.size(); i++) {
             System.out.println((AnnotInfo)iAnnotsShown.elementAt(i));
-
         }
 
     }
