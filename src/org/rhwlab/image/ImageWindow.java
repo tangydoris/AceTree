@@ -261,7 +261,7 @@ public class ImageWindow extends JFrame implements  KeyListener, Runnable {
         iSlider1min = iSlider1max = iSlider2min = iSlider2max = null;
         
         // Original contrast percentages
-        System.out.println("ImageWindow set default contrast values: 0 to max16bit/max8bit");
+        //System.out.println("ImageWindow set default contrast values: 0 to max16bit/max8bit");
         contrastmin1 = contrastmin2 = 0;
         if (imagewindowUseStack == 1)
         	contrastmax1 = contrastmax2 = MAX16BIT;
@@ -345,7 +345,8 @@ public class ImageWindow extends JFrame implements  KeyListener, Runnable {
             cImageHeight = ip.getHeight();
             //System.out.println("***ImageWindow: " + cImageWidth + CS + cImageHeight);
         }
-        if (ip == null) return iImgPlus;
+        if (ip == null)
+        	return iImgPlus;
         else return ip;
     } 
      
@@ -354,7 +355,7 @@ public class ImageWindow extends JFrame implements  KeyListener, Runnable {
     }
 
     public static ImagePlus makeImage2(String s, int iplane, int ustack) {
-    	System.out.println("ImageWindow.makeImage2: "+s);
+    	//System.out.println("ImageWindow.makeImage2: "+s);
         cCurrentImageFile = s;
         ImagePlus ip = null;
 
@@ -465,18 +466,6 @@ public class ImageWindow extends JFrame implements  KeyListener, Runnable {
 	    	//System.out.println("ImageWindow doMakeImageFromTif using stack: 1");
 	    	try {
 	    		ip = new Opener().openImage(ss, imagewindowPlaneNumber);
-	    		
-	    		if (setOriginalContrastValues){
-	    			// Set contrast values from original image
-	    			int ipmin = (int)(ip.getDisplayRangeMin());
-	    			int ipmax = (int)(ip.getDisplayRangeMax());
-	                System.out.println("ImageWindow set Red min, max from image: "+ipmin+CS+ipmax);
-	                ImageWindow.contrastmin1 = ipmin;
-	                ImageWindow.contrastmax1 = ipmax;
-	                ImageWindow.contrastmin2 = ipmin;
-	                ImageWindow.contrastmax2 = ipmax;
-	                setOriginalContrastValues = false;
-	    		}
 	    	} catch (IllegalArgumentException iae) {
 	    		System.out.println("Exception in ImageWindow.doMakeImageFromTif(String)");
             	System.out.println("TIFF file required.");
@@ -638,22 +627,52 @@ public class ImageWindow extends JFrame implements  KeyListener, Runnable {
 			
 			if (cSplitChannelImage == 1) {
 				iproc.setRoi(new Rectangle(ip.getWidth()/2, 0, ip.getWidth()/2, ip.getHeight()));
-				ImageProcessor cropped = iproc.crop();
+				ImageProcessor croppedR = iproc.crop();
+				ImagePlus croppedIPR = new ImagePlus(ip.getTitle(), croppedR);
+				
 				iproc.setRoi(new Rectangle(0, 0, ip.getWidth()/2, ip.getHeight()));
-				ImageProcessor cropped2 = iproc.crop();
+				ImageProcessor croppedG = iproc.crop();
+				ImagePlus croppedIPG = new ImagePlus(ip.getTitle(), croppedG);
 				
-				// Crop 16-bit color values to 8-bit
-			    // 20, 235 hardcorded values for 8-bit scale
-				//System.out.println("Green channel: "+contrastmin1+CS+contrastmax1);
-				//System.out.println("Red channel: "+contrastmin2+CS+contrastmax2);
-				cropped = convertTo8Bits(cropped, (float)contrastmin1, (float)contrastmax1, 20, 235);
-				cropped2 = convertTo8Bits(cropped2, (float)contrastmin2, (float)contrastmax2, 20, 235);
+				if (setOriginalContrastValues){
+	    			// Set contrast values from original image
+	    			int ipminred = (int)(croppedIPR.getDisplayRangeMin());
+	    			int ipmaxred = (int)(croppedIPR.getDisplayRangeMax());
+	                System.out.println("ImageWindow set Red min, max from image: "+ipminred+CS+ipmaxred);
+	                ImageWindow.contrastmin1 = ipminred;
+	                ImageWindow.contrastmax1 = ipmaxred;
+	                
+	                int ipmingre = (int)(croppedIPG.getDisplayRangeMin());
+	    			int ipmaxgre = (int)(croppedIPG.getDisplayRangeMax());
+	    			System.out.println("ImageWindow set Green min, max from image: "+ipmingre+CS+ipmaxgre);
+	                ImageWindow.contrastmin2 = ipmingre;
+	                ImageWindow.contrastmax2 = ipmaxgre;
+	                
+	                setOriginalContrastValues = false;
+	    		}
 				
-				R = (byte [])cropped.getPixels();
-				G = (byte [])cropped2.getPixels();
+				croppedIPR.setDisplayRange((double)contrastmin1, (double)contrastmax1);
+				croppedIPG.setDisplayRange((double)contrastmin2, (double)contrastmax2);
+				ImageConverter ic1 = new ImageConverter(croppedIPR);
+				ImageConverter ic2 = new ImageConverter(croppedIPG);
+				ic1.convertToGray8();
+				ic2.convertToGray8();
+				
+				ImageProcessor convertedR = croppedIPR.getProcessor();
+				ImageProcessor convertedG = croppedIPG.getProcessor();
+				R = (byte [])convertedR.getPixels();
+				G = (byte [])convertedG.getPixels();
 			}
 			else {
-				//ImageProcessor converted = convertTo8Bits(iproc, (float)contrastmin2, (float)contrastmin2, 20, 250);
+				if (setOriginalContrastValues){
+	    			// Set contrast values from original image
+	    			int ipmingre = (int)(ip.getDisplayRangeMin());
+	    			int ipmaxgre = (int)(ip.getDisplayRangeMax());
+	                System.out.println("ImageWindow set Green min, max from image: "+ipmingre+CS+ipmaxgre);
+	                ImageWindow.contrastmin2 = ipmingre;
+	                ImageWindow.contrastmax2 = ipmaxgre;                
+	                setOriginalContrastValues = false;
+	    		}
 				ip.setDisplayRange((double)contrastmin2, (double)contrastmax2);
 				ImageConverter ic = new ImageConverter(ip);
 				ic.convertToGray8();
@@ -673,7 +692,9 @@ public class ImageWindow extends JFrame implements  KeyListener, Runnable {
     		FileInfo fi = new FileInfo();
     		fi = ip.getFileInfo();
     		if (fi.getBytesPerPixel() != 8) {
-    			ip = convertTo8Bits(ip);
+    			//ip = convertTo8Bits(ip);
+    			ImageConverter ic = new ImageConverter(ip);
+    			ic.convertToGray8();
     		}
 	            
 	        ImageProcessor iproc = ip.getProcessor();
@@ -692,7 +713,10 @@ public class ImageWindow extends JFrame implements  KeyListener, Runnable {
 	        iBpix = B;
 	        return buildImagePlus(ip);
 		}
-	 }
+    }
+    
+    // Try not to use this, stick with ImageJ classes
+    /*
     private static ImageProcessor convertTo8Bits(ImageProcessor ip, float tone, float ttwo, float toneb, float ttwob) {
 	    // if already byte image do nothing
 	    if(ip instanceof ByteProcessor) 
@@ -735,7 +759,10 @@ public class ImageWindow extends JFrame implements  KeyListener, Runnable {
 	   ip.setPixels(bpixels);
 	   return ip;
     }
-
+    */
+    
+    // Try not to use this, stick with ImageJ classes
+    /*
     @SuppressWarnings("unused")
 	private static ImagePlus convertTo8Bits(ImagePlus img) {
 		ImageProcessor ip = img.getProcessor();
@@ -777,6 +804,7 @@ public class ImageWindow extends JFrame implements  KeyListener, Runnable {
 		}
 		return img;
     }
+    */
 
 
     private static ImagePlus buildImagePlus(ImagePlus ip) {
@@ -836,14 +864,17 @@ public class ImageWindow extends JFrame implements  KeyListener, Runnable {
            
 	    	if (imagewindowUseStack==1){
 	    ip = new Opener().openImage(fileName,imagewindowPlaneNumber);
-	}else{
-	    ip = new Opener().openImage(fileName);
-	}
+		}
+	    else{
+		    ip = new Opener().openImage(fileName);
+		}
 		FileInfo fi = new FileInfo();
     		fi = ip.getFileInfo();		    		
     	    if (fi.getBytesPerPixel() != 8)
     	    {
-    	        ip = convertTo8Bits(ip);
+    	        //ip = convertTo8Bits(ip);
+    	    	ImageConverter ic = new ImageConverter(ip);
+    	    	ic.convertToGray8();
     	    }
 
             if (ip != null) {
@@ -1131,7 +1162,7 @@ public class ImageWindow extends JFrame implements  KeyListener, Runnable {
             //setTitle(iTitle);
             setTitle(imageName.substring(4,imageName.length()));
         }
-        System.out.println("ImageWindow.refreshDisplay2: " + imageName);
+        //System.out.println("ImageWindow.refreshDisplay2: " + imageName);
         if (iIsMainImgWindow) {
             iTimeInc = iAceTree.getTimeInc();
             iPlaneInc = iAceTree.getPlaneInc();

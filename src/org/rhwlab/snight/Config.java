@@ -587,14 +587,14 @@ public class Config {
     }
 
     public String getShortName() {
-    	System.out.println("Configuration file name: "+iConfigFileName);
+    	//System.out.println("Configuration file name: "+iConfigFileName);
         String s = iConfigFileName;
         return getShortName(s);
     }
 
     public static String getShortName(String longName) {
         int k = longName.lastIndexOf("/");
-        System.out.println("Configutation file name (short): "+longName.substring(k + 1));
+        //System.out.println("Configuration file name (short): "+longName.substring(k + 1));
         return longName.substring(k + 1);
     }
 

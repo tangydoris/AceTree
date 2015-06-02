@@ -78,7 +78,7 @@ public class Identity3 {
         if (newstart >= 1) {
             InitialID initID = new InitialID(iNucleiMgr, iParameters);
             int mm = initID.initialID(start, lineage_ct_p);
-            System.out.println("InitialID.initialID returmed mm: "+mm);
+            //System.out.println("InitialID.initialID returmed mm: "+mm);
         	if (mm > 0) {
         		System.out.println("detected backtrace failure, lineage from start");
         		start[0] = 0; //start from scratch on failure of initialID

@@ -866,8 +866,8 @@ public class AncesTree implements Comparator {
     
     // Used for debugging long loading time from .xml file with many top level elements
     public void printCounts() {
-    	System.out.println("checkDaughters called: "+checkDaughtersCount+" times.");
-    	System.out.println("processRootCell called: "+processRootCount+" times.");
+    	//System.out.println("checkDaughters called: "+checkDaughtersCount+" times.");
+    	//System.out.println("processRootCell called: "+processRootCount+" times.");
     }
 
     private void checkForCellDeath(Nucleus n, int index, String hashKey) {

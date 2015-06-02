@@ -49,7 +49,6 @@ public class XMLConfig implements DocHandler {
     public XMLConfig(String fileName, Config config) {
     	iConfig = config;
         try {
-        	System.out.println("HEREERERE");
             FileReader fr = new FileReader(fileName);
             QDParser.parse(this, fr);
         } catch(FileNotFoundException fnfe) {

@@ -1960,7 +1960,7 @@ public class AceTree extends JPanel
 				 //iImgWin = new ImageWindow( cfile, ip);
 				try {
 					iImgWin = new ImageWindow(iTifPrefix + cfile, ip, iPlayerControl);
-					System.out.println("AceTree passing to ImageWindow title: "+iTifPrefix + cfile);
+					//System.out.println("AceTree passing to ImageWindow title: "+iTifPrefix + cfile);
 	                iImgWin.setAceTree(this);
 	                // Pass list of bookmarked cells to ImageWindow
 	                if (iBookmarkJList != null)
