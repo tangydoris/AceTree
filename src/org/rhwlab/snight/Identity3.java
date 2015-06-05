@@ -24,7 +24,7 @@ public class Identity3 {
     int							iStartTime;
 
     public Identity3(NucleiMgr nucleiMgr) {
-    	System.out.println("Identity3 construtor called.");
+    	//System.out.println("Identity3 construtor called.");
     	iNucleiMgr = nucleiMgr;
         iNamingMethod = iNucleiMgr.getConfig().iNamingMethod;
         nuclei_record = iNucleiMgr.getNucleiRecord();
@@ -40,7 +40,7 @@ public class Identity3 {
     // Called by NucleiMgr processNuclei method
     @SuppressWarnings("unused")
 	public void identityAssignment() {
-    	println("Identity3.identityAssighment, entered");
+    	println("Identity3.identityAssignment, entered");
     	if (iNamingMethod == MANUAL) {
     		println("identityAssignment, skip naming due to MANUAL naming method");
     		return;
@@ -114,23 +114,32 @@ public class Identity3 {
             Nucleus nucleij = null;
             for (int j = 0; j < nuc_ct; j++) {
                 nucleij = (Nucleus)nuclei.elementAt(j);
-                if (nucleij.status == Nucleus.NILLI)
+                if (nucleij.status == Nucleus.NILLI) {
+                	//System.out.println("Time "+i+", no predecessor for "+nucleij.identity);
                 	continue;
+                }
                 if (nuclei_prev != null && nucleij.predecessor != Nucleus.NILLI) {	
                     Nucleus pred = (Nucleus)nuclei_prev.elementAt(nucleij.predecessor - 1);
+                    if (pred.identity == "") {
+                    	int z = (int)Math.round(pred.z);
+                		pred.identity = NUC + EUtils.makePaddedInt(i) + "_" + z + "_" + pred.x + "_" + pred.y;
+                    }
                     if (pred.successor2 == Nucleus.NILLI) {
                      	nucleij.identity = pred.identity;
                        	continue;
-                    } else {
+                    }
+                    else {
                        	// case of dividing pred
                        	Nucleus sister = (Nucleus)nuclei.get(pred.successor2 - 1);
                        	// Nucleus doesn't have forced name
+                       	
                        	if (!nucleij.assignedID.equals(""))
                        		nucleij.identity = nucleij.assignedID;
                        	else {
 	                       	nucleij.identity = pred.identity + "a";
 	                       	sister.identity = pred.identity + "p";
                        	}
+	                       	
                        	/*
                        	if (nucleij.identity.startsWith("A"))
                        		System.out.println("Identity, sister identity: "+nucleij.identity+", "+sister.identity);
@@ -138,9 +147,9 @@ public class Identity3 {
                        	continue;
                     }
                 } else {
+                	//System.out.println("No previous nuclei time-record");
                  	// this is the first encounter of this nucleus
                    	//nucleij.identity = NUC + iNucCount++;
-                	//println("identityAssignment adding nuc, " + nucleij);
                 	int z = (int)Math.round(nucleij.z);
 
                 	if (nucleij.assignedID.equals("")) {
@@ -235,7 +244,7 @@ public class Identity3 {
                 	else
                 		pname = parent.assignedID;
                     parent.identity = pname;
-                	//println("useCanoncalRules, adding nuc, " + parent);
+                	//println("useCanoncalRules, adding nuc, " + parent.identity);
                 }
                 if (pname.equals("ABplr") || parent.assignedID.equals("ABplr")) {
                 	int kkkk = 0;
@@ -247,6 +256,7 @@ public class Identity3 {
                         Nucleus n = (Nucleus)nextNuclei.elementAt(parent.successor1 - 1);
                         if (n.assignedID.length() <= 0) {
                             //println("useCanonicalRules, XXXXXX, " + i + CS + j + CS + parent.identity + CS + parent.status + CS + n.identity);
+                        	//println("useCanonicalRules, XXXXXX, "+parent.identity);
                         	n.identity = pname;
                         } else {
                         	int kkk = 0;

@@ -34,7 +34,7 @@ public class InitialID {
 		iMeasureCSV = iNucleiMgr.getMeasureCSV();
 		getCoordinateParms();
 
-		println("InitialID, measureCSV,");
+		println("InitialID measureCSV: ");
 		println("" + iMeasureCSV);
 
 	}
@@ -91,11 +91,12 @@ public class InitialID {
         int nuc_ct = nuclei.size();
         int cell_ct = countCells(nuclei);
         if (cell_ct <= 6) {
+        	System.out.println("<= 6 cells");
             polarBodies();
             cell_ct = countCells(nuclei);
         }
-
         if (cell_ct > 4) {
+        	System.out.println("> 4 cells");
             Nucleus nucleij = null;
             for (int j=0; j < nuc_ct; j++) {
                 nucleij = (Nucleus)nuclei.elementAt(j);

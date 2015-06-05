@@ -8,6 +8,8 @@ package org.rhwlab.snight;
 
 import java.text.DecimalFormat;
 
+import org.rhwlab.utils.EUtils;
+
 /**
  * a class to emulate the Nucleus_t struct in StarryNight
  * <br> all member variables have public access; this makes
@@ -97,6 +99,11 @@ public class Nucleus implements java.util.Comparator {
         y = Integer.parseInt(sa[Y]);
         z = Float.parseFloat(sa[Z]);
         identity = sa[IDENTITY];
+        /*
+        if (identity.isEmpty()) {
+        	identity = "Nuc" + EUtils.makePaddedInt(index) + "_" + (Math.round(z)) + "_" + x + "_" + y;
+        }
+        */
         size = Integer.parseInt(sa[SIZE]);
         weight = Integer.parseInt(sa[WT]);
         // try..catch works around series without red data
@@ -275,12 +282,18 @@ public class Nucleus implements java.util.Comparator {
         s += new DecimalFormat("00  ").format(size);
         s += new DecimalFormat("000000  ").format(weight);
         s += new DecimalFormat("00  ").format(status);
-        if (predecessor == NILLI) s += NILL + "  ";
-        else s += new DecimalFormat(" 000 ").format(predecessor);
-        if (successor1 == NILLI) s += NILL + "  ";
-        else s += new DecimalFormat("000  ").format(successor1);
-        if (successor2 == NILLI) s += "";
-        else s += new DecimalFormat("000  ").format(successor2);
+        if (predecessor == NILLI)
+        	s += NILL + "  ";
+        else
+        	s += new DecimalFormat(" 000 ").format(predecessor);
+        if (successor1 == NILLI)
+        	s += NILL + "  ";
+        else
+        	s += new DecimalFormat("000  ").format(successor1);
+        if (successor2 == NILLI)
+        	s += "";
+        else
+        	s += new DecimalFormat("000  ").format(successor2);
         return s;
     }
     

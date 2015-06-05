@@ -1700,7 +1700,7 @@ public class AceTree extends JPanel
         s = "UP";
         Action up = new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
-                System.out.println("up key pressed");
+                //System.out.println("up key pressed");
                 incPlane(-1);
                 iTrackPosition = ImageWindow.NONE;
                 updateDisplay();
@@ -1719,7 +1719,7 @@ public class AceTree extends JPanel
         s = "shift UP";
         Action shift_up = new AbstractAction() {
         	public void actionPerformed(ActionEvent e) {
-        		System.out.println("shift-up key pressed--skipping planes");
+        		//System.out.println("shift-up key pressed--skipping planes");
         		incPlane(-5);
         		iTrackPosition = ImageWindow.NONE;
         		updateDisplay();
@@ -1731,7 +1731,7 @@ public class AceTree extends JPanel
         s = "DOWN";
         Action down = new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
-                System.out.println("down key pressed");
+                //System.out.println("down key pressed");
                 incPlane(1);
                 iTrackPosition = ImageWindow.NONE;
                 updateDisplay();
@@ -1751,7 +1751,7 @@ public class AceTree extends JPanel
         s = "shift DOWN";
         Action shift_down = new AbstractAction() {
         	public void actionPerformed(ActionEvent e) {
-        		System.out.println("shift-down key pressed--skipping planes");
+        		//System.out.println("shift-down key pressed--skipping planes");
         		incPlane(5);
         		iTrackPosition = ImageWindow.NONE;
         		updateDisplay();
@@ -1764,7 +1764,7 @@ public class AceTree extends JPanel
         s = "LEFT";
         Action left = new AbstractAction("LEFT") {
 			public void actionPerformed(ActionEvent e) {
-            	System.out.println("LEFT pressed.");
+            	//System.out.println("LEFT pressed.");
                 prevImage();
             }
         };
@@ -1782,7 +1782,7 @@ public class AceTree extends JPanel
         s = "shift LEFT";
         Action shift_left = new AbstractAction() {
         	public void actionPerformed(ActionEvent e) {
-        		System.out.println("shift-left key pressed--skipping times");
+        		//System.out.println("shift-left key pressed--skipping times");
         		prevImageFast();
         	}
         };
@@ -1793,7 +1793,7 @@ public class AceTree extends JPanel
         s = "RIGHT";
         Action right = new AbstractAction(s) {
             public void actionPerformed(ActionEvent e) {
-            	System.out.println("RIGHT pressed.");
+            	//System.out.println("RIGHT pressed.");
             	nextImage();
             }
         };
@@ -1813,7 +1813,7 @@ public class AceTree extends JPanel
         s = "shift RIGHT";
         Action shift_right = new AbstractAction() {
         	public void actionPerformed(ActionEvent e) {
-        		System.out.println("shift-right key pressed--skipping times");
+        		//System.out.println("shift-right key pressed--skipping times");
         		nextImageFast();
         	}
         };
@@ -2774,9 +2774,7 @@ public class AceTree extends JPanel
             	//iAncesTree.printCellHash();
                 //c = (Cell)iAncesTree.getCellsByName().get(cell);
             	c = (Cell)iAncesTree.getCellsByNameLowerCase().get(target);
-            	if (c != null)
-            		System.out.println("Got cell "+c.getName()+" from AncesTree");
-            	else
+            	if (c == null)
             		System.out.println("Couldn't get cell from hash");
             }
             else

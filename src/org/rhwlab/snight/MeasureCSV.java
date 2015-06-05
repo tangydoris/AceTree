@@ -119,8 +119,6 @@ public class MeasureCSV {
         }
         pw.println(sb.toString());
         pw.close();
-
-
     }
 
     public static String [] att = {

@@ -20,6 +20,7 @@ import java.util.StringTokenizer;
 import java.util.Vector;
 import java.util.zip.ZipEntry;
 
+
 //import org.rhwlab.acetree.*;
 //import org.rhwlab.acetree.AceTree;
 import org.rhwlab.acetree.NucUtils;
@@ -118,6 +119,7 @@ public class NucleiMgr {
 
         String measureCSVpath = configFileName.substring(0, k2) + "AuxInfo.csv";
         //println("NucleiMgr, " + measureCSVpath + CS + DBAccess.cDBLocation);
+        System.out.println("NucleiMgr measureCSVpath: "+measureCSVpath);
         iMeasureCSV = new MeasureCSV(measureCSVpath);
         println(iMeasureCSV.toString());
         String s2 = configFileName.substring(k2 + 1);
@@ -240,11 +242,11 @@ public class NucleiMgr {
             iZipNuclei = new ZipNuclei(zipPath);
             if (iZipNuclei.iZipFile != null) {
                 //20060719 readEditLog(iEditLog);
-            	//long timeStart = System.nanoTime();
+            	long timeStart = System.nanoTime();
                 readNuclei();
-                //long timeEnd = System.nanoTime();
-                //double timeDiff = (timeEnd-timeStart)/1e6;
-                //System.out.println("Time to read nuclei in constructor(Config c): "+timeDiff+" ms.");
+                long timeEnd = System.nanoTime();
+                double timeDiff = (timeEnd-timeStart)/1e6;
+                System.out.println("Time to read nuclei in constructor(Config c): "+timeDiff+" ms.");
                 getScopeParameters();
                 findImageParameters();
                 iGoodNucleiMgr = true;
@@ -487,7 +489,7 @@ public class NucleiMgr {
         Nucleus n = null;
         int debugCount = 0;
         System.out.println("readNuclei:2 " + iMovie.time_end + CS + iMovie.time_start);
-
+        
         // Try this way of iterating through zip entries
         //InputStream is = getInputStream 
         //ZipEntry ze = null;
@@ -531,18 +533,30 @@ public class NucleiMgr {
                     //if (index == 199) println("\n\nREADNUCLEI: " + s);
                     try {
                         String [] sa;
-                        if (newFormat) sa = getTokens(s, 0);
-                        else sa = getTokens(s);
+                        if (newFormat)
+                        	sa = getTokens(s, 0);
+                        else
+                        	sa = getTokens(s);
                         if (sa[0] != null
                             && (sa[0].length() > 0
                             && Integer.parseInt(sa[0]) != j++)) {
                             break;
                         }
-                        if (newFormat) n = new Nucleus(sa);
-                        else n = new Nucleus(sa, !newFormat);
+                        if (newFormat) {
+                        	n = new Nucleus(sa);
+                        	/*
+                        	if (n.identity.isEmpty() || n.identity == null)
+                        		System.out.println("No name for nucleus: "+n);
+                        	System.out.println("Created nucleus: ("+n.identity+")");
+                        	*/
+                        }
+                        else
+                        	n = new Nucleus(sa, !newFormat);
+                        
                         v.add(n);
                         s = zn.readLine(ze);
-                    } catch(Exception ee) {
+                    }
+                    catch(Exception ee) {
                         System.out.println("readNuclei exception: " + ee);
                         System.out.println(s);
                         System.out.println("time=" + index + ", j = " + j);
@@ -579,6 +593,19 @@ public class NucleiMgr {
         println("readNuclei: at end, nuclei_record.size: " + nuclei_record.size());
 
         System.out.println("readNuclei:3 " + iMovie.time_end + CS + iMovie.time_start);
+        
+        // For debugging to see if all nuclei information was correctly read from zip file
+        /*
+        for (int i = 0; i < nuclei_record.size(); i++) {
+        	System.out.println(i);
+        	Vector v = (Vector)nuclei_record.elementAt(i);
+        	Enumeration en = v.elements();
+        	while (en.hasMoreElements()) {
+        		Nucleus temp = (Nucleus)en.nextElement();
+        		System.out.println(temp.identity);
+        	}
+        }
+        */
         
         return nuclei_record.size();
     }
@@ -685,7 +712,7 @@ public class NucleiMgr {
         mz *= iZPixRes;
         for (int j=0; j < nuclei.size(); j++) {
             Nucleus n = (Nucleus)nuclei.elementAt(j);
-            System.out.print("findClosest..: " + n);
+            //System.out.print("findClosest..: " + n);
             if (n.status == -1) continue;
             x = n.x;
             y = n.y;
@@ -815,7 +842,6 @@ public class NucleiMgr {
             }
         }
         return r;
-
     }
 
     public double nucDiameter(Nucleus n, double imgPlane) {
@@ -928,7 +954,10 @@ public class NucleiMgr {
         for (int i=0; i < iEndingIndex; i++) {
             nuclei_record.add(new Vector());
             n = new Nucleus(true); // a fake nucleus
-            if (i == 0) n.predecessor = -1;
+            if (i == 0) {
+            	//System.out.println("NucleiMgr set predecessor to -1 for: "+n.identity);
+            	n.predecessor = -1;
+            }
             ((Vector)nuclei_record.elementAt(i)).add(n);
         }
     }
@@ -1020,8 +1049,6 @@ public class NucleiMgr {
         if (iStartingIndex < iStartTime)
         	newstart = iStartTime;
         iAncesTree = new AncesTree(null, this, newstart, iEndingIndex);
-    	//println("reviewNuclei, 4");
-    	//reviewNuclei();
         Cell PP = (Cell)iAncesTree.getCellsByName().get("P");
         long timeEnd = System.nanoTime();
         double timeDiff = (timeEnd-timeStart)/1e6;
@@ -1164,11 +1191,13 @@ public class NucleiMgr {
         //for (int i=iStartingIndex - 1; i < iEndingIndex; i++) {
         for (int i=iStartingIndex - 1; i < nuclei_record.size(); i++) {
             int r = setSuccessors(i);
-            if (r != 0) break;
+            if (r != 0)
+            	break;
         }
     }
 
     public int setSuccessors(int i) {
+    	//long timeStart = System.nanoTime();
         if (iConfig.iNamingMethod == Identity3.MANUAL)
         	return 0;
         Vector now = (Vector)nuclei_record.elementAt(i);
@@ -1176,11 +1205,12 @@ public class NucleiMgr {
         int m1 = Nucleus.NILLI;
         for (int j=0; j < now.size(); j++) {
             n = (Nucleus)now.elementAt(j);
-            //println("setSuccessors3: " + n);
+            //println("setSuccessors3: " + n.identity);
             n.successor1 = m1;
             n.successor2 = m1;
         }
-        if (i == iEndingIndex - 1) return 1;
+        if (i == iEndingIndex - 1)
+        	return 1;
         Vector next;
         try {
             next = (Vector)nuclei_record.elementAt(i + 1);
@@ -1190,7 +1220,7 @@ public class NucleiMgr {
         // first set all successors to -1
         for (int j=0; j < next.size(); j++) {
             n = (Nucleus)next.elementAt(j);
-            //println("setSuccessors: " + n);
+            //println("setSuccessors: " + n.identity);
             if (n.status == Identity3.DEAD) 
             	continue;
             int pred = n.predecessor;
@@ -1203,12 +1233,17 @@ public class NucleiMgr {
             } catch(Exception e) {
             	continue;
             }
-            if (p.successor1 == m1) p.successor1 = j + 1;
-            else if (p.successor2 == m1) p.successor2 = j + 1;
+            if (p.successor1 == m1)
+            	p.successor1 = j + 1;
+            else if (p.successor2 == m1)
+            	p.successor2 = j + 1;
             else {
                 System.out.println("error: MORE THAN 2 SUCCESSORS");
             }
         }
+        //long timeEnd = System.nanoTime();
+        //double timeDiff = (timeEnd-timeStart)/1e6;
+        //System.out.println("Time for NucleiMgr.setSuccessors(): "+timeDiff+" ms.");
         return 0;
     }
 

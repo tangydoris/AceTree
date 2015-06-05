@@ -50,7 +50,7 @@ public class TreePanel extends JPanel {
     int         iNoPaint;
 
     public TreePanel(Cell c, SulstonTree sulstonTree, boolean canInterrogate) {
-    	System.out.println("TreePanel constructor called.");
+    	//System.out.println("TreePanel constructor called.");
         this.c = c;
         iSulstonTree = sulstonTree;
         iCanInterrogate = canInterrogate;

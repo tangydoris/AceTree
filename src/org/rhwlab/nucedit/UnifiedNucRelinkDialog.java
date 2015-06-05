@@ -202,7 +202,7 @@ public class UnifiedNucRelinkDialog extends NucRelinkDialog{
     		
     		//find ref to what we just created now that its renamed
 			Nucleus itself = ImageWindow.cNucleiMgr.findClosestNucleusXYZ(x, y, z, time);
-			System.out.println("found nucleus"+itself);
+			//System.out.println("found nucleus"+itself);
 			Cell itselfcell = (Cell)(iAceTree.getAncesTree().getCellsByName().get(itself.identity));
 			//set it as active cell for actree
 			iAceTree.setStartingCell(itselfcell,time);
@@ -220,7 +220,7 @@ public class UnifiedNucRelinkDialog extends NucRelinkDialog{
 
     /*
       //transplant of addsingle add cell function executed when root is
-//pred or none chosen
+	  //pred or none chosen
      */
 
     protected String addCell(int x, int y) {
@@ -242,7 +242,7 @@ public class UnifiedNucRelinkDialog extends NucRelinkDialog{
 			int diameter = (int)ccur.getDiam();
 			//System.out.println("UnifiedNucRelinkDialog got current cell diameter: "+diameter);
 		    if (diameter <= 0)
-		    	diameter = 20;
+		    	diameter = 5;
 		    n.size = diameter;
 		}
 		else

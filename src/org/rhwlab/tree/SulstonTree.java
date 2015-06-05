@@ -267,7 +267,7 @@ public class SulstonTree extends JFrame implements ActionListener, WindowFocusLi
     // Called by AceTree
     public void setBookmarkList(ListModel list) {
     	iBookmarkListModel = (DefaultListModel)list;
-    	System.out.println("Bookmark list set.");
+    	//System.out.println("Bookmark list set.");
     }
 
 

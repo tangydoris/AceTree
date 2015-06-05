@@ -107,9 +107,12 @@ public class DivisionCaller {
 				//System.exit(0);
 			}
 			String pname = parent.identity;
+			//System.out.println("DivisionCaller.getRule parent identity: "+pname);
 			String sulston = (String)iSulstonHash.get(pname);
-			if (sulston == null || pname.startsWith("Nuc")) sulston = "a";
-			else sulston = sulston.substring(0, 1);
+			if (sulston == null || pname.startsWith("Nuc"))
+				sulston = "a";
+			else
+				sulston = sulston.substring(0, 1);
 			String sdau1 = parent.identity + sulston;
 			char c = complement(sulston.charAt(0));
 			String sdau2 = parent.identity + c;
@@ -127,14 +130,17 @@ public class DivisionCaller {
 			r = new Rule(pname, sulston, sdau1, sdau2, x, y, z);
 			// assuming dummy rules are late in embryonic development
 			// introduce rotation
-			if (iAxis.equals("ADL")) iAxisUse = "ARD";
-			if (iAxis.equals("AVR")) iAxisUse = "ALV";
-			if (iAxis.equals("PDR")) iAxisUse = "PLD";
-			if (iAxis.equals("PVL")) iAxisUse = "PRV";
+			if (iAxis.equals("ADL"))
+				iAxisUse = "ARD";
+			if (iAxis.equals("AVR"))
+				iAxisUse = "ALV";
+			if (iAxis.equals("PDR"))
+				iAxisUse = "PLD";
+			if (iAxis.equals("PVL"))
+				iAxisUse = "PRV";
 
 		}
 		return r;
-
 	}
 
 	public double getDotProduct(Nucleus parent, Nucleus dau1, Nucleus dau2) {
@@ -208,9 +214,12 @@ public class DivisionCaller {
 				//System.exit(0);
 			}
 			String pname = parent.identity;
+			//System.out.println("DivisionCaller.assignNames parent identity: "+pname);
 			String sulston = (String)iSulstonHash.get(pname);
-			if (sulston == null || pname.startsWith("Nuc")) sulston = "a";
-			else sulston = sulston.substring(0, 1);
+			if (sulston == null || pname.startsWith("Nuc"))
+				sulston = "a";
+			else
+				sulston = sulston.substring(0, 1);
 			String sdau1 = parent.identity + sulston;
 			char c = complement(sulston.charAt(0));
 			String sdau2 = parent.identity + c;
