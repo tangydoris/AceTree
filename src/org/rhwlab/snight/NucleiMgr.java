@@ -1014,22 +1014,21 @@ public class NucleiMgr {
 
     // Timing commented out -was used for optimization
     public void processNuclei(boolean doIdentity, int namingMethod) {
-    	println("reviewNuclei, 1");
-    	
+    	//println("reviewNuclei, 1");
     	//reviewNuclei();
         setAllSuccessors();
         if (iIdentity == null) 
         	iIdentity = new Identity3(this);
         iIdentity.setNamingMethod(getConfig().iNamingMethod);
         iIdentity.setPrintWriter(iPrintWriter);
-    	println("reviewNuclei, 2");
+    	//println("reviewNuclei, 2");
     	//reviewNuclei();
         println("about to create names");
         if (doIdentity) {
         	iIdentity.identityAssignment();
         }
         println("about to create tree data structure");
-    	println("reviewNuclei, 3");
+    	//println("reviewNuclei, 3");
     	// Debug here
         // For debugging to see if all nuclei information was correctly read from zip file
     	/*
