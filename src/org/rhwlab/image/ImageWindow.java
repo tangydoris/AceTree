@@ -1364,7 +1364,8 @@ public class ImageWindow extends JFrame implements  KeyListener, Runnable {
             iTimeInc = 0;
             iPlaneInc = 0;
             String random = RANDOMT;
-            if (cUseZip > 0) random = RANDOMF;
+            if (cUseZip > 0)
+            	random = RANDOMF;
             iIsMainImgWindow = iTitle.indexOf(random) == -1;
             return;
         }

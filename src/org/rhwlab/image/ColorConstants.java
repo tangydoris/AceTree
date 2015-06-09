@@ -34,7 +34,7 @@ import java.awt.Color;
 import javax.vecmath.*;
 
 public class ColorConstants{
-	public static final Color3f red     = new Color3f(1.0f, 0.0f, 0.0f);
+	public static final Color3f red     = new Color3f(0.7f, .10f, .10f);
 	public static final Color3f green   = new Color3f(0.0f, 1.0f, 0.0f);
 	public static final Color3f blue    = new Color3f(0.0f, 0.0f, 1.0f);
     public static final Color3f yellow  = new Color3f(1.0f, 1.0f, 0.0f);

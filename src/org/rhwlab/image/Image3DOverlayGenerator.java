@@ -158,7 +158,7 @@ public class Image3DOverlayGenerator extends Thread {
             AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
             bf = op.filter(bf, null);
             images.add(bf);
-            System.out.println("added image: " + imageName);
+            //System.out.println("added image: " + imageName);
         }
 
         if(Thread.currentThread().interrupted()) {

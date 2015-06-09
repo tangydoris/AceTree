@@ -869,7 +869,6 @@ public class AceTree extends JPanel
         if (x != null) x.clear();
         //iNucleiMgr.clearAllHashkeys(); //************ BOGUS
         iTree.updateUI();
-
     }
 
     @SuppressWarnings("unused")

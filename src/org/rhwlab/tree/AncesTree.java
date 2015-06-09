@@ -101,7 +101,6 @@ public class AncesTree implements Comparator {
 		Vector nv = nucleiMgr.getNuclei(startingIndex);
         
         //System.out.println(nv);
-		System.out.println((Nucleus)nv.get(0));
 		
 		sulstonmode = false;
 		
@@ -667,7 +666,7 @@ public class AncesTree implements Comparator {
         String key = null;
         iCellsByName = new Hashtable();
         String rname = iRoot.getName();
-        println("AncesTree.makeCellsByNameHash.put, " + rname);
+        //println("AncesTree.makeCellsByNameHash.put, " + rname);
         iCellsByName.put(iRoot.getName(), iRoot); //20051007
         //System.out.println("makeCellsByNameHash - iCells.size: " + iCells.size());
         int namingMethod = iNucleiMgr.getConfig().iNamingMethod;
