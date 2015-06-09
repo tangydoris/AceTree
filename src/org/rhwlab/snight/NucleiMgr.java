@@ -455,6 +455,7 @@ public class NucleiMgr {
 
     }
 
+    // CURRENT VERSION
     public void readNuclei() {
         int last = readNuclei(iZipNuclei);
         if (last < iEndingIndex) {
@@ -547,12 +548,11 @@ public class NucleiMgr {
                         	/*
                         	if (n.identity.isEmpty() || n.identity == null)
                         		System.out.println("No name for nucleus: "+n);
-                        	System.out.println("Created nucleus: ("+n.identity+")");
-                        	*/
+                    		*/
+                        	//System.out.println("Created nucleus: ("+n.identity+")");
                         }
                         else
                         	n = new Nucleus(sa, !newFormat);
-                        
                         v.add(n);
                         s = zn.readLine(ze);
                     }
@@ -593,19 +593,6 @@ public class NucleiMgr {
         println("readNuclei: at end, nuclei_record.size: " + nuclei_record.size());
 
         System.out.println("readNuclei:3 " + iMovie.time_end + CS + iMovie.time_start);
-        
-        // For debugging to see if all nuclei information was correctly read from zip file
-        /*
-        for (int i = 0; i < nuclei_record.size(); i++) {
-        	System.out.println(i);
-        	Vector v = (Vector)nuclei_record.elementAt(i);
-        	Enumeration en = v.elements();
-        	while (en.hasMoreElements()) {
-        		Nucleus temp = (Nucleus)en.nextElement();
-        		System.out.println(temp.identity);
-        	}
-        }
-        */
         
         return nuclei_record.size();
     }
@@ -1027,37 +1014,50 @@ public class NucleiMgr {
 
     // Timing commented out -was used for optimization
     public void processNuclei(boolean doIdentity, int namingMethod) {
-    	//println("reviewNuclei, 1");
+    	println("reviewNuclei, 1");
+    	
     	//reviewNuclei();
         setAllSuccessors();
         if (iIdentity == null) 
         	iIdentity = new Identity3(this);
         iIdentity.setNamingMethod(getConfig().iNamingMethod);
         iIdentity.setPrintWriter(iPrintWriter);
-    	//println("reviewNuclei, 2");
+    	println("reviewNuclei, 2");
     	//reviewNuclei();
         println("about to create names");
         if (doIdentity) {
         	iIdentity.identityAssignment();
         }
         println("about to create tree data structure");
-    	//println("reviewNuclei, 3");
+    	println("reviewNuclei, 3");
+    	// Debug here
+        // For debugging to see if all nuclei information was correctly read from zip file
+    	/*
+        for (int i = 0; i < nuclei_record.size(); i++) {
+        	System.out.println(i);
+        	Vector v = (Vector)nuclei_record.elementAt(i);
+        	Enumeration en = v.elements();
+        	while (en.hasMoreElements()) {
+        		Nucleus temp = (Nucleus)en.nextElement();
+        		System.out.println("("+temp.identity+")");
+        	}
+        }
+        */
     	//reviewNuclei();
-        
-        long timeStart = System.nanoTime();
+        //long timeStart = System.nanoTime();
         int newstart = iStartingIndex;
         if (iStartingIndex < iStartTime)
         	newstart = iStartTime;
         iAncesTree = new AncesTree(null, this, newstart, iEndingIndex);
         Cell PP = (Cell)iAncesTree.getCellsByName().get("P");
-        long timeEnd = System.nanoTime();
-        double timeDiff = (timeEnd-timeStart)/1e6;
-        System.out.println("Time to load entries: "+timeDiff+" ms");
+        //long timeEnd = System.nanoTime();
+        //double timeDiff = (timeEnd-timeStart)/1e6;
+        //System.out.println("Time to load entries: "+timeDiff+" ms");
         int kk = PP.getChildCount();
         
         // For non-1 starting time, PP has a 0 child count
-        iAncesTree.printCounts();
-        println("NucleiMgr, constructor, " + kk + CS + PP.getName());
+        //iAncesTree.printCounts();
+        //println("NucleiMgr, constructor, " + kk + CS + PP.getName());
     }
     /*
       // removed this to eliminate dependence on AceTree -as 2/14/2013

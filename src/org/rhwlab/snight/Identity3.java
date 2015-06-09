@@ -7,6 +7,8 @@ import java.util.Vector;
 
 import org.rhwlab.utils.EUtils;
 
+
+// FROM CURRENT VERSION
 public class Identity3 {
     //public static Identity      iIdentity;
     private static NucleiMgr    iNucleiMgr;
@@ -40,29 +42,19 @@ public class Identity3 {
     // Called by NucleiMgr processNuclei method
     @SuppressWarnings("unused")
 	public void identityAssignment() {
-    	println("Identity3.identityAssignment, entered");
+    	println("Identity3.identityAssighment, entered");
     	if (iNamingMethod == MANUAL) {
     		println("identityAssignment, skip naming due to MANUAL naming method");
     		return;
     	}
-    	
         iStartingIndex = iNucleiMgr.getConfig().iStartingIndex;
-        //System.out.println("Starting index from nuclei mgr: "+iStartingIndex);
-        
-        iStartTime = iNucleiMgr.getStartTime();
-        //System.out.println("Starting time from nuclei mgr: "+iStartTime);
-        
-        int newstart = iStartingIndex;
-        if (iStartingIndex < iStartTime)
-        	newstart = iStartTime;
         clearAllNames();
         //System.out.println("identityAssignment iStartingIndex: " + iStartingIndex);
         iParameters.axis = 0; // a flag telling if we have an axis 0 = no axis
         int start[] = new int[1];
-        start[0] = newstart;
+        start[0] = iStartingIndex;
         int [] lineage_ct_p = new int[1];
         lineage_ct_p[0] = 1;
-        //lineage_ct_p[0] = 4;
         int lin_ct = lineage_ct_p[0];
         iAxis = tryForAxis(); // sets iParameters.axis to 1 if if finds one
         // if NEWCANONICAL and a an axis was specified we leave this function here
@@ -71,14 +63,16 @@ public class Identity3 {
         	println("identityAssignment, using specified axis, " + iAxis);
             useCanonicalRules(start, lineage_ct_p);
             return;
+
         }
         // if no axis was specified then the initialID code will be run
         // you could still use NEWCANONICAL here if iStartingIndex is greater than one
         // but this should be phased out
-        if (newstart >= 1) {
+        if (iStartingIndex >= 1) {
+            //if (iStartingIndex == 1) {
+            //int mm = initialID(start, lineage_ct_p);
             InitialID initID = new InitialID(iNucleiMgr, iParameters);
             int mm = initID.initialID(start, lineage_ct_p);
-            //System.out.println("InitialID.initialID returmed mm: "+mm);
         	if (mm > 0) {
         		System.out.println("detected backtrace failure, lineage from start");
         		start[0] = 0; //start from scratch on failure of initialID
@@ -101,65 +95,45 @@ public class Identity3 {
             }
         }
         println("identityAssignment, reached code end, " + iStartingIndex + CS + start[0]);
-        // Try this
-        start[0] = newstart;
         // we are going to assign Nuc names from here on by a simple method
         for (int i = start[0]; i < iEndingIndex; i++) {
             Vector nuclei = (Vector)nuclei_record.elementAt(i);
             Vector nuclei_prev = null;
             int nuc_ct = nuclei.size();
-            //System.out.println("Nuclei vector size: "+nuc_ct);
-            if (i > 0)
-            	nuclei_prev = (Vector)nuclei_record.elementAt(i - 1);
+            if (i > 0) nuclei_prev = (Vector)nuclei_record.elementAt(i - 1);
             Nucleus nucleij = null;
             for (int j = 0; j < nuc_ct; j++) {
                 nucleij = (Nucleus)nuclei.elementAt(j);
-                if (nucleij.status == Nucleus.NILLI) {
-                	//System.out.println("Time "+i+", no predecessor for "+nucleij.identity);
-                	continue;
-                }
-                if (nuclei_prev != null && nucleij.predecessor != Nucleus.NILLI) {	
+                if (nucleij.status == Nucleus.NILLI) continue;
+                if (nuclei_prev != null && nucleij.predecessor != Nucleus.NILLI) {
                     Nucleus pred = (Nucleus)nuclei_prev.elementAt(nucleij.predecessor - 1);
-                    if (pred.identity == "") {
-                    	int z = (int)Math.round(pred.z);
-                		pred.identity = NUC + EUtils.makePaddedInt(i) + "_" + z + "_" + pred.x + "_" + pred.y;
-                    }
                     if (pred.successor2 == Nucleus.NILLI) {
                      	nucleij.identity = pred.identity;
                        	continue;
-                    }
-                    else {
+                    } else {
                        	// case of dividing pred
                        	Nucleus sister = (Nucleus)nuclei.get(pred.successor2 - 1);
-                       	// Nucleus doesn't have forced name
                        	
+                       	// Nucleus doesn't have forced name
                        	if (!nucleij.assignedID.equals(""))
                        		nucleij.identity = nucleij.assignedID;
                        	else {
 	                       	nucleij.identity = pred.identity + "a";
 	                       	sister.identity = pred.identity + "p";
                        	}
-	                       	
-                       	/*
-                       	if (nucleij.identity.startsWith("A"))
-                       		System.out.println("Identity, sister identity: "+nucleij.identity+", "+sister.identity);
-                       	*/
                        	continue;
                     }
                 } else {
-                	//System.out.println("No previous nuclei time-record");
                  	// this is the first encounter of this nucleus
                    	//nucleij.identity = NUC + iNucCount++;
-                	int z = (int)Math.round(nucleij.z);
-
-                	if (nucleij.assignedID.equals("")) {
-                		nucleij.identity = NUC + EUtils.makePaddedInt(i + 1) + "_" + z + "_" + nucleij.x + "_" + nucleij.y;
-                	}
-                	else {
-                		System.out.println("###forced name: " + nucleij.assignedID);
+                	//println("identityAssignment adding nuc, " + nucleij);
+                	if (!nucleij.assignedID.equals(""))
                 		nucleij.identity = nucleij.assignedID;
+                	else {
+	                	int z = (int)Math.round(nucleij.z);
+	                	nucleij.identity = NUC + EUtils.makePaddedInt(i + 1) + "_" + z + "_" + nucleij.x + "_" + nucleij.y;
+	                	//println("identityAssignment, adding nuc, " + nucleij);
                 	}
-                	//println("identityAssignment, adding nuc, " + nucleij);
                 }
            }
         }

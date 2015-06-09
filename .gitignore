@@ -1,5 +1,6 @@
 *.log
 *.class
+*.txt
 .metadata
 .project
 .classpath

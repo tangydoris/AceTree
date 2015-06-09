@@ -80,7 +80,7 @@ public class AncesTree implements Comparator {
         //System.out.println("AncesTree constructor called");
         iRoot = new Cell(ROOTNAME, endingIndex, startingIndex);
         iRoot.setEndTime(1);
-        System.out.println("AncesTree: " + iRoot.showStuff());
+        //System.out.println("AncesTree: " + iRoot.showStuff());
         iNucleiMgr = nucleiMgr;
         iStartingIndex = startingIndex;
         iEndingIndex = endingIndex;
@@ -101,7 +101,7 @@ public class AncesTree implements Comparator {
 		Vector nv = nucleiMgr.getNuclei(startingIndex);
         
         //System.out.println(nv);
-		//System.out.println((Nucleus)nv.get(0));
+		System.out.println((Nucleus)nv.get(0));
 		
 		sulstonmode = false;
 		
@@ -136,8 +136,8 @@ public class AncesTree implements Comparator {
         extractRootCells();
         //System.out.println("AncesTree3 iCells.size: " + iCells.size());
 
-        //Cell PP = (Cell)iCellsByName.get("P");
-        //int kk = PP.getChildCount();
+        Cell PP = (Cell)iCellsByName.get("P");
+        int kk = PP.getChildCount();
         //println("AncesTree.constructor, " + kk + CS + PP.getName());
         
         // This can happen at the very end instead of every time a root cell is processed
@@ -169,8 +169,8 @@ public class AncesTree implements Comparator {
         extractRootCells();
         //System.out.println("AncesTree3 iCells.size: " + iCells.size());
 
-        //Cell PP = (Cell)iCellsByName.get("P");
-        //int kk = PP.getChildCount();
+        Cell PP = (Cell)iCellsByName.get("P");
+        int kk = PP.getChildCount();
         //println("AncesTree.constructor, " + kk + CS + PP.getName());
     }
 
@@ -365,7 +365,7 @@ public class AncesTree implements Comparator {
     // Called by AncesTree constructor
     @SuppressWarnings("unused")
 	private void processEntries() {
-    	long timeStart = System.nanoTime();
+    	//long timeStart = System.nanoTime();
     	
         //System.out.println("starting and ending indices: " + iStartingIndex + ", " + iEndingIndex);
         int count = 0;
@@ -391,9 +391,9 @@ public class AncesTree implements Comparator {
         //System.out.println("total cells alive at end: " + count);
         //System.out.println("total cells alive at end: " + countAliveCellsAtIndex(iEndingIndex));
         
-        long timeEnd = System.nanoTime();
-        double timeDiff = (timeEnd-timeStart)/1e6;
-        System.out.println("Time for AncesTree.processEntries(): "+timeDiff+" ms.");
+        //long timeEnd = System.nanoTime();
+        //double timeDiff = (timeEnd-timeStart)/1e6;
+        //System.out.println("Time for AncesTree.processEntries(): "+timeDiff+" ms.");
     }
 
     private int countAliveCellsAtIndex(int k) {
