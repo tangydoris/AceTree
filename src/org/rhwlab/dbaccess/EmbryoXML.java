@@ -279,7 +279,7 @@ public class EmbryoXML implements DocHandler {
 
 	}
 
-	@SuppressWarnings("unused")
+	@SuppressWarnings({ "unused", "resource" })
 	public static void main(String[] args) {
 		String dbloc = "/nfs/waterston/embryoDBnew/";
         // DBAccess.cDBLocation = "/nfs/waterston/embryoDB";

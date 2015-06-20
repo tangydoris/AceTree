@@ -106,7 +106,8 @@ public class EUtils {
      * @param otName String name of output file
      * @throws Exception
      */
-    static public void copyFile(String inName,  String otName) throws Exception {
+    @SuppressWarnings("resource")
+	static public void copyFile(String inName,  String otName) throws Exception {
         File inFile = null;
         File otFile = null;
         try {

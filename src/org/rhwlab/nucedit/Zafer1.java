@@ -291,6 +291,7 @@ public class Zafer1  extends JDialog implements ActionListener, ListSelectionLis
 	    fillMovementsList();
 	}
 
+	@SuppressWarnings("resource")
 	void readZafer(File f, Hashtable h) {
 		try {
 			FileInputStream fis = new FileInputStream(f);

@@ -23,7 +23,7 @@ public class MeasureCSV {
 	}
 
 
-	@SuppressWarnings("unused")
+	@SuppressWarnings({ "unused", "resource" })
 	public MeasureCSV(String filepath) {
 		this();
 		iFilePath = filepath;

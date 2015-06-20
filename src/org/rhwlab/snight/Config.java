@@ -147,7 +147,7 @@ public class Config {
     	iEndingIndex = endingIndex;
     }
 
-    @SuppressWarnings("unused")
+    @SuppressWarnings({ "unused", "resource" })
 	public boolean getStartingParms() {
         iConfigHash = new Hashtable();
         for (int i=0; i < configParams.length; i++) {

@@ -76,7 +76,8 @@ public class AncesTree implements Comparator {
      * @param startingIndex int first file index usually 1
      * @param endingIndex   int last file index
      */
-    public AncesTree(Cell root, NucleiMgr nucleiMgr, int startingIndex, int endingIndex) {
+    @SuppressWarnings("unused")
+	public AncesTree(Cell root, NucleiMgr nucleiMgr, int startingIndex, int endingIndex) {
         //System.out.println("AncesTree constructor called");
         iRoot = new Cell(ROOTNAME, endingIndex, startingIndex);
         iRoot.setEndTime(1);
@@ -144,7 +145,8 @@ public class AncesTree implements Comparator {
     		checkFirstGeneration();
     }
 
-    public AncesTree(Cell root, NucleiMgr nucleiMgr, int startingIndex, int endingIndex, boolean test) {
+    @SuppressWarnings("unused")
+	public AncesTree(Cell root, NucleiMgr nucleiMgr, int startingIndex, int endingIndex, boolean test) {
         //System.out.println("AncesTree constructor called");
         iRoot = new Cell(ROOTNAME, endingIndex, startingIndex);
         iRoot.setEndTime(1);
@@ -660,7 +662,8 @@ public class AncesTree implements Comparator {
     }
 
     
-    private void makeCellsByNameHash() {
+    @SuppressWarnings("unused")
+	private void makeCellsByNameHash() {
     	System.out.println("AncesTree making cells by name hash...");
         int pct = 0;
         String key = null;

@@ -188,7 +188,7 @@ public class Analysis4 extends Log {
     }
 
 
-    @SuppressWarnings("unused")
+    @SuppressWarnings({ "unused", "resource" })
 	private void getNamingHash() {
         File f = new File("namesHash.txt");
         iNamingHash = new Hashtable();
@@ -233,7 +233,8 @@ public class Analysis4 extends Log {
     }
     */
 
-    private void fileAppend(String s) {
+    @SuppressWarnings("resource")
+	private void fileAppend(String s) {
         FileOutputStream fos = null;
         try {
             fos = new FileOutputStream("ruleData.txt", true);

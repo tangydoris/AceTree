@@ -258,6 +258,7 @@ public class BookmarkDialog extends JFrame implements ActionListener{
 	}
 	
 	// Saves xml file to path specified by user in the file chooser dialog
+	@SuppressWarnings("resource")
 	public void saveToFile() {
 		JFileChooser fileChooser = new JFileChooser();
 		if (iPath != null)

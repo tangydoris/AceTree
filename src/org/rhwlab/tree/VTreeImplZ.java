@@ -778,7 +778,8 @@ public class VTreeImplZ {
             makeWebPage(fileName, dir);
         }
 
-        public void makeWebPage(String fileName, String dir) {
+        @SuppressWarnings("resource")
+		public void makeWebPage(String fileName, String dir) {
             String s = fileName.substring(0, fileName.length() - 4);
             FileOutputStream fos = null;
             try {

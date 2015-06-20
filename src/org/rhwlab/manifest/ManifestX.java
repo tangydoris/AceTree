@@ -55,7 +55,8 @@ public class ManifestX {
         else showManifestFromHash();
     }
     
-    public static void showManifestFromJar() {
+    @SuppressWarnings("resource")
+	public static void showManifestFromJar() {
         String jarFileName = System.getProperty("java.class.path").split(System.getProperty("path.separator"))[0];
         println("jarFileName, " + jarFileName);
         try {

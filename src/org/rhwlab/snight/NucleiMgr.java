@@ -1013,7 +1013,8 @@ public class NucleiMgr {
 
 
     // Timing commented out -was used for optimization
-    public void processNuclei(boolean doIdentity, int namingMethod) {
+    @SuppressWarnings("unused")
+	public void processNuclei(boolean doIdentity, int namingMethod) {
     	//println("reviewNuclei, 1");
     	//reviewNuclei();
         setAllSuccessors();

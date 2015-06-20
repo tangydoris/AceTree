@@ -675,7 +675,8 @@ public class Image3D extends MouseAdapter
 
     }
 
-    protected void saveRotations() {
+    @SuppressWarnings("resource")
+	protected void saveRotations() {
         File file = null;
         JFileChooser fileChooser = new JFileChooser(viewConfig.getCurrentRotDir());
         int returnVal = fileChooser.showSaveDialog(iAceTree);
@@ -1811,7 +1812,8 @@ public class Image3D extends MouseAdapter
     }
 
     // Saves file automatically with .xml extension
-    private void saveToFile() {
+    @SuppressWarnings("resource")
+	private void saveToFile() {
         JFileChooser fileChooser = new JFileChooser(viewConfig.getCurrentRotDir());
         int returnVal = fileChooser.showSaveDialog(null);
         if (returnVal != JFileChooser.APPROVE_OPTION) return;

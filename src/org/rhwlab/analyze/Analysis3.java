@@ -177,7 +177,8 @@ public class Analysis3 extends Log {
         //append(stats2);
     }
 
-    Hashtable makeTimesHash(String filename) {
+    @SuppressWarnings("resource")
+	Hashtable makeTimesHash(String filename) {
         Hashtable h = new Hashtable();
         try {
             FileInputStream fis = new FileInputStream(filename);

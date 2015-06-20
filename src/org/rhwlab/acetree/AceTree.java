@@ -4007,6 +4007,7 @@ public class AceTree extends JPanel
 ///////////////////////////////////////////////////////////////////////////////
 ///// end of stuff that gets modified for the AceTree object in EmbryoDB ///////////////////////
 /////////////////////////////////////////////////////////////////////////////
+	@SuppressWarnings("unused")
 	public static void main(String[] args) throws IOException {
         System.out.println("AceTree launched: " + new GregorianCalendar().getTime());
         boolean setui=false;

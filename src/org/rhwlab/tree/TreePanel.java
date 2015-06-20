@@ -125,7 +125,8 @@ public class TreePanel extends JPanel {
     }
 
     //public void makeWebPage(String filePath) {
-    public void makeWebPage(String fileName, String dir) {
+    @SuppressWarnings("resource")
+	public void makeWebPage(String fileName, String dir) {
         String s = fileName.substring(0, fileName.length() - 4);
         FileOutputStream fos = null;
         try {
