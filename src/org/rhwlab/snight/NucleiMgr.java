@@ -1026,10 +1026,11 @@ public class NucleiMgr {
     	//reviewNuclei();
         println("about to create names");
         if (doIdentity) {
+        	System.out.println("doing identity");
         	iIdentity.identityAssignment();
         }
         println("about to create tree data structure");
-    	//println("reviewNuclei, 3");
+    	println("reviewNuclei, 3");
     	// Debug here
         // For debugging to see if all nuclei information was correctly read from zip file
     	/*
@@ -1187,7 +1188,7 @@ public class NucleiMgr {
     }
 
     public void setAllSuccessors() {
-        //System.out.println("setAllSuccessors: " + iStartingIndex + CS + iEndingIndex + ", " + nuclei_record.size());
+        System.out.println("setAllSuccessors: " + iStartingIndex + CS + iEndingIndex + ", " + nuclei_record.size());
         //for (int i=iStartingIndex - 1; i < iEndingIndex; i++) {
         for (int i=iStartingIndex - 1; i < nuclei_record.size(); i++) {
             int r = setSuccessors(i);
@@ -1197,6 +1198,7 @@ public class NucleiMgr {
     }
 
     public int setSuccessors(int i) {
+    	//System.out.println("\nnucleimgr setsuccessors "+i);
     	//long timeStart = System.nanoTime();
         if (iConfig.iNamingMethod == Identity3.MANUAL)
         	return 0;
@@ -1240,6 +1242,8 @@ public class NucleiMgr {
             else {
                 System.out.println("error: MORE THAN 2 SUCCESSORS");
             }
+            
+            //System.out.println("nucleimgr succ for "+p.identity+": "+p.successor1+" "+p.successor2);
         }
         //long timeEnd = System.nanoTime();
         //double timeDiff = (timeEnd-timeStart)/1e6;

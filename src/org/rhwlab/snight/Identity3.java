@@ -89,6 +89,7 @@ public class Identity3 {
             	//System.out.println("identityAssignment starting at: " + start[0]);
                 iNucCount = initID.getNucCount();
             	if (iNamingMethod == NEWCANONICAL && start[0] > 0) {
+            		//println("about to usecanonicalrules for newcanonical and start[0]>0");
             		useCanonicalRules(start, lineage_ct_p);
             		return;
             	}
@@ -188,6 +189,8 @@ public class Identity3 {
         Vector nuclei = null;
         int breakout = 0;
         for (i = start[0]; i < m; i++) {
+        	//System.out.println("\n----------------------------\n"+
+        						//"usecanonicalrules "+i);
             if (breakout > 0) {
                 System.out.println("Identity3.useCanonicalRules exiting, breakout=" + breakout);
                 System.exit(0);
@@ -201,9 +204,9 @@ public class Identity3 {
             
             for (int j = 0; j < nuc_ct; j++) {
                 parent = (Nucleus)nuclei.elementAt(j);
-                //println("useCanonicalRules, " + i + CS + j + CS + parent.identity + CS + parent.status);
+                //println("useCanonicalRules, " + i + CS + j + CS + parent.identity);
                 if (parent.status == Nucleus.NILLI) {
-                   //println("useCanonicalRules, XXX, " + i + CS + j + CS + parent.identity + CS + parent.status);
+                	//println("useCanonicalRules, XXX, " + i + CS + j + CS + parent.identity + CS + parent.status);
                 	continue;
                 }
                 String pname = parent.identity;

@@ -426,8 +426,9 @@ public class AncesTree implements Comparator {
      */
     @SuppressWarnings("unused")
 	private int processEntry(int i) {
-    	//System.out.println("AncesTree.processEntry: "+i);
-    	long timeStart = System.nanoTime();
+    	//System.out.println("\n-------------------------------------"+
+    						//"\nAncesTree.processEntry: "+i);
+    	//long timeStart = System.nanoTime();
         int index = i;
         //if (i == 180) {
         //	println("debug");
@@ -464,7 +465,7 @@ public class AncesTree implements Comparator {
             for (int j=0; j < nuclei.size(); j++) {
                 // use info on this cell from this and previous time frames
                 Nucleus n = (Nucleus)nuclei.elementAt(j);
-                //System.out.println("processEntry:3 " + i + CS + j + CS + n);
+                //System.out.println("processEntry:3 " + i + CS + j + CS + n.identity);
                 if (n.status == -1) {
                     // implies this cell is no longer living or real
                     //if (prevn.status > -1 && parent != null) {
@@ -504,6 +505,8 @@ public class AncesTree implements Comparator {
                     continue;
 
                 }
+                
+                //System.out.println("prevn "+prevn.identity);
                 String hashKey = prevn.getHashKey();
                 n.setHashKey(hashKey);
 
@@ -615,8 +618,8 @@ public class AncesTree implements Comparator {
                 }
             }
         }
-        long timeEnd = System.nanoTime();
-        double timeDiff = (timeEnd-timeStart)/1e6;
+        //long timeEnd = System.nanoTime();
+        //double timeDiff = (timeEnd-timeStart)/1e6;
         //System.out.println("Time for AncesTree.processEntry(): "+timeDiff+" ms.");
         return 0;
     }
